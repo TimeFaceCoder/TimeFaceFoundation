@@ -1,0 +1,31 @@
+//
+//  TimeFaceFoundation-Prefix.pch
+//  TimeFaceFoundation
+//
+//  Created by luochao on 15/9/15.
+//  Copyright (c) 2015年 timeface. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "UIAdditions.h"
+#import "AppMacro.h"
+#import "NotificationMacro.h"
+#import "HHRouter.h"
+#import "TFStyle.h"
+#import "TFDefaultStyle.h"
+#import "TSubViewController+TFHandle.h"
+#import "NSString+Emojize.h"
+#import "KvStore.h"
+#import "TFLogAgent.h"
+#import "NetUtility.h"
+
+#endif

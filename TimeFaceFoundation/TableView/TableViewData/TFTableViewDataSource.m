@@ -1,0 +1,568 @@
+//
+//  TFTableViewDataSource.m
+//  TimeFaceFire
+//
+//  Created by zguanyu on 9/9/15.
+//  Copyright (c) 2015 timeface. All rights reserved.
+//
+
+#import "TFTableViewDataSource.h"
+#import "UIScrollView+UzysAnimatedGifPullToRefresh.h"
+#import "TFTableViewDataManager.h"
+#import <EGOCache/EGOCache.h>
+#import "CLClassList.h"
+#import "URLHelper.h"
+#import "Utility.h"
+
+#import "TFTableViewItem.h"
+#import "TFTableViewItemCell.h"
+
+#import "TableViewLoadingItem.h"
+#import "TableViewLoadingItemCell.h"
+
+#import "ListHeaderView.h"
+
+#import "NetworkAssistant.h"
+
+
+
+@interface TFTableViewDataSource()<RETableViewManagerDelegate> {
+    
+}
+
+/**
+ *  正在加载
+ */
+@property (nonatomic ,assign) BOOL                           loading;
+/**
+ *  网络数据加载完成
+ */
+@property (nonatomic ,assign) BOOL                           finished;
+/**
+ *  总页数
+ */
+@property (nonatomic ,assign) NSUInteger                     totalPage;
+/**
+ *  当前页码
+ */
+@property (nonatomic ,assign) NSUInteger                     currentPage;
+/**
+ *  列表类型
+ */
+@property (nonatomic ,assign) NSInteger                       listType;
+/**
+ *  向上滚动阈值
+ */
+@property (nonatomic ,assign) CGFloat                        upThresholdY;
+/**
+ *  向下阈值
+ */
+@property (nonatomic ,assign) CGFloat                        downThresholdY;
+/**
+ *  当前滚动方向
+ */
+@property (nonatomic ,assign) ScrollDirection                previousScrollDirection;
+/**
+ *  Y轴偏移
+ */
+@property (nonatomic ,assign) CGFloat                        previousOffsetY;
+/**
+ *  Y积累总量
+ */
+@property (nonatomic ,assign) CGFloat                        accumulatedY;
+
+/**
+ *  当前列表 NSIndexPath
+ */
+@property (nonatomic ,strong) NSIndexPath                    *currentIndexPath;
+/**
+ *  当前列表缓存key
+ */
+@property (nonatomic ,copy  ) NSString                       *cacheKey;
+
+@property (nonatomic ,strong) TFTableViewDataManager         *tableViewDataManager;
+
+
+@end
+
+const static NSInteger kPageSize = 20;
+
+@implementation TFTableViewDataSource
+
+- (id)initWithTableView:(UITableView *)tableView
+               listType:(NSInteger)listType
+               delegate:(id /*<NewTableViewDataSourceDelegate>*/)delegate {
+    self = [super init];
+    if (!self)
+        return nil;
+    //列表管理器
+    _delegate = delegate;
+//    _pullRefreshY = 64.5f;
+    _listType = listType;
+    //    if (self.listType == ListTypeTopics
+    //        || self.listType == ListTypeTimes
+    //        || self.listType == ListTypeEvents
+    //        || self.listType == ListTypeFollowTime) {
+    //        _pullRefreshY = 34.5;
+    //    }
+    //    if (self.listType == ListTypeUserTimeList) {
+    //        _pullRefreshY = 340;
+    //    }
+    
+//    if (self.listType && self.delegate && [self.delegate respondsToSelector:@selector(topInsetY)]) {
+//        _pullRefreshY = [self.delegate topInsetY];
+//    }
+    
+    _tableView = tableView;
+    _manager = [[RETableViewManager alloc] initWithTableView:tableView delegate:self];
+    //列表模式
+    _manager.style.defaultCellSelectionStyle = UITableViewCellSelectionStyleNone;
+    
+    //注册Cell
+    [self registerClass];
+    
+    if (self.listType && self.delegate && [self.delegate respondsToSelector:@selector(topInsetY)]) {
+        [self addPullRefresh];
+    }
+    _downThresholdY = 200.0;
+    _upThresholdY = 25.0;
+    NSString *className = [[URLHelper sharedHelper] classNameByListType:_listType];
+    if (className) {
+        Class class = NSClassFromString(className);
+        _tableViewDataManager = [[class alloc] initWithDataSource:self listType:_listType];
+        _tableViewDataManager.listType = _listType;
+    }
+    return self;
+}
+
+- (void)reloadTableViewData:(BOOL)pullToRefresh {
+    if (pullToRefresh) {
+        [self.tableView triggerPullToRefresh];
+    }
+    else {
+        [self load:DataLoadPolicyReload params:nil];
+    }
+}
+
+/**
+ *  加载列表数据
+ *
+ *  @param loadPolicy
+ *  @param params
+ */
+- (void)load:(DataLoadPolicy)loadPolicy params:(NSDictionary *)params {
+    if (_loading) {
+        return;
+    }
+    if (loadPolicy == DataLoadPolicyMore) {
+        if (_currentPage == _totalPage) {
+            _finished = YES;
+            return;
+        }
+        _currentPage++;
+    }
+    else {
+        _currentPage = 1;
+        _totalPage = 1;
+        _finished = NO;
+        [self setLastedId:@""];
+    }
+    //处理网络数据
+    if (!_params) {
+        _params = [NSMutableDictionary dictionaryWithCapacity:1];
+    }
+    [_params setValue:[NSNumber numberWithInteger:_currentPage] forKey:@"currentPage"];
+    [_params setValue:[NSNumber numberWithInteger:kPageSize] forKey:@"pageSize"];
+    
+    if (params) {
+        [_params addEntriesFromDictionary:params];
+    }
+    if ([self getLastedId]) {
+        [_params setValue:[self getLastedId] forKey:@"lastedId"];
+    }
+    
+    
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy) = ^(id result,DataLoadPolicy dataLoadPolicy) {
+        if (dataLoadPolicy == DataLoadPolicyReload ||
+            dataLoadPolicy == DataLoadPolicyNone) {
+            //重新加载
+            [weakSelf.manager removeAllSections];
+        }
+        
+        [weakSelf setTotalPage:[[result objectForKey:@"totalPage"] integerValue]];
+        if (_totalPage == 0) {
+            _totalPage = 1;
+            _currentPage = 1;
+        }
+        if (dataLoadPolicy == DataLoadPolicyMore) {
+            //来自加载下一页,移除loading item
+            [weakSelf.manager removeLastSection];
+        }
+        
+        
+        //read data use network
+        [weakSelf.tableViewDataManager reloadView:result
+                                            block:^(BOOL finished, id object)
+         {
+             if (finished) {
+                 //加载列
+                 if (_currentPage < _totalPage) {
+                     ListHeaderView *headerView = [ListHeaderView headerView];
+                     RETableViewSection *section = [RETableViewSection sectionWithHeaderView:headerView];
+                     [weakSelf.manager addSection:section];
+                     [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                 }
+                 
+                 _loading = NO;
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     //数据加载完成
+                     
+                     if (weakSelf.delegate &&[weakSelf.delegate respondsToSelector:@selector(didFinishLoad:)]) {
+                         [weakSelf.delegate didFinishLoad:dataLoadPolicy];
+                     }
+                     //                     if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFinishLoad)]) {
+                     //                         [weakSelf.delegate didFinishLoad];
+                     //                     }
+                     //                     if ([[result objectForKey:@"dataList"] count] == 0
+                     //                         && _listType != ListTypeSearchLocation) {
+                     //                         //没有数据
+                     //                         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFailLoadWithError:)]) {
+                     //                             NSError *error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+                     //                                                                  code:TFErrorCodeEmpty
+                     //                                                              userInfo:nil];
+                     //                             [weakSelf.delegate didFailLoadWithError:error];
+                     //                         }
+                     //                     }
+                     if (dataLoadPolicy == DataLoadPolicyCache) {
+                         //开始下拉刷新
+                         [weakSelf.tableView triggerPullToRefresh];
+                     }
+                     if (dataLoadPolicy == DataLoadPolicyReload) {
+                         //结束下拉刷新动画
+                         //                         if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
+                         //                             [weakSelf.delegate stopPullRefresh];
+                         //                         }
+                         [self stopPullRefresh];
+                         //                         [weakSelf.tableView stopPullToRefreshAnimation];
+                     }
+                     [weakSelf.tableView reloadData];
+                     
+                 });
+             }
+         }];
+    };
+    
+    NSString *interface = [[URLHelper sharedHelper] interfaceByListType:_listType];
+    NSString *cacheKey = [[Utility sharedUtility] getMD5StringFromNSString:
+                          [interface stringByAppendingString:_params?[_params description]:@""]];
+    
+    id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
+    if (loadPolicy == DataLoadPolicyCache || loadPolicy == DataLoadPolicyNone) {
+        //正常加载与读取缓存模式
+        if (cacheObject) {
+            _loading = YES;
+            handleTableViewData(cacheObject,DataLoadPolicyCache);
+        }
+        else {
+            _loading = NO;
+            [self load:DataLoadPolicyReload params:nil];
+        }
+    }
+    else {
+        [[NetworkAssistant sharedAssistant] getDataByInterFace:interface
+                                                        params:_params
+                                                      fileData:nil
+                                                           hud:nil
+                                                         start:^(id cacheResult){
+                                                             _loading = YES;
+                                                         }
+                                                     completed:^(id result, NSError *error)
+         {
+             if (error) {
+                 if (cacheObject) {
+                     handleTableViewData(cacheObject,loadPolicy);
+                 }else {
+                     //处理出错且没有缓存的情况
+                     _loading = NO;
+                     [weakSelf.delegate didFailLoadWithError:error];
+                     [self stopPullRefresh];
+                     
+                 }
+             }
+             else {
+                 handleTableViewData(result,loadPolicy);
+             }
+         }];
+    }
+}
+
+- (void)dealloc {
+    _manager.delegate = nil;
+    _tableView = nil;
+    _manager = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)refreshCell:(NSInteger)actionType dataId:(NSString *)dataId {
+    if (_tableViewDataManager) {
+        [_tableViewDataManager refreshCell:actionType dataId:dataId];
+    }
+}
+
+- (RETableViewItem *)tableViewItemByIndexPath:(NSIndexPath *)indexPath {
+    RETableViewSection * section = [[self.manager sections] objectAtIndex:indexPath.section];
+    if (section && [[section items] count] > 0) {
+        RETableViewItem *item = (RETableViewItem *)[[section items] objectAtIndex:indexPath.row];
+        if (item) {
+            return item;
+        }
+    }
+    return nil;
+}
+#pragma mark - Private
+
+/**
+ *  注册列表Cell类型
+ */
+- (void)registerClass {
+    NSArray *tableViewItemlist = [CLClassList subclassesOfClass:[TFTableViewItem class]];
+    for (Class itemClass in tableViewItemlist) {
+        NSString *itemName = NSStringFromClass(itemClass);
+        self.manager[itemName]   = [itemName stringByAppendingString:@"Cell"];
+    }
+//    self.manager[@"TimeLineItem"]   = @"TimeLineItemCell";
+    //    self.manager[@"EventItem"] = @"EventItemCell";
+    //    self.manager[@"TopicItem"]   = @"TopicItemCell";
+//    self.manager[@"TableViewLoadingItem"]   = @"TableViewLoadingCell";
+    
+}
+
+/**
+ *  滚动方向判断
+ *
+ *  @param currentOffsetY
+ *  @param previousOffsetY
+ *
+ *  @return ScrollDirection
+ */
+- (ScrollDirection)detectScrollDirection:(CGFloat)currentOffsetY previousOffsetY:(CGFloat)previousOffsetY {
+    return currentOffsetY > previousOffsetY ? ScrollDirectionUp   :
+    currentOffsetY < previousOffsetY ? ScrollDirectionDown :
+    ScrollDirectionNone;
+}
+
+- (NSString *)getLastedId {
+    NSString *lastedId = @"";
+    lastedId = [[NSUserDefaults standardUserDefaults] valueForKey:[NSString stringWithFormat:@"ListLastedId_%@",@(_listType)]];
+    return lastedId;
+}
+
+- (void)setLastedId:(NSString *)lastedId {
+    [[NSUserDefaults standardUserDefaults] setValue:lastedId
+                                             forKey:[NSString stringWithFormat:@"ListLastedId_%@",@(_listType)]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)loadMore {
+    if (_currentPage < _totalPage) {
+        [self load:DataLoadPolicyMore params:nil];
+    }
+}
+
+#pragma mark - Delegate
+#pragma mark - UIScrollViewDelegate
+
+- (void)stopLoading {
+    if (_listType || [self.delegate showPullRefresh]) {
+        [self.tableView stopPullToRefreshAnimation];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willLayoutCellSubviews:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath; {
+    
+}
+- (void)tableView:(UITableView *)tableView willLoadCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath; {
+    
+}
+
+- (void)tableView:(UITableView *)tableView didLoadCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath; {
+    
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+}
+
+
+- (NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    if (_listType == ListTypeCircleMembers) {
+    //        return NSLocalizedString(@"踢出",nil);
+    //    }
+    return NSLocalizedString(@"删除", nil);
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:[NSArray
+                                           arrayWithObjects:indexPath,nil]
+                         withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath; {
+    if (indexPath.row + 5 == [[self.manager sections] count]) {
+        
+    }
+    if ([cell isKindOfClass:[TableViewLoadingItemCell class]]) {
+        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)]) {
+        [self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [_delegate scrollViewDidScroll:_tableView];
+    }
+    
+    
+    CGFloat currentOffsetY = scrollView.contentOffset.y;
+    ScrollDirection currentScrollDirection = [self detectScrollDirection:currentOffsetY previousOffsetY:_previousOffsetY];
+    CGFloat topBoundary = -scrollView.contentInset.top;
+    CGFloat bottomBoundary = scrollView.contentSize.height + scrollView.contentInset.bottom;
+    
+    BOOL isOverTopBoundary = currentOffsetY <= topBoundary;
+    BOOL isOverBottomBoundary = currentOffsetY >= bottomBoundary;
+    
+    BOOL isBouncing = (isOverTopBoundary && currentScrollDirection != ScrollDirectionDown) || (isOverBottomBoundary && currentScrollDirection != ScrollDirectionUp);
+    if (isBouncing || !scrollView.isDragging) {
+        return;
+    }
+    
+    CGFloat deltaY = _previousOffsetY - currentOffsetY;
+    _accumulatedY += deltaY;
+    
+    switch (currentScrollDirection) {
+        case ScrollDirectionUp:
+        {
+            BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
+            
+            if (isOverThreshold || isOverBottomBoundary)  {
+                if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScrollUp:)]) {
+                    [_delegate scrollViewDidScrollUp:deltaY];
+                }
+            }
+        }
+            break;
+        case ScrollDirectionDown:
+        {
+            BOOL isOverThreshold = _accumulatedY > _downThresholdY;
+            
+            if (isOverThreshold || isOverTopBoundary) {
+                if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScrollDown:)]) {
+                    [_delegate scrollViewDidScrollDown:deltaY];
+                }
+            }
+        }
+            break;
+        case ScrollDirectionNone:
+        case ScrollDirectionVertical:
+        case ScrollDirectionHorizontal:
+        case ScrollDirectionLeft:
+        case ScrollDirectionRight:
+            break;
+    }
+    
+    // reset acuumulated y when move opposite direction
+    if (!isOverTopBoundary && !isOverBottomBoundary && _previousScrollDirection != currentScrollDirection) {
+        _accumulatedY = 0;
+    }
+    
+    _previousScrollDirection = currentScrollDirection;
+    _previousOffsetY = currentOffsetY;
+    
+    
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    
+    CGFloat currentOffsetY = scrollView.contentOffset.y;
+    
+    CGFloat topBoundary = -scrollView.contentInset.top;
+    CGFloat bottomBoundary = scrollView.contentSize.height + scrollView.contentInset.bottom;
+    
+    switch (_previousScrollDirection) {
+        case ScrollDirectionUp:
+        {
+            BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
+            BOOL isOverBottomBoundary = currentOffsetY >= bottomBoundary;
+            
+            if (isOverThreshold || isOverBottomBoundary) {
+                if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollUp)]) {
+                    [_delegate scrollFullScreenScrollViewDidEndDraggingScrollUp];
+                }
+            }
+            break;
+        }
+        case ScrollDirectionDown:
+        {
+            BOOL isOverThreshold = _accumulatedY > _downThresholdY;
+            BOOL isOverTopBoundary = currentOffsetY <= topBoundary;
+            
+            if (isOverThreshold || isOverTopBoundary) {
+                if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollDown)]) {
+                    [self setLastedId:@""];
+                    [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
+                }
+            }
+            break;
+        }
+        case ScrollDirectionNone:
+        case ScrollDirectionVertical:
+        case ScrollDirectionHorizontal:
+        case ScrollDirectionRight:
+        case ScrollDirectionLeft:
+            break;
+    }
+    
+    
+}
+
+- (void)addPullRefresh {
+    
+}
+
+- (void)stopPullRefresh {
+    
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    BOOL ret = YES;
+    if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollDown)]) {
+        [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
+    }
+    return ret;
+}
+
+@end

@@ -1,0 +1,149 @@
+[
+ {
+ "viewId" : "CircleEventTimeListViewController",
+ "name" : "定制相册",
+ "category" : 0,
+ "delayShow" : 3.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 100,
+           "point" : 1,
+           "shape" : 1,
+           "show" : "GuideEventChange.png",
+           "time" : 0,
+           },
+           ]
+ },
+ {
+ "viewId" : "EditAlbumViewController",
+ "name" : "已选择圈时光",
+ "category" : 3,
+ "delayShow" : 2.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 1000,
+           "point" : 0,
+           "shape" : 4,
+           "show" : "GuideCircleSelectedRemove.png",
+           "time" : 0,
+           },
+           {
+           "tag" : 1000,
+           "point" : 0,
+           "shape" : 4,
+           "show" : "GuideHand.1.png",
+           "time" : 0,
+           },
+           ]
+ },
+ {
+ "viewId" : "UserTimeViewController",
+ "name" : "用户中心－时光",
+ "category" : 0,
+ "delayShow" : 2.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 10021,
+           "point" : 1,
+           "shape" : 1,
+           "show" : "GuideUserDetailChangeBook.png",
+           "time" : 0,
+           },
+           ]
+ },
+ {
+ "viewId" : "NewPostTimeViewController",
+ "name" : "记录时光",
+ "category" : 0,
+ "delayShow" : 1.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 1001,
+           "point" : 1,
+           "shape" : 1,
+           "show" : "GuideNewTimeChangeBook.png",
+           "time" : 0,
+           },
+           {
+           "tag" : 1002,
+           "point" : 1,
+           "shape" : 1,
+           "show" : "GuideNewTimeShareByOnekey.png",
+           "time" : 0,
+           },
+           {
+           "tag" : 1003,
+           "point" : 1,
+           "shape" : 0,
+           "show" : "GuideNewTimeChangeHistory.png",
+           "time" : 0,
+           },
+           ]
+ },
+ {
+ "viewId" : "PodReaderViewController",
+ "name" : "POD阅览",
+ "category" : 3,
+ "delayShow" : 2.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 1000,
+           "point" : 0,
+           "shape" : 4,
+           "show" : "GuidePodShowMenu1.png",
+           "time" : 0,
+           },
+           {
+           "tag" : 1000,
+           "point" : 0,
+           "shape" : 4,
+           "show" : "GuideHand.1.png",
+           "time" : 0,
+           },
+           ]
+ },
+ {
+ "viewId" : "CustomAlbumViewController",
+ "name" : "圈选择时光",
+ "category" : 0,
+ "delayShow" : 1.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 1034,
+           "point" : 1,
+           "shape" : 1,
+           "show" : "GuideCircleSelectEdit.png",
+           "time" : 0,
+           },
+           {
+           "tag" : 1001,
+           "point" : 1,
+           "shape" : 0,
+           "show" : "GuideCircleSelectCan.png",
+           "time" : 0,
+           },
+           ]
+ },
+ {
+ "viewId" : "RootViewController",
+ "name" : "主页面",
+ "category" : 0,
+ "delayShow" : 1.0,
+ "version" : "3.0.1",
+ "guides":[
+           {
+           "tag" : 10001,
+           "point" : 1,
+           "shape" : 0,
+           "show" : "GuideCircle.png",
+           "time" : 0,
+           },
+           ]
+ },
+ ]

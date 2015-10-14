@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "60e7d9e7-5f8b-0c44-bc26-a6f40f684877",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "60e7d9e7-5f8b-0c44-bc26-a6f40f684877" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "60e7d9e7-5f8b-0c44-bc26-a6f40f684877" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B0E67222-87D0-4466-BADF-98C9D32356B8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "60e7d9e7-5f8b-0c44-bc26-a6f40f684877" : "timeface_v2\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TimeFaceFoundation",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/TimeFaceFoundation\/TimeFaceFoundation.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/220.178.51.185:8080\/svn\/timeface_v2",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "60e7d9e7-5f8b-0c44-bc26-a6f40f684877"
+    }
+  ]
+}
