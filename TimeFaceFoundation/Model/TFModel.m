@@ -78,9 +78,13 @@
                     if (prop.type == RLMPropertyTypeArray) {
                         Class someClass = NSClassFromString(prop.objectClassName);
                         NSError *error = nil;
-                        for (NSDictionary *subDic in [dict objectForKey:prop.name]) {
+                        NSArray *dataDic = [dict objectForKey:prop.name];
+                        NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:10];
+                        for (NSDictionary *subDic in dataDic) {
                             id object = [[someClass alloc] initWithDictionary:subDic error:&error];
+                            [array addObject:object];
                         }
+                        [toInitDic setObject:array forKey:prop.name];
                         
                     }
                 }
