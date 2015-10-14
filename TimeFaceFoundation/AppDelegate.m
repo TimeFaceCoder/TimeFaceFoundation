@@ -9,16 +9,10 @@
 #import "AppDelegate.h"
 
 #import "TNavigationViewController.h"
-#import "iRate.h"
-#import "iVersion.h"
-#import "RouterHelper.h"
-
-#import "RootViewController.h"
 #import <GKFadeNavigationController/GKFadeNavigationController.h>
+
 @interface AppDelegate ()
 
-
-@property (nonatomic ,strong) RootViewController  *rootTabViewController;
 @end
 
 @implementation AppDelegate{
@@ -35,15 +29,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
-    [TFStyle setGlobalStyleSheet:[[TFDefaultStyle alloc] init]];
-    [[KvStore shared] saveViewGuideData];
-    //路由申明
-    [[RouterHelper shared] routers];
-    
-    
-    _rootTabViewController = [[RootViewController alloc] init];
-    TNavigationViewController *rootNav = [[TNavigationViewController alloc] initWithRootViewController:_rootTabViewController];
-    self.window.rootViewController = rootNav;
     [self.window makeKeyAndVisible];
 
     

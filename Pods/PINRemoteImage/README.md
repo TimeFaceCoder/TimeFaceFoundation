@@ -25,7 +25,7 @@ Download a progressive jpeg and get attractive blurred updates:
 
 ```objc
 UIImageView *imageView = [[UIImageView alloc] init];
-[imageView pin_setUpdateWithProgress:YES];
+[imageView setPin_updateWithProgress:YES];
 [imageView pin_setImageFromURL:[NSURL URLWithString:@"http://pinterest.com/progressiveKitten.jpg"]];
 ```
 
@@ -71,6 +71,12 @@ UIImageView *imageView = [[UIImageView alloc] init];
      UIGraphicsEndImageContext();
      return processedImage;
  }];
+```
+
+Handle Authentication
+```objc
+[[PINRemoteImageManager sharedImageManager] setAuthenticationChallenge:^(NSURLSessionTask *task, NSURLAuthenticationChallenge *challenge, PINRemoteImageManagerAuthenticationChallengeCompletionHandler aCompletion) {
+aCompletion(NSURLSessionAuthChallengePerformDefaultHandling, nil)];
 ```
 
 ## Installation

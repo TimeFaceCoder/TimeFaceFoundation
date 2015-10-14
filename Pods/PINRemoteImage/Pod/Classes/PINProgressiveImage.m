@@ -8,8 +8,8 @@
 
 #import "PINProgressiveImage.h"
 
-@import ImageIO;
-@import CoreImage;
+#import <ImageIO/ImageIO.h>
+#import <CoreImage/CoreImage.h>
 
 #import "PINRemoteImage.h"
 #import "UIImage+DecodedImage.h"
@@ -356,11 +356,15 @@
                                forKey:kCIInputRadiusKey];
         
         CIImage *outputImage = [self.gaussianFilter outputImage];
-        CGImageRef outputImageRef = [self.processingContext createCGImage:outputImage fromRect:CGRectMake(0, 0, inputImage.size.width, inputImage.size.height)];
-        
-        //"decoding" the image here copies it to CPU memory?
-        outputUIImage = [UIImage pin_decodedImageWithCGImageRef:outputImageRef];
-        CGImageRelease(outputImageRef);
+        if (outputImage) {
+            CGImageRef outputImageRef = [self.processingContext createCGImage:outputImage fromRect:CGRectMake(0, 0, inputImage.size.width, inputImage.size.height)];
+            
+            if (outputImageRef) {
+                //"decoding" the image here copies it to CPU memory?
+                outputUIImage = [UIImage pin_decodedImageWithCGImageRef:outputImageRef];
+                CGImageRelease(outputImageRef);
+            }
+        }
     }
     
     if (outputUIImage == nil) {

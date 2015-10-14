@@ -19,6 +19,18 @@
 #import "ZipArchive.h"
 #import "RegionModel.h"
 
+void TFAsyncRun(TFRun run) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        run();
+    });
+}
+
+void TFMainRun(TFRun run) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        run();
+    });
+}
+
 @implementation Utility
 
 + (instancetype)sharedUtility
@@ -1275,43 +1287,4 @@
     //    free(idChar);
     return [newTimeID integerValue];
 }
-
-#pragma mark -
-#pragma mark Thread
-
-
-void TFAsyncRun(TFRun run) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        run();
-    });
-}
-
-void TFMainRun(TFRun run) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        run();
-    });
-}
-
-///**
-// *  在后台执行
-// *
-// *  @param run
-// */
-//-(void) TFAsyncRun:(void (^)(void)) run {
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-//        run();
-//    });
-//}
-///**
-// *  在主线程中执行
-// *
-// *  @param run
-// */
-//- (void) TFMainRun:(void (^)(void)) run {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        run();
-//    });
-//}
-
-
 @end

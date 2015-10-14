@@ -6,7 +6,7 @@
 //
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 #import "PINRemoteImageManager.h"
 
@@ -216,6 +216,10 @@
 - (void)pin_updateUIWithImage:(UIImage *)image animatedImage:(FLAnimatedImage *)animatedImage;
 - (void)pin_clearImages;
 - (BOOL)pin_ignoreGIFs;
+
+@optional
+
+- (PINRemoteImageManagerDownloadOptions)pin_defaultOptions;
 
 @end
 

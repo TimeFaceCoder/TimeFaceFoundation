@@ -6,13 +6,14 @@
 //
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @interface UIImage (PINDecodedImage)
 
 + (UIImage *)pin_decodedImageWithData:(NSData *)data;
 + (UIImage *)pin_decodedImageWithData:(NSData *)data skipDecodeIfPossible:(BOOL)skipDecodeIfPossible;
 + (UIImage *)pin_decodedImageWithCGImageRef:(CGImageRef)imageRef;
++ (UIImage *)pin_decodedImageWithCGImageRef:(CGImageRef)imageRef orientation:(UIImageOrientation) orientation;
 
 @end
 

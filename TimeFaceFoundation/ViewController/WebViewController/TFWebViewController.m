@@ -10,12 +10,10 @@
 #import "TFDefaultStyle.h"
 #import "Utility.h"
 #import "WebViewBridge.h"
-#import "TSubViewController+TFHandle.h"
 #import "WebViewJavascriptBridge.h"
 #import <NJKWebViewProgress/NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>
 #import "KvStore.h"
-#import "TSubViewController+TFHandle.h"
 
 @interface TFWebViewController ()<NJKWebViewProgressDelegate>{
     BOOL            firstLoaded;

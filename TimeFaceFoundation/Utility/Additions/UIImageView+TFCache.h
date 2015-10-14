@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 TimeFace. All rights reserved.
 //
 
-#import "SDWebImageCompat.h"
 #import "SDWebImageManager.h"
 
 @interface UIImageView (TFCache)

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TSubViewController+TFHandle.h"
 #import "UIPageViewController+ViewPageViewController.h"
 /**
  * Every option has a default value.

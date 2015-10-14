@@ -58,10 +58,6 @@
         self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.view.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
     }
-    
-    
-    [[SVProgressHUD appearance] setHudBackgroundColor:RGBACOLOR(0, 0, 0, .5)];
-    [[SVProgressHUD appearance] setHudForegroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -152,14 +148,9 @@
 
 - (void)showStateView:(TFViewState)viewState {
     _viewState = viewState;
-    if (_viewState == TFViewStateEmpty) {
-        [self.stateView removeStateView];
-        return;
-    }
     [self.stateView showStateView];
 }
 - (void)removeStateView {
-
     [self.stateView removeStateView];
 }
 
@@ -174,16 +165,74 @@
     
 }
 
--(void)getTFViewState:(BOOL)TFViewState stateViewTitle:(NSString *)title stateViewButtonTitle:(NSString *)btnTilte stateViewImage:(NSString *)imgName{
-    //    _viewState = TFViewState;
-    //    _viewStateMain = _viewState;
-    _stateBool = TFViewState;
-    _viewStateTitle = title;
-    _viewStateBtnTilte = btnTilte;
-    _viewStateimgName = imgName;
+- (NSString *)stateViewTitle:(TFViewState)viewState {
+    NSString *title = @"";
+    switch (viewState) {
+        case TFViewStateDataError:
+            title = NSLocalizedString(@"网络数据异常", nil);
+            break;
+        case TFViewStateLoading:
+            title = NSLocalizedString(@"正在加载数据", nil);
+            break;
+        case TFViewStateNetError:
+            title = NSLocalizedString(@"网络连接错误", nil);
+            break;
+        case TFViewStateNoData:
+            title = NSLocalizedString(@"网络数据为空", nil);
+            break;
+        case TFViewStateTimeOut:
+            title = NSLocalizedString(@"网络连接超时", nil);
+            break;
+    }
+    return title;
+}
+
+#warning @luochao fix this
+- (NSString *)stateViewButtonTitle:(TFViewState)viewState {
+    NSString *title = @"";
+    switch (viewState) {
+        case TFViewStateDataError:
+            
+            break;
+        case TFViewStateLoading:
+            
+            break;
+        case TFViewStateNetError:
+            
+            break;
+        case TFViewStateNoData:
+            
+            break;
+        case TFViewStateTimeOut:
+            
+            break;
+    }
+    return title;
 }
 
 
+#warning @luochao fix this
+- (UIImage *)stateViewImage:(TFViewState)viewState {
+    UIImage *image = [UIImage new];
+    switch (viewState) {
+        case TFViewStateDataError:
+            
+            break;
+        case TFViewStateLoading:
+            
+            break;
+        case TFViewStateNetError:
+            
+            break;
+        case TFViewStateNoData:
+            
+            break;
+        case TFViewStateTimeOut:
+            
+            break;
+    }
+    return image;
+}
 
 
 #pragma mark - Private
@@ -202,83 +251,7 @@
     NSDictionary *attributes = @{NSFontAttributeName:TFSTYLEVAR(loadingTextFont),
                                  NSForegroundColorAttributeName:TFSTYLEVAR(loadingTextColor)};
     
-    NSString *text = nil;
-    switch (_viewState) {
-        case TFViewStateDataError:
-        case TFViewStateTimeOut:
-            text = NSLocalizedString(@"网络连接超时,请稍后再试", nil);
-            break;
-        case TFViewStateNoData:
-            text = NSLocalizedString(@"暂无内容", nil);
-            break;
-        case TFViewStateNetError:
-            text = NSLocalizedString(@"未检测到网络连接,请检查网络", nil);
-            break;
-        case TFViewStateNoBook:
-            text = NSLocalizedString(@"您还没有时光书，点击右上角创建一本吧！", nil);
-            attributes = @{NSFontAttributeName:TFSTYLEVAR(loadingTextFont),
-                           NSForegroundColorAttributeName:[UIColor whiteColor]};
-            break;
-        case TFViewStateTimeDel:
-            text = NSLocalizedString(@"时光已被删除", nil);
-            break;
-        case TFViewStateBookDel:
-            text = NSLocalizedString(@"时光书已被删除", nil);
-            break;
-        case TFViewStateTalkDel:
-            text = NSLocalizedString(@"话题已被删除", nil);
-            break;
-        case TFViewStateTimeNoPermission:
-            text = NSLocalizedString(@"无权看时光", nil);
-            break;
-        case TFViewStateBookNoPermission:
-            text = NSLocalizedString(@"无权看书", nil);
-            break;
-        case TFViewStateNoContacts:
-            text = NSLocalizedString(@"暂无通讯录", nil);
-            break;
-        case TFViewStateMyCollect:
-            text = NSLocalizedString(@"收藏列表是空的\n收藏的时光书会显示在这里哦", nil);
-            break;
-        case TFViewStateMyMessageOne:
-            text = NSLocalizedString(@"还没人@你", nil);
-            break;
-        case TFViewStateMyMessageTwo:
-            text = NSLocalizedString(@"还没有收到评论", nil);
-            break;
-        case TFViewStateMyMessageThree:
-            text = NSLocalizedString(@"还没有收到赞", nil);
-            break;
-        case TFViewStateMyMessageFour:
-            text = NSLocalizedString(@"还没有收到通知", nil);
-            break;
-//        case TFViewStateMyComment:
-//            text = NSLocalizedString(@"暂无评论", nil);
-//            break;
-        case TFViewStateMyTime:
-            text = NSLocalizedString(@"还没有发布任何时光哦", nil) ;
-            break;
-        case TFViewStateAppreciate:
-            text = NSLocalizedString(@"你还没有欣赏任何人呢\n去发现频道看看吧",nil );
-            break;
-        case TFViewStateAudience:
-            text = NSLocalizedString(@"你的观众列表是空的\n多邀请一些人来关注你吧", nil);
-            break;
-        case TFViewStateNoITVAccount:
-            text = NSLocalizedString(@"未绑定iTV账号", nil);
-            break;
-        case TFViewStateOther:
-            if (_viewStateTitle) {
-                text = _viewStateTitle;
-            }
-            else{
-                text = @"";
-            }
-            break;
-        default:
-            text = NSLocalizedString(@"不是我太慢,是时间太快了...", nil);
-            break;
-    }
+    NSString *text = [self stateViewTitle:_viewState];
     return [[NSAttributedString alloc] initWithString:text
                                            attributes:attributes];
 }
@@ -287,84 +260,14 @@
     
     NSDictionary *attributes = @{NSFontAttributeName:TFSTYLEVAR(font16),
                                  NSForegroundColorAttributeName:TFSTYLEVAR(loadingTextColor)};
-    
-    NSString *text = @"";
-    switch (_viewState) {
-        case TFViewStateDataError:
-        case TFViewStateTimeOut:
-            text = NSLocalizedString(@"重新加载", nil);
-            break;
-        case TFViewStateNetError:
-            text = NSLocalizedString(@"设置网络", nil);
-            break;
-        case TFViewStateOther:
-            if (_viewStateBtnTilte) {
-                text = _viewStateBtnTilte;
-            }
-            break;
-        default:
-            break;
-    }
+    NSString *text = [self stateViewButtonTitle:_viewState];
     return [[NSAttributedString alloc] initWithString:text
                                            attributes:attributes];
     
 }
 
 - (UIImage *)imageForStateView:(UIView *)view {
-    UIImage *image = nil;
-    switch (_viewState) {
-        case TFViewStateDataError:
-        case TFViewStateTimeOut:
-            image = [UIImage imageNamed:@"ViewDataError"];
-            break;
-        case TFViewStateNoData:
-        case TFViewStateTimeDel:
-        case TFViewStateTalkDel:
-        case TFViewStateBookDel:
-            image = [UIImage imageNamed:@"ViewDataEmpty"];
-            break;
-        case TFViewStateTimeNoPermission:
-        case TFViewStateBookNoPermission:
-            image = [UIImage imageNamed:@"ViewDataNoPermission.png"];
-            break;
-        case TFViewStateNetError:
-            image = [UIImage imageNamed:@"ViewDataNetError"];
-            break;
-        case TFViewStateMyCollect:
-            image = [UIImage imageNamed:@"MyCollectNoDate.png"];
-            break;
-        case TFViewStateMyMessageOne:
-            image = [UIImage imageNamed:@"NoMessage"];
-            break;
-        case TFViewStateMyMessageTwo:
-            image = [UIImage imageNamed:@"NoComment"];
-            break;
-        case TFViewStateMyMessageThree:
-            image = [UIImage imageNamed:@"NoPraise"];
-            break;
-        case TFViewStateMyMessageFour:
-            image = [UIImage imageNamed:@"NoNotification"];
-            break;
-//        case TFViewStateMyComment:
-//            image = [UIImage imageNamed:@"NoComment"];
-//            break;
-        case TFViewStateAppreciate:
-            image = [UIImage imageNamed:@"NoAppreciate.png"];
-            break;
-        case TFViewStateAudience:
-            image = [UIImage imageNamed:@"NoAudience.png"];
-            break;
-        case TFViewStateNoITVAccount:
-            image = [UIImage imageNamed:@"ViewDataNetError"];
-            break;
-        case TFViewStateOther:
-            if (_viewStateimgName) {
-                image =[UIImage imageNamed:[NSString stringWithFormat:@"%@",_viewStateimgName]];
-            }
-            break;
-        default:
-            break;
-    }
+    UIImage *image = [self stateViewImage:_viewState];
     return image;
 }
 
@@ -377,17 +280,6 @@
     }
     return nil;
 }
-//
-//- (NSArray *)imagesForStateView:(UIView *)view {
-//    return @[[UIImage imageNamed:@"HUDLoading1.png"],
-//             [UIImage imageNamed:@"HUDLoading2.png"],
-//             [UIImage imageNamed:@"HUDLoading3.png"],
-//             [UIImage imageNamed:@"HUDLoading4.png"],
-//             [UIImage imageNamed:@"HUDLoading5.png"],
-//             [UIImage imageNamed:@"HUDLoading6.png"],
-//             [UIImage imageNamed:@"HUDLoading7.png"]];
-//}
-
 
 - (UIColor *)backgroundColorForStateView:(UIView *)view {
     return TFSTYLEVAR(viewBackgroundColor);

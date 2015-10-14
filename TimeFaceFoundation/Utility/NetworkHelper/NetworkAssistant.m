@@ -27,7 +27,7 @@
 
 @property (nonatomic ,copy  ) NSString *cacheKeyFile;
 
-
+@property (nonatomic ,assign) NetWorkActionType netWorkType;
 
 @end
 
@@ -58,44 +58,41 @@
     return network;
 }
 
--(NSString *)getUrl:(NetWorkUrlBlock)progress{
-    return progress(@"http://tftest.timeface.cn/timefaceapi/");
-}
-- (void)getDataByInterFace:(NSString *)interface
-                    params:(NSDictionary *)params
-                  fileData:(NSMutableArray *)fileData
-                       hud:(NSString *)hud
-                     start:(void (^)(id cacheResult))startBlock
-                 completed:(void (^)(id result,NSError *error))completedBlock {
+- (void)getDataByURL:(NSString *)url
+              params:(NSDictionary *)params
+            fileData:(NSMutableArray *)fileData
+                 hud:(NSString *)hud
+               start:(void (^)(id cacheResult))startBlock
+           completed:(void (^)(id result,NSError *error))completedBlock {
     
-    _cache = YES;
-    [self handleByInterFace:interface
-                     params:params
-                   fileData:fileData
-                        hud:hud
-                      start:startBlock
-                  completed:completedBlock
-                   progress:nil];
+    _netWorkType = NetWorkActionTypeGet;
+    [self handleByURL:url
+               params:params
+             fileData:fileData
+                  hud:hud
+                start:startBlock
+            completed:completedBlock
+             progress:nil];
 }
 
 
 
 
-- (void)postDataByInterFace:(NSString *)interface
-                     params:(NSDictionary *)params
-                   fileData:(NSMutableArray *)fileData
-                        hud:(NSString *)hud
-                      start:(void (^)(id cacheResult))startBlock
-                  completed:(void (^)(id result,NSError *error))completedBlock
-                   progress:(NetWrokProgressBlock)progressBlock {
-    _cache = NO;
-    [self handleByInterFace:interface
-                     params:params
-                   fileData:fileData
-                        hud:hud
-                      start:startBlock
-                  completed:completedBlock
-                   progress:progressBlock];
+- (void)postDataByURL:(NSString *)url
+              params:(NSDictionary *)params
+            fileData:(NSMutableArray *)fileData
+                 hud:(NSString *)hud
+               start:(void (^)(id cacheResult))startBlock
+           completed:(void (^)(id result,NSError *error))completedBlock
+            progress:(NetWrokProgressBlock)progressBlock {
+    _netWorkType = NetWorkActionTypePost;
+    [self handleByURL:url
+               params:params
+             fileData:fileData
+                  hud:hud
+                start:startBlock
+            completed:completedBlock
+             progress:progressBlock];
     
 }
 
@@ -189,7 +186,7 @@
 
 #pragma mark - 基础公用网络部分
 
-- (void)handleByInterFace:(NSString *)interface
+- (void)handleByURL:(NSString *)url
                    params:(NSDictionary *)params
                  fileData:(NSMutableArray *)fileData
                       hud:(NSString *)hud
@@ -197,24 +194,21 @@
                 completed:(void (^)(id result,NSError *error))completedBlock
                  progress:(NetWrokProgressBlock)progressBlock {
     
-    if (!interface) {
+    if (!url) {
         completedBlock(nil,nil);
         return;
     }
     NSAssert(completedBlock,@"completedBlock is nil");
     
     if (hud.length) {
-        [SVProgressHUD showGifWithStatus:hud];
+        [SVProgressHUD showWithStatus:hud];
     }
-    NSString *url = interface;
-
-    
     if (IS_RUNNING_IOS9) {
         //https
         url = [url stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
     }
     
-    NSString *cacheKey = [[Utility sharedUtility] getMD5StringFromNSString:[interface stringByAppendingString:params?[params description]:@""]];
+    NSString *cacheKey = [[Utility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
     TFLog(@"cacheKey:%@",cacheKey);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -326,7 +320,7 @@
                      }];
         
     } else {
-        if (_cache) {
+        if (_netWorkType == NetWorkActionTypeGet) {
             operation = [manager GET:url
                           parameters:dic
                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -344,7 +338,7 @@
                                  }
                                  [self postFailure:operation error:error completed:completedBlock];
                              }];
-        } else {
+        } else if (_netWorkType == NetWorkActionTypePost){
             operation = [manager POST:url
                            parameters:dic
                               success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -418,7 +412,7 @@
             }
             else {
                 //数据正常,写入cache
-//                [[EGOCache globalCache] setObject:rootObject forKey:cacheKey];
+                [[EGOCache globalCache] setObject:rootObject forKey:cacheKey];
             }
             if (_errorCodeBlock) {
                 self.errorCodeBlock(error.code);

@@ -8,7 +8,9 @@
 
 #import "PINRemoteImageManager.h"
 
+#if USE_FLANIMATED_IMAGE
 #import <FLAnimatedImage/FLAnimatedImage.h>
+#endif
 #import <PINCache/PINCache.h>
 
 #import "PINRemoteImage.h"
@@ -93,7 +95,6 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
 
 @interface PINRemoteImageManager () <PINURLSessionManagerDelegate>
 {
-    dispatch_queue_t _concurrentQueue;
     dispatch_queue_t _callbackQueue;
     NSLock *_lock;
     NSOperationQueue *_concurrentOperationQueue;
@@ -114,6 +115,7 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
 @property (nonatomic, assign) float highQualityBPSThreshold;
 @property (nonatomic, assign) float lowQualityBPSThreshold;
 @property (nonatomic, assign) BOOL shouldUpgradeLowQualityImages;
+@property (nonatomic, copy) PINRemoteImageManagerAuthenticationChallenge authenticationChallengeHandler;
 #if DEBUG
 @property (nonatomic, assign) float currentBPS;
 @property (nonatomic, assign) BOOL overrideBPS;
@@ -138,11 +140,16 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
 
 - (instancetype)init
 {
+    return [self initWithSessionConfiguration:nil];
+}
+
+- (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration
+{
     if (self = [super init]) {
         self.cache = [self defaultImageCache];
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        
-        _concurrentQueue = dispatch_queue_create("PINRemoteImageManagerConcurrentQueue", DISPATCH_QUEUE_CONCURRENT);
+        if (!configuration) {
+            configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        }
         _callbackQueue = dispatch_queue_create("PINRemoteImageManagerCallbackQueue", DISPATCH_QUEUE_CONCURRENT);
         _lock = [[NSLock alloc] init];
         _lock.name = @"PINRemoteImageManager";
@@ -157,7 +164,6 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
         _urlSessionTaskQueue.maxConcurrentOperationCount = 10;
         
         self.sessionManager = [[PINURLSessionManager alloc] initWithSessionConfiguration:configuration];
-        self.sessionManager.completionQueue = _concurrentQueue;
         self.sessionManager.delegate = self;
         
         self.estimatedRemainingTimeThreshold = 0.0;
@@ -195,6 +201,16 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
 - (void)unlock
 {
     [_lock unlock];
+}
+
+- (void)setAuthenticationChallenge:(PINRemoteImageManagerAuthenticationChallenge)aChallenge {
+	__weak typeof(self) weakSelf = self;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		typeof(self) strongSelf = weakSelf;
+		[strongSelf lock];
+		strongSelf.authenticationChallengeHandler = aChallenge;
+		[strongSelf unlock];
+	});
 }
 
 - (void)setMaxNumberOfConcurrentOperations:(NSInteger)maxNumberOfConcurrentOperations completion:(dispatch_block_t)completion
@@ -624,17 +640,25 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
         if ([object isKindOfClass:[UIImage class]]) {
             image = (UIImage *)object;
         } else if (allowAnimated && [object isKindOfClass:[NSData class]] && [(NSData *)object pin_isGIF]) {
+#if USE_FLANIMATED_IMAGE
             animatedImage = [FLAnimatedImage animatedImageWithGIFData:object];
+#endif
         }
     }
     
     if (completion && ((image || animatedImage) || (url == nil))) {
         //If we're on the main thread, special case to call completion immediately
+        NSError *error = nil;
+        if (!url) {
+            error = [NSError errorWithDomain:NSURLErrorDomain
+                                        code:NSURLErrorUnsupportedURL
+                                    userInfo:@{ NSLocalizedDescriptionKey : @"unsupported URL" }];
+        }
         if (allowEarlyReturn && [NSThread isMainThread]) {
             completion([PINRemoteImageManagerResult imageResultWithImage:image
                                                           animatedImage:animatedImage
                                                           requestLength:0
-                                                                  error:nil
+                                                                  error:error
                                                              resultType:resultType
                                                                    UUID:nil]);
         } else {
@@ -642,7 +666,7 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
                 completion([PINRemoteImageManagerResult imageResultWithImage:image
                                                               animatedImage:animatedImage
                                                               requestLength:0
-                                                                      error:nil
+                                                                      error:error
                                                                  resultType:resultType
                                                                        UUID:nil]);
             });
@@ -671,7 +695,9 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
     } else if ([object isKindOfClass:[NSData class]]) {
         NSData *imageData = (NSData *)object;
         if ([imageData pin_isGIF] && ignoreGIF == NO) {
+#if USE_FLANIMATED_IMAGE
             animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:imageData];
+#endif
         } else {
             BOOL skipDecode = (options & PINRemoteImageManagerDownloadOptionsSkipDecode) != 0;
             image = [UIImage pin_decodedImageWithData:imageData skipDecodeIfPossible:skipDecode];
@@ -725,7 +751,9 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
             
             if (remoteImageError == nil) {
                 if ([data pin_isGIF] && ignoreGIF == NO) {
+#if USE_FLANIMATED_IMAGE
                     animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:data];
+#endif
                     //FLAnimatedImage handles its own caching of frames
                     cacheCost = [data length];
                 } else {
@@ -786,7 +814,7 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
                 [strongSelf lock];
                     typeof(self) strongSelf = weakSelf;
                     PINRemoteImageDownloadTask *task = [strongSelf.tasks objectForKey:key];
-                    [task callCompletionsWithQueue:strongSelf.callbackQueue remove:NO withImage:image animatedImage:animatedImage cached:NO error:error];
+                    [task callCompletionsWithQueue:strongSelf.callbackQueue remove:NO withImage:image animatedImage:animatedImage cached:NO error:remoteImageError];
                     [strongSelf.tasks removeObjectForKey:key];
                 [strongSelf unlock];
             }
@@ -960,7 +988,9 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
         if ([object isKindOfClass:[UIImage class]]) {
             image = (UIImage *)object;
         } else if ([object isKindOfClass:[NSData class]]) {
+#if USE_FLANIMATED_IMAGE
             animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:object];
+#endif
         }
     };
     
@@ -993,6 +1023,19 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
 
 #pragma mark - Session Task Blocks
 
+- (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge forTask:(NSURLSessionTask *)task completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
+	[self lock];
+	if (self.authenticationChallengeHandler) {
+		self.authenticationChallengeHandler(task, challenge, ^(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential){
+			completionHandler(disposition, credential);
+		});
+	} else {
+		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+	}
+	
+	[self unlock];
+}
+
 - (void)didReceiveData:(NSData *)data forTask:(NSURLSessionDataTask *)dataTask
 {
     [self lock];
@@ -1010,14 +1053,20 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
     [self unlock];
     
     [progressiveImage updateProgressiveImageWithData:data expectedNumberOfBytes:[dataTask countOfBytesExpectedToReceive]];
+
     if (hasProgressBlocks && [[self class] isiOS8OrGreater]) {
-        UIImage *progressImage = [progressiveImage currentImage];
-        if (progressImage) {
-            [self lock];
-                task = [self.tasks objectForKey:[self cacheKeyForURL:[[dataTask originalRequest] URL] processorKey:nil]];
-                [task callProgressWithQueue:_callbackQueue withImage:progressImage];
-            [self unlock];
-        }
+        __weak typeof(self) weakSelf = self;
+        [_concurrentOperationQueue pin_addOperationWithQueuePriority:PINRemoteImageManagerPriorityLow block:^{
+            typeof(self) strongSelf = weakSelf;
+            UIImage *progressImage = [progressiveImage currentImage];
+            if (progressImage) {
+                [strongSelf lock];
+                    NSString *cacheKey = [strongSelf cacheKeyForURL:[[dataTask originalRequest] URL] processorKey:nil];
+                    PINRemoteImageDownloadTask *task = strongSelf.tasks[cacheKey];
+                    [task callProgressWithQueue:strongSelf.callbackQueue withImage:progressImage];
+                [strongSelf unlock];
+            }
+        }];
     }
 }
 
@@ -1239,11 +1288,15 @@ typedef void (^PINRemoteImageManagerDataCompletion)(NSData *data, NSError *error
 {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:block];
     operation.queuePriority = operationPriorityWithImageManagerPriority(priority);
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
     if ([PINRemoteImageManager isiOS8OrGreater]) {
         operation.qualityOfService = NSOperationQualityOfServiceBackground;
     } else {
         operation.threadPriority = 0.2;
     }
+#else
+    operation.qualityOfService = NSOperationQualityOfServiceBackground;
+#endif
     [self addOperation:operation];
 }
 

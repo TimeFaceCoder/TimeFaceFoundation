@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = "Copyright (C) 2015 TimeFace, Inc.  All rights reserved."
   s.author             = { "zguanyu" => "zhuguanyu@timeface.cn" }
   s.social_media_url   = "http://www.timeface.cn"
-  s.ios.deployment_target = "7.0"
+  s.ios.deployment_target = "7.1"
   s.source       = { :git => "https://github.com/TimeFaceCoder/TimeFaceFoundation.git"}
   s.source_files  = "TimeFaceFoundation/**/*.{h,m}"
   s.requires_arc = true
@@ -28,4 +28,5 @@ Pod::Spec.new do |s|
   s.dependency 'EGOCache'
   s.dependency 'ActionSheetPicker-3.0'
   s.dependency 'Masonry'
+  s.dependency 'SVProgressHUD'
 end

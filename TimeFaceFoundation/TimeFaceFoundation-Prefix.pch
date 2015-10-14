@@ -22,7 +22,6 @@
 #import "HHRouter.h"
 #import "TFStyle.h"
 #import "TFDefaultStyle.h"
-#import "TSubViewController+TFHandle.h"
 #import "NSString+Emojize.h"
 #import "KvStore.h"
 #import "TFLogAgent.h"

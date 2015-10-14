@@ -6,9 +6,11 @@
 //
 //
 
-@import UIKit;
-
+#import <UIKit/UIKit.h>
+#import "PINRemoteImage.h"
+#if USE_FLANIMATED_IMAGE
 #import <FLAnimatedImage/FLAnimatedImage.h>
+#endif
 
 /** How the image was fetched. */
 typedef NS_ENUM(NSUInteger, PINRemoteImageResultType) {
@@ -20,6 +22,8 @@ typedef NS_ENUM(NSUInteger, PINRemoteImageResultType) {
     PINRemoteImageResultTypeCache,
     /** Image was downloaded */
     PINRemoteImageResultTypeDownload,
+    /** Image is progress */
+    PINRemoteImageResultTypeProgress,
 };
 
 @interface PINRemoteImageManagerResult : NSObject

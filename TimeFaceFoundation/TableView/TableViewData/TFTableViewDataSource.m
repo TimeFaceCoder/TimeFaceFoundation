@@ -7,20 +7,19 @@
 //
 
 #import "TFTableViewDataSource.h"
-#import "UIScrollView+UzysAnimatedGifPullToRefresh.h"
 #import "TFTableViewDataManager.h"
 #import <EGOCache/EGOCache.h>
 #import "CLClassList.h"
 #import "URLHelper.h"
 #import "Utility.h"
-
+#import "UIScrollView+TFPullRefresh.h"
 #import "TFTableViewItem.h"
 #import "TFTableViewItemCell.h"
 
 #import "TableViewLoadingItem.h"
 #import "TableViewLoadingItemCell.h"
 
-#import "ListHeaderView.h"
+#import "TFListHeaderView.h"
 
 #import "NetworkAssistant.h"
 
@@ -97,22 +96,7 @@ const static NSInteger kPageSize = 20;
         return nil;
     //列表管理器
     _delegate = delegate;
-//    _pullRefreshY = 64.5f;
     _listType = listType;
-    //    if (self.listType == ListTypeTopics
-    //        || self.listType == ListTypeTimes
-    //        || self.listType == ListTypeEvents
-    //        || self.listType == ListTypeFollowTime) {
-    //        _pullRefreshY = 34.5;
-    //    }
-    //    if (self.listType == ListTypeUserTimeList) {
-    //        _pullRefreshY = 340;
-    //    }
-    
-//    if (self.listType && self.delegate && [self.delegate respondsToSelector:@selector(topInsetY)]) {
-//        _pullRefreshY = [self.delegate topInsetY];
-//    }
-    
     _tableView = tableView;
     _manager = [[RETableViewManager alloc] initWithTableView:tableView delegate:self];
     //列表模式
@@ -121,7 +105,7 @@ const static NSInteger kPageSize = 20;
     //注册Cell
     [self registerClass];
     
-    if (self.listType && self.delegate && [self.delegate respondsToSelector:@selector(topInsetY)]) {
+    if (self.listType) {
         [self addPullRefresh];
     }
     _downThresholdY = 200.0;
@@ -140,7 +124,7 @@ const static NSInteger kPageSize = 20;
         [self.tableView triggerPullToRefresh];
     }
     else {
-        [self load:DataLoadPolicyReload params:nil];
+        [self load:DataLoadPolicyReload params:_params];
     }
 }
 
@@ -210,7 +194,7 @@ const static NSInteger kPageSize = 20;
              if (finished) {
                  //加载列
                  if (_currentPage < _totalPage) {
-                     ListHeaderView *headerView = [ListHeaderView headerView];
+                     TFListHeaderView *headerView = [TFListHeaderView headerView];
                      RETableViewSection *section = [RETableViewSection sectionWithHeaderView:headerView];
                      [weakSelf.manager addSection:section];
                      [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
@@ -223,30 +207,16 @@ const static NSInteger kPageSize = 20;
                      if (weakSelf.delegate &&[weakSelf.delegate respondsToSelector:@selector(didFinishLoad:)]) {
                          [weakSelf.delegate didFinishLoad:dataLoadPolicy];
                      }
-                     //                     if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFinishLoad)]) {
-                     //                         [weakSelf.delegate didFinishLoad];
-                     //                     }
-                     //                     if ([[result objectForKey:@"dataList"] count] == 0
-                     //                         && _listType != ListTypeSearchLocation) {
-                     //                         //没有数据
-                     //                         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFailLoadWithError:)]) {
-                     //                             NSError *error = [NSError errorWithDomain:APP_ERROR_DOMAIN
-                     //                                                                  code:TFErrorCodeEmpty
-                     //                                                              userInfo:nil];
-                     //                             [weakSelf.delegate didFailLoadWithError:error];
-                     //                         }
-                     //                     }
                      if (dataLoadPolicy == DataLoadPolicyCache) {
                          //开始下拉刷新
                          [weakSelf.tableView triggerPullToRefresh];
                      }
                      if (dataLoadPolicy == DataLoadPolicyReload) {
                          //结束下拉刷新动画
-                         //                         if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
-                         //                             [weakSelf.delegate stopPullRefresh];
-                         //                         }
+                         if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
+                             [weakSelf.delegate stopPullRefresh];
+                         }
                          [self stopPullRefresh];
-                         //                         [weakSelf.tableView stopPullToRefreshAnimation];
                      }
                      [weakSelf.tableView reloadData];
                      
@@ -255,48 +225,28 @@ const static NSInteger kPageSize = 20;
          }];
     };
     
-    NSString *interface = [[URLHelper sharedHelper] interfaceByListType:_listType];
-    NSString *cacheKey = [[Utility sharedUtility] getMD5StringFromNSString:
-                          [interface stringByAppendingString:_params?[_params description]:@""]];
-    
-    id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
-    if (loadPolicy == DataLoadPolicyCache || loadPolicy == DataLoadPolicyNone) {
-        //正常加载与读取缓存模式
-        if (cacheObject) {
-            _loading = YES;
-            handleTableViewData(cacheObject,DataLoadPolicyCache);
-        }
-        else {
-            _loading = NO;
-            [self load:DataLoadPolicyReload params:nil];
-        }
-    }
-    else {
-        [[NetworkAssistant sharedAssistant] getDataByInterFace:interface
-                                                        params:_params
-                                                      fileData:nil
-                                                           hud:nil
-                                                         start:^(id cacheResult){
-                                                             _loading = YES;
-                                                         }
-                                                     completed:^(id result, NSError *error)
-         {
-             if (error) {
-                 if (cacheObject) {
-                     handleTableViewData(cacheObject,loadPolicy);
-                 }else {
-                     //处理出错且没有缓存的情况
-                     _loading = NO;
-                     [weakSelf.delegate didFailLoadWithError:error];
-                     [self stopPullRefresh];
-                     
-                 }
-             }
-             else {
-                 handleTableViewData(result,loadPolicy);
-             }
-         }];
-    }
+    NSString *url = [[URLHelper sharedHelper] urlByListType:_listType];
+    [[NetworkAssistant sharedAssistant] getDataByURL:url
+                                              params:_params
+                                            fileData:nil
+                                                 hud:nil
+                                               start:^(id cacheResult){
+                                                   _loading = YES;
+                                               }
+                                           completed:^(id result, NSError *error)
+     {
+         if (error) {
+             //处理出错且没有缓存的情况
+             handleTableViewData(nil,loadPolicy);
+             _loading = NO;
+             [weakSelf.delegate didFailLoadWithError:error];
+             [self stopPullRefresh];
+             
+         }
+         else {
+             handleTableViewData(result,loadPolicy);
+         }
+     }];
 }
 
 - (void)dealloc {
@@ -333,11 +283,6 @@ const static NSInteger kPageSize = 20;
         NSString *itemName = NSStringFromClass(itemClass);
         self.manager[itemName]   = [itemName stringByAppendingString:@"Cell"];
     }
-//    self.manager[@"TimeLineItem"]   = @"TimeLineItemCell";
-    //    self.manager[@"EventItem"] = @"EventItemCell";
-    //    self.manager[@"TopicItem"]   = @"TopicItemCell";
-//    self.manager[@"TableViewLoadingItem"]   = @"TableViewLoadingCell";
-    
 }
 
 /**
@@ -377,7 +322,7 @@ const static NSInteger kPageSize = 20;
 
 - (void)stopLoading {
     if (_listType || [self.delegate showPullRefresh]) {
-        [self.tableView stopPullToRefreshAnimation];
+        [self.tableView stopPullToRefresh];
     }
 }
 
@@ -406,9 +351,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
 
 
 - (NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    if (_listType == ListTypeCircleMembers) {
-    //        return NSLocalizedString(@"踢出",nil);
-    //    }
     return NSLocalizedString(@"删除", nil);
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

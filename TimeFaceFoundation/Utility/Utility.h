@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
+typedef void (^TFRun)(void);
+
+void TFAsyncRun(TFRun run);
+
+void TFMainRun(TFRun run);
 
 @interface Utility : NSObject
 
@@ -420,34 +425,5 @@
 
 - (NSInteger)decodeTimeUID:(NSString *)timeid;
 
-#pragma mark -
-#pragma mark Thread
-
-typedef void (^TFRun)(void);
-/**
- *  后台执行
- *
- *  @param run
- */
-void TFAsyncRun(TFRun run);
-/**
- *  主线程中执行
- *
- *  @param run 
- */
-void TFMainRun(TFRun run);
-
-///**
-// *  在后台执行
-// *
-// *  @param run
-// */
-//-(void) TFAsyncRun:(void (^)(void)) run;
-///**
-// *  在主线程中执行
-// *
-// *  @param run
-// */
-//- (void) TFMainRun:(void (^)(void)) run;
 
 @end
