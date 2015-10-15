@@ -187,53 +187,51 @@
     return title;
 }
 
-#warning @luochao fix this
 - (NSString *)stateViewButtonTitle:(TFViewState)viewState {
     NSString *title = @"";
     switch (viewState) {
         case TFViewStateDataError:
-            
+            title = NSLocalizedString(@"重新加载", nil);
             break;
         case TFViewStateLoading:
             
             break;
         case TFViewStateNetError:
-            
+            title = NSLocalizedString(@"设置网络", nil);
             break;
         case TFViewStateNoData:
             
             break;
         case TFViewStateTimeOut:
-            
+            title = NSLocalizedString(@"重新加载", nil);
             break;
     }
     return title;
 }
 
 
-#warning @luochao fix this
+
 - (UIImage *)stateViewImage:(TFViewState)viewState {
     UIImage *image = [UIImage new];
     switch (viewState) {
         case TFViewStateDataError:
-            
+            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
             break;
         case TFViewStateLoading:
             
             break;
         case TFViewStateNetError:
-            
+            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
             break;
         case TFViewStateNoData:
-            
+            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
             break;
         case TFViewStateTimeOut:
-            
+            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
             break;
     }
     return image;
 }
-
 
 #pragma mark - Private
 
