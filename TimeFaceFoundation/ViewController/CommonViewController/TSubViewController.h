@@ -11,7 +11,7 @@
 #import <JDStatusBarNotification/JDStatusBarNotification.h>
 #import "NetworkAssistant.h"
 #import "TFDefaultStyle.h"
-#import "Utility.h"
+#import "TFCoreUtility.h"
 #import "ViewControllerDelegate.h"
 #import "TFAlertView.h"
 

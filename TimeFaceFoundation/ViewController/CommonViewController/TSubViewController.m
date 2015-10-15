@@ -15,7 +15,7 @@
 #import "ViewGuideModel.h"
 
 
-#import "KvStore.h"
+#import "TFDataHelper.h"
 #import "GuideHelpView.h"
 
 @interface TSubViewController ()<ViewStateDataSource,ViewStateDelegate> {
@@ -155,7 +155,7 @@
 }
 
 - (void)showBackButton {
-    self.navigationItem.leftBarButtonItems = [[Utility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
+    self.navigationItem.leftBarButtonItems = [[TFCoreUtility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
                                                                               selectedImageName:@"NavButtonBackH.png"
                                                                                        delegate:self
                                                                                        selector:@selector(onLeftNavClick:)];
@@ -314,7 +314,12 @@
 -(void) checkGuide {
     NSString *viewId = self.class.description;
     //取出当前页面 的引导信息
-    ViewGuideModel *model = [[KvStore shared] loadViewGuideWithViewId:viewId];
+//    ViewGuideModel *model = [[KvStore shared] loadViewGuideWithViewId:viewId];
+    ViewGuideModel *model = nil;
+    RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"viewId" strValue:viewId class:[ViewGuideModel class]];
+    if (result.count) {
+        model = [result objectAtIndex:0];
+    }
     if (!model) {
         TFLog(@"（%@）页面未找到引导信息！",viewId);
         return ;

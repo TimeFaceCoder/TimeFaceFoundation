@@ -11,7 +11,6 @@
 #import <EGOCache/EGOCache.h>
 #import "CLClassList.h"
 #import "URLHelper.h"
-#import "Utility.h"
 #import "UIScrollView+TFPullRefresh.h"
 #import "TFTableViewItem.h"
 #import "TFTableViewItemCell.h"

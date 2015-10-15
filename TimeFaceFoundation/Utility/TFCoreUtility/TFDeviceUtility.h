@@ -10,4 +10,16 @@
 
 @interface TFDeviceUtility : NSObject
 
+
++ (instancetype)shared;
+
+
+
+/*
+ *  获取设备唯一编号
+ *
+ *  @return
+ */
+- (NSString *)getDeviceId;
+
 @end

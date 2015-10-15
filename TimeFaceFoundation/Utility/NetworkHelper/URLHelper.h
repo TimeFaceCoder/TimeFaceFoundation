@@ -35,4 +35,10 @@
  *  @return
  */
 - (NSString *)classNameByListType:(NSInteger)listType;
+/**
+ *  设置url、dataManager、listType映射关系字典
+ *
+ *  @param dict
+ */
+- (void)setUrlDictionary:(NSDictionary*)dict;
 @end

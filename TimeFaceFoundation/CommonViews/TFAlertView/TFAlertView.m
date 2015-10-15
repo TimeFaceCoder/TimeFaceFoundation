@@ -7,7 +7,7 @@
 //
 
 #import "TFAlertView.h"
-#import "Utility.h"
+#import "TFCoreUtility.h"
 #import "TFDefaultStyle.h"
 #import <GPUImage/GPUImage.h>
 #import <pop/POP.h>
@@ -143,7 +143,7 @@ const static NSInteger kSecondButtonTag = 101;
 //        //毛玻璃背景
 //        UIImage *blurredSnapshotImage = [_blurFilter imageByFilteringImage:[self currentViewToImage]];
 //        [self.blurImageView setImage:blurredSnapshotImage];
-        [self.blurImageView setImage:[[[Utility sharedUtility] currentViewToImage] blurredImage]];
+        [self.blurImageView setImage:[[[TFCoreUtility sharedUtility] currentViewToImage] blurredImage]];
 
         _blurImageView.layer.opacity = 0.0;
         _blurImageView.userInteractionEnabled = NO;

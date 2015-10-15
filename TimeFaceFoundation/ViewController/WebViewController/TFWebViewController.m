@@ -8,12 +8,13 @@
 
 #import "TFWebViewController.h"
 #import "TFDefaultStyle.h"
-#import "Utility.h"
+#import "TFCoreUtility.h"
 #import "WebViewBridge.h"
 #import "WebViewJavascriptBridge.h"
 #import <NJKWebViewProgress/NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>
-#import "KvStore.h"
+#import "TFDataHelper.h"
+#import "UserModel.h"
 
 @interface TFWebViewController ()<NJKWebViewProgressDelegate>{
     BOOL            firstLoaded;
@@ -70,7 +71,7 @@
     self.webView.tfHeight -= 64.f;
     
     self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.leftBarButtonItems = [[Utility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
+    self.navigationItem.leftBarButtonItems = [[TFCoreUtility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
                                                                               selectedImageName:@"NavButtonBackH.png"
                                                                                        delegate:self
                                                                                        selector:@selector(onLeftNavClick:)];
@@ -80,7 +81,7 @@
         case LocalViewTypeTopicDetail:
         case LocalViewTypeUserDetail:
         case LocalViewTypeEventDetail:
-            self.navigationItem.rightBarButtonItems = [[Utility sharedUtility] createBarButtonsWithImage:@"NavButtonMore.png"
+            self.navigationItem.rightBarButtonItems = [[TFCoreUtility sharedUtility] createBarButtonsWithImage:@"NavButtonMore.png"
                                                                                        selectedImageName:@"NavButtonMoreH.png"
                                                                                                 delegate:self
                                                                                                 selector:@selector(onRightNavClick:)];
@@ -183,7 +184,12 @@
         //获取当前登录用户
         [_jsBridge registerHandler:@"currentUser" handler:^(id data, WVJBResponseCallback responseCallback)
         {
-            UserModel *userModel = [[KvStore shared] getCurrentUserModel];
+//            UserModel *userModel = [[KvStore shared] getCurrentUserModel];
+            UserModel *userModel = nil;
+            RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"logined" numValue:[NSNumber numberWithBool:YES] class:[UserModel class]];
+            if (result.count) {
+                userModel = (UserModel*)[result objectAtIndex:0];
+            }
             if (userModel) {
 //                responseCallback(@{@"status":@"1",
 //                                   @"info":@"success",
@@ -323,7 +329,7 @@
         self.navigationItem.leftBarButtonItems = [self createBarButtons];
     }
     else {
-        self.navigationItem.leftBarButtonItems = [[Utility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
+        self.navigationItem.leftBarButtonItems = [[TFCoreUtility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
                                                                                   selectedImageName:@"NavButtonBackH.png"
                                                                                            delegate:self
                                                                                            selector:@selector(onLeftNavClick:)];

@@ -10,4 +10,16 @@
 
 @interface TFSecurityUtility : NSObject
 
+
++ (instancetype)shared;
+
+/**
+ *  对一个string进行md5加密
+ *
+ *  @param string
+ *
+ *  @return 
+ */
+- (NSString *)getMD5StringFromNSString:(NSString *)string;
+
 @end

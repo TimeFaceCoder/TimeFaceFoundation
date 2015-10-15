@@ -13,7 +13,7 @@
 }
 
 // Get all System Information (All Methods)
-- (NSDictionary *)getAllSystemInformation;
+//- (NSDictionary *)getAllSystemInformation;
 
 @end
 

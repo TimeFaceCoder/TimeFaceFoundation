@@ -11,7 +11,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Reachability.h"
 #import "SVProgressHUD.h"
-#import "Utility.h"
+#import "TFCoreUtility.h"
 #import "GZIP.h"
 #import <EGOCache/EGOCache.h>
 
@@ -208,7 +208,7 @@
         url = [url stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
     }
     
-    NSString *cacheKey = [[Utility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
+    NSString *cacheKey = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
     TFLog(@"cacheKey:%@",cacheKey);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

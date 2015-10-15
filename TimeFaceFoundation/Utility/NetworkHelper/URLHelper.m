@@ -10,6 +10,7 @@
 
 const static NSString   *kInterfaceKey = @"interface";
 const static NSString   *kClassKey = @"class";
+static NSDictionary     *urlDictionary = nil;
 
 @implementation URLHelper {
     
@@ -33,30 +34,11 @@ const static NSString   *kClassKey = @"class";
  *  @return
  */
 + (NSDictionary *)defaultMappingInfo {
-    NSDictionary *defaultMappingInfo = nil;
-    if (!defaultMappingInfo) {
-        defaultMappingInfo = @{
-//                               [NSNumber numberWithInteger:ListTypeFollowTime]:@{
-//                                       kInterfaceKey:INTERFACE_TIMELIST,
-//                                       kClassKey:@"TweetsTableDataManager"},
-//                               [NSNumber numberWithInteger:ListTypeTimes]:@{
-//                                       kInterfaceKey:INTERFACE_TIMELIST,
-//                                       kClassKey:@"TweetsTableDataManager"},
-//                               [NSNumber numberWithInteger:ListTypeEvents]:@{
-//                                       kInterfaceKey:INTERFACE_EVENTLIST,
-//                                       kClassKey:@"EventTableDataManager"},
-//                               [NSNumber numberWithInteger:ListTypeTopics]:@{
-//                                       kInterfaceKey:INTERFACE_TOPICLIST,
-//                                       kClassKey:@"TopicsTableDataManager"},
-//                               [NSNumber numberWithInteger:ListTypeEventList]:@{
-//                                       kInterfaceKey:INTERFACE_TIMELIST,
-//                                       kClassKey:@"EventListTableDataManager"},
-//                               [NSNumber numberWithInteger:ListTypeUserTimeList]:@{
-//                                       kInterfaceKey:INTERFACE_USERTIMELINE,
-//                                       kClassKey:@"UserTableDataManager"}
-                               };
-    }
-    return defaultMappingInfo;
+       return urlDictionary;
+}
+
+- (void)setUrlDictionary:(NSDictionary*)dict {
+    urlDictionary = dict;
 }
 
 - (id) init

@@ -8,6 +8,7 @@
 
 #import "TSubTableViewController.h"
 #import "UIViewController+ScrollFullScreen.h"
+#import "TFCoreUtility.h"
 
 @interface TSubTableViewController (){
     CGFloat lastPosition;
@@ -216,12 +217,12 @@
         lastPosition = currentPostion;
         //向上滚动
         if (currentPostion > kNoticeoffset) {
-            BOOL noticed = [[Utility sharedUtility] getBoolByKey:STORE_KEY_SCROLLNOTICE];
+            BOOL noticed = [[TFCoreUtility sharedUtility] getBoolByKey:STORE_KEY_SCROLLNOTICE];
             if (!noticed) {
                 [JDStatusBarNotification showWithStatus:@"点击这里返回顶部"
                                            dismissAfter:1.5
                                               styleName:@"scrollNotice"];
-                [[Utility sharedUtility] setBoolByKey:STORE_KEY_SCROLLNOTICE value:YES];
+                [[TFCoreUtility sharedUtility] setBoolByKey:STORE_KEY_SCROLLNOTICE value:YES];
             }
         }
     }

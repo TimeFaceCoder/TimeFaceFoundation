@@ -7,7 +7,7 @@
 //
 
 #import "GuideHelpView.h"
-#import "KvStore.h"
+#import "TFDataHelper.h"
 
 @implementation GuideHelpView
 
@@ -230,7 +230,9 @@
     [self.holedView removeFromSuperview];
     self.holedView = nil;
     _guideModel.index++;
-    [[KvStore shared] save:_guideModel objId:_guideModel.viewId];
+//    [[KvStore shared] save:_guideModel objId:_guideModel.viewId];
+    [[TFDataHelper shared] saveObject:_guideModel];
+
     
     if (_guideModel.index < _guideModel.guides.count) {
         [self showGuide:_guideModel index:_guideModel.index];

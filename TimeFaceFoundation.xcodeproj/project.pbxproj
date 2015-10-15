@@ -39,6 +39,7 @@
 		43A0822C1BA7B19800AEFCE5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0822B1BA7B19800AEFCE5 /* libz.dylib */; };
 		43FBFA451BB4D6E500493585 /* NetUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FBFA441BB4D6E500493585 /* NetUtility.m */; settings = {ASSET_TAGS = (); }; };
 		6C8802021BCE292500C48EFC /* TFString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8802011BCE292500C48EFC /* TFString.m */; settings = {ASSET_TAGS = (); }; };
+		6C89B94B1BCF4B93002B12BC /* TFDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */; settings = {ASSET_TAGS = (); }; };
 		6CC8C1241BA7D552003CF335 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0651BA7D552003CF335 /* NSString+Additions.m */; };
 		6CC8C1251BA7D552003CF335 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0671BA7D552003CF335 /* NSTimer+Extension.m */; };
 		6CC8C1261BA7D552003CF335 /* TTGlobalUICommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0691BA7D552003CF335 /* TTGlobalUICommon.m */; };
@@ -62,8 +63,6 @@
 		6CC8C13B1BA7D552003CF335 /* UIViewController+ScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0941BA7D552003CF335 /* UIViewController+ScrollFullScreen.m */; };
 		6CC8C13C1BA7D552003CF335 /* UIViewController+TopMostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0961BA7D552003CF335 /* UIViewController+TopMostViewController.m */; };
 		6CC8C13D1BA7D552003CF335 /* UIWebView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0981BA7D552003CF335 /* UIWebView+Additions.m */; };
-		6CC8C14B1BA7D552003CF335 /* KvStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0BD1BA7D552003CF335 /* KvStore.m */; };
-		6CC8C14C1BA7D552003CF335 /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0BF1BA7D552003CF335 /* YTKKeyValueStore.m */; };
 		6CC8C14F1BA7D552003CF335 /* CLClassList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0C71BA7D552003CF335 /* CLClassList.m */; };
 		6CC8C1501BA7D552003CF335 /* IACacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0CA1BA7D552003CF335 /* IACacheManager.m */; };
 		6CC8C1511BA7D552003CF335 /* IADownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0CC1BA7D552003CF335 /* IADownloadHandler.m */; };
@@ -86,7 +85,6 @@
 		6CC8C16A1BA7D552003CF335 /* Pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C10E1BA7D552003CF335 /* Pinyin.c */; };
 		6CC8C16B1BA7D552003CF335 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1121BA7D552003CF335 /* Reachability.m */; };
 		6CC8C16C1BA7D552003CF335 /* TFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1141BA7D552003CF335 /* TFStyle.m */; };
-		6CC8C16D1BA7D552003CF335 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1171BA7D552003CF335 /* Utility.m */; };
 		6CC8C16E1BA7D552003CF335 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */; };
 		6CC8C16F1BA7D552003CF335 /* libZipArchive-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC8C1231BA7D552003CF335 /* libZipArchive-ios.a */; };
 		6CCF039A1BA1849D005C4EC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF03991BA1849D005C4EC0 /* main.m */; };
@@ -189,6 +187,8 @@
 		53773D8A31E2E42C2C8E5B36 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6C8802001BCE292500C48EFC /* TFString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFString.h; sourceTree = "<group>"; };
 		6C8802011BCE292500C48EFC /* TFString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFString.m; sourceTree = "<group>"; };
+		6C89B9491BCF4B93002B12BC /* TFDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDataHelper.h; sourceTree = "<group>"; };
+		6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDataHelper.m; sourceTree = "<group>"; };
 		6CC8C0641BA7D552003CF335 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		6CC8C0651BA7D552003CF335 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		6CC8C0661BA7D552003CF335 /* NSTimer+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Extension.h"; sourceTree = "<group>"; };
@@ -236,10 +236,6 @@
 		6CC8C0961BA7D552003CF335 /* UIViewController+TopMostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TopMostViewController.m"; sourceTree = "<group>"; };
 		6CC8C0971BA7D552003CF335 /* UIWebView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Additions.h"; sourceTree = "<group>"; };
 		6CC8C0981BA7D552003CF335 /* UIWebView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Additions.m"; sourceTree = "<group>"; };
-		6CC8C0BC1BA7D552003CF335 /* KvStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KvStore.h; sourceTree = "<group>"; };
-		6CC8C0BD1BA7D552003CF335 /* KvStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KvStore.m; sourceTree = "<group>"; };
-		6CC8C0BE1BA7D552003CF335 /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueStore.h; sourceTree = "<group>"; };
-		6CC8C0BF1BA7D552003CF335 /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStore.m; sourceTree = "<group>"; };
 		6CC8C0C61BA7D552003CF335 /* CLClassList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLClassList.h; sourceTree = "<group>"; };
 		6CC8C0C71BA7D552003CF335 /* CLClassList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLClassList.m; sourceTree = "<group>"; };
 		6CC8C0C91BA7D552003CF335 /* IACacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IACacheManager.h; sourceTree = "<group>"; };
@@ -284,8 +280,6 @@
 		6CC8C1121BA7D552003CF335 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6CC8C1131BA7D552003CF335 /* TFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFStyle.h; sourceTree = "<group>"; };
 		6CC8C1141BA7D552003CF335 /* TFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFStyle.m; sourceTree = "<group>"; };
-		6CC8C1161BA7D552003CF335 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
-		6CC8C1171BA7D552003CF335 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		6CC8C1191BA7D552003CF335 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		6CC8C11D1BA7D552003CF335 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
@@ -554,17 +548,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6C89B9481BCF4B82002B12BC /* TFDataHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6C89B9491BCF4B93002B12BC /* TFDataHelper.h */,
+				6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */,
+			);
+			path = TFDataHelper;
+			sourceTree = "<group>";
+		};
 		6CC8C0621BA7D552003CF335 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				6C89B9481BCF4B82002B12BC /* TFDataHelper */,
 				6CC8C0631BA7D552003CF335 /* Additions */,
-				6CC8C0BB1BA7D552003CF335 /* KeyValueStore */,
 				6CC8C0D91BA7D552003CF335 /* NSStringEmojize */,
 				6CC8C0E21BA7D552003CF335 /* System Services */,
 				6CC8C0E81BA7D552003CF335 /* TFLog */,
 				6CC8C1011BA7D552003CF335 /* Tools */,
-				6CC8C1161BA7D552003CF335 /* Utility.h */,
-				6CC8C1171BA7D552003CF335 /* Utility.m */,
 				43FBFA431BB4D6E500493585 /* NetUtility.h */,
 				43FBFA441BB4D6E500493585 /* NetUtility.m */,
 				6CC8C1181BA7D552003CF335 /* ViewPage */,
@@ -628,17 +629,6 @@
 				6CC8C0981BA7D552003CF335 /* UIWebView+Additions.m */,
 			);
 			path = Additions;
-			sourceTree = "<group>";
-		};
-		6CC8C0BB1BA7D552003CF335 /* KeyValueStore */ = {
-			isa = PBXGroup;
-			children = (
-				6CC8C0BC1BA7D552003CF335 /* KvStore.h */,
-				6CC8C0BD1BA7D552003CF335 /* KvStore.m */,
-				6CC8C0BE1BA7D552003CF335 /* YTKKeyValueStore.h */,
-				6CC8C0BF1BA7D552003CF335 /* YTKKeyValueStore.m */,
-			);
-			path = KeyValueStore;
 			sourceTree = "<group>";
 		};
 		6CC8C0C01BA7D552003CF335 /* NetworkHelper */ = {
@@ -1110,12 +1100,10 @@
 				6CC8C15C1BA7D552003CF335 /* SSHardwareInfo.m in Sources */,
 				43A082211BA7AE5700AEFCE5 /* AppModel.m in Sources */,
 				6CC8C1391BA7D552003CF335 /* UIView+Origami.m in Sources */,
-				6CC8C14C1BA7D552003CF335 /* YTKKeyValueStore.m in Sources */,
 				43A081F71BA7A61E00AEFCE5 /* ViewTransitionAnimator.m in Sources */,
 				6CC8C12C1BA7D552003CF335 /* UIImage+ResizeMagick.m in Sources */,
 				43A080A71BA7A5BF00AEFCE5 /* TFListHeaderView.m in Sources */,
 				B046C1571BCE543B00D91D92 /* TFFileUtility.m in Sources */,
-				6CC8C16D1BA7D552003CF335 /* Utility.m in Sources */,
 				B046C14C1BCE529B00D91D92 /* TFCoreUtility.m in Sources */,
 				6CC8C1331BA7D552003CF335 /* UIPageViewController+ViewPageViewController.m in Sources */,
 				6CC8C1651BA7D552003CF335 /* GZIP.m in Sources */,
@@ -1123,6 +1111,7 @@
 				43A082221BA7AE5700AEFCE5 /* RegionModel.m in Sources */,
 				6CC8C1241BA7D552003CF335 /* NSString+Additions.m in Sources */,
 				43A0809F1BA7A5BF00AEFCE5 /* TFTableViewDataManager.m in Sources */,
+				6C89B94B1BCF4B93002B12BC /* TFDataHelper.m in Sources */,
 				B046C1491BCE51DD00D91D92 /* TNavigationBar.m in Sources */,
 				6CC8C1251BA7D552003CF335 /* NSTimer+Extension.m in Sources */,
 				6CC8C12B1BA7D552003CF335 /* UIImage+Letters.m in Sources */,
@@ -1145,7 +1134,6 @@
 				6CC8C1691BA7D552003CF335 /* MotionOrientation.m in Sources */,
 				6CCF039A1BA1849D005C4EC0 /* main.m in Sources */,
 				43A081F61BA7A61E00AEFCE5 /* TSubViewController.m in Sources */,
-				6CC8C14B1BA7D552003CF335 /* KvStore.m in Sources */,
 				43A082241BA7AE5700AEFCE5 /* UserModel.m in Sources */,
 				6CC8C1281BA7D552003CF335 /* UIImage+Blur.m in Sources */,
 				6CC8C13D1BA7D552003CF335 /* UIWebView+Additions.m in Sources */,
