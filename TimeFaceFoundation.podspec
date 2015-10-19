@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TimeFaceFoundation"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "时光流影iOS开发框架"
   s.homepage     = "https://github.com/TimeFaceCoder/TimeFaceFoundation"
   s.license      = "Copyright (C) 2015 TimeFace, Inc.  All rights reserved."
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://www.timeface.cn"
   s.ios.deployment_target = "7.1"
   s.source       = { :git => "https://github.com/TimeFaceCoder/TimeFaceFoundation.git"}
-  s.source_files  = "TimeFaceFoundation/**/*.{h,m}"
+  s.source_files  = "TimeFaceFoundation/**/*.{h,m,c}"
   s.requires_arc = true
   s.dependency 'SDWebImage'
   s.dependency 'DateTools'
