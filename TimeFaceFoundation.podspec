@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.source_files  = "TimeFaceFoundation/**/*.{h,m}"
   s.requires_arc = true
   s.dependency 'SDWebImage'
-  s.dependency 'FMDB'
   s.dependency 'DateTools'
   s.dependency 'JTCalendar'
   s.dependency 'PINRemoteImage'
