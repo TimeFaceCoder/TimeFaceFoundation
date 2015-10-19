@@ -18,7 +18,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TFDataHelper.h"
 #import "Pinyin.h"
-#import "ZipArchive.h"
 #import "RegionModel.h"
 
 static TFImageUtility *imageUtility = nil;
@@ -542,58 +541,58 @@ void TFMainRun(TFRun run) {
                     account:@"app_user"];
     
 }
-- (void)unZipFile:(NSString *)zipFile
-       targetPath:(NSString *)targetPath
-        completed:(void (^)(bool result,NSError *error))completedBlock {
-    
-    NSAssert(completedBlock,@"completedBlock is nil");
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        ZipArchive* zip = [[ZipArchive alloc] init];
-        BOOL result = [zip UnzipOpenFile:zipFile];
-        NSError *error = nil;
-        if (result) {
-            result = [zip UnzipFileTo:targetPath overWrite:YES];
-            [zip CloseZipFile2];
-            if (result) {
-                //删除原始文件
-                [[NSFileManager defaultManager] removeItemAtPath:zipFile error:&error];
-                if (error) {
-                    TFLog(@"delete file error:%@",[error debugDescription]);
-                }
-                //移动文件
-                NSArray *contentArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:targetPath error:&error];
-                
-                for (NSString *path in contentArray) {
-                    BOOL isDirectory;
-                    NSString *currentPath = [NSString stringWithFormat:@"%@/%@/",targetPath,path];
-                    if ([[NSFileManager defaultManager] fileExistsAtPath:currentPath
-                                                             isDirectory:&isDirectory]) {
-                        for (NSString *entry in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:currentPath
-                                                                                                    error:&error]) {
-                            TFLog(@"entry:%@",entry);
-                            //是目录,移动当前目录所有文件到上层
-                            [[NSFileManager defaultManager] moveItemAtPath:[currentPath stringByAppendingPathComponent:entry]
-                                                                    toPath:[targetPath stringByAppendingPathComponent:entry]
-                                                                     error:&error];
-                        }
-                        if (!error) {
-                            //删除当前目录内容
-                            [[NSFileManager defaultManager] removeItemAtPath:currentPath error:&error];
-                        }
-                    }
-                }
-            }
-        }
-        
-        completedBlock(result ,error);
-        
-    });
-    
-    
-    
-}
+//- (void)unZipFile:(NSString *)zipFile
+//       targetPath:(NSString *)targetPath
+//        completed:(void (^)(bool result,NSError *error))completedBlock {
+//    
+//    NSAssert(completedBlock,@"completedBlock is nil");
+//    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//        ZipArchive* zip = [[ZipArchive alloc] init];
+//        BOOL result = [zip UnzipOpenFile:zipFile];
+//        NSError *error = nil;
+//        if (result) {
+//            result = [zip UnzipFileTo:targetPath overWrite:YES];
+//            [zip CloseZipFile2];
+//            if (result) {
+//                //删除原始文件
+//                [[NSFileManager defaultManager] removeItemAtPath:zipFile error:&error];
+//                if (error) {
+//                    TFLog(@"delete file error:%@",[error debugDescription]);
+//                }
+//                //移动文件
+//                NSArray *contentArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:targetPath error:&error];
+//                
+//                for (NSString *path in contentArray) {
+//                    BOOL isDirectory;
+//                    NSString *currentPath = [NSString stringWithFormat:@"%@/%@/",targetPath,path];
+//                    if ([[NSFileManager defaultManager] fileExistsAtPath:currentPath
+//                                                             isDirectory:&isDirectory]) {
+//                        for (NSString *entry in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:currentPath
+//                                                                                                    error:&error]) {
+//                            TFLog(@"entry:%@",entry);
+//                            //是目录,移动当前目录所有文件到上层
+//                            [[NSFileManager defaultManager] moveItemAtPath:[currentPath stringByAppendingPathComponent:entry]
+//                                                                    toPath:[targetPath stringByAppendingPathComponent:entry]
+//                                                                     error:&error];
+//                        }
+//                        if (!error) {
+//                            //删除当前目录内容
+//                            [[NSFileManager defaultManager] removeItemAtPath:currentPath error:&error];
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        
+//        completedBlock(result ,error);
+//        
+//    });
+//    
+//    
+//    
+//}
 
 
 

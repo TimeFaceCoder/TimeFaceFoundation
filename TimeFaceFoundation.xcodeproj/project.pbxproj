@@ -75,7 +75,6 @@
 		6CC8C1581BA7D552003CF335 /* NSString+Emojize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0DC1BA7D552003CF335 /* NSString+Emojize.m */; };
 		6CC8C15B1BA7D552003CF335 /* SystemServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0E41BA7D552003CF335 /* SystemServices.m */; };
 		6CC8C15C1BA7D552003CF335 /* SSHardwareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0E71BA7D552003CF335 /* SSHardwareInfo.m */; };
-		6CC8C15D1BA7D552003CF335 /* libTFLog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC8C0E91BA7D552003CF335 /* libTFLog.a */; };
 		6CC8C1641BA7D552003CF335 /* AESTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1031BA7D552003CF335 /* AESTools.m */; };
 		6CC8C1651BA7D552003CF335 /* GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1051BA7D552003CF335 /* GZIP.m */; };
 		6CC8C1661BA7D552003CF335 /* InputLimit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1071BA7D552003CF335 /* InputLimit.m */; };
@@ -86,7 +85,6 @@
 		6CC8C16B1BA7D552003CF335 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1121BA7D552003CF335 /* Reachability.m */; };
 		6CC8C16C1BA7D552003CF335 /* TFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1141BA7D552003CF335 /* TFStyle.m */; };
 		6CC8C16E1BA7D552003CF335 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */; };
-		6CC8C16F1BA7D552003CF335 /* libZipArchive-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC8C1231BA7D552003CF335 /* libZipArchive-ios.a */; };
 		6CCF039A1BA1849D005C4EC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF03991BA1849D005C4EC0 /* main.m */; };
 		6CCF039D1BA1849D005C4EC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF039C1BA1849D005C4EC0 /* AppDelegate.m */; };
 		6CCF03A51BA1849D005C4EC0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CCF03A41BA1849D005C4EC0 /* Images.xcassets */; };
@@ -261,8 +259,6 @@
 		6CC8C0E41BA7D552003CF335 /* SystemServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemServices.m; sourceTree = "<group>"; };
 		6CC8C0E61BA7D552003CF335 /* SSHardwareInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHardwareInfo.h; sourceTree = "<group>"; };
 		6CC8C0E71BA7D552003CF335 /* SSHardwareInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHardwareInfo.m; sourceTree = "<group>"; };
-		6CC8C0E91BA7D552003CF335 /* libTFLog.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTFLog.a; sourceTree = "<group>"; };
-		6CC8C0EA1BA7D552003CF335 /* TFLogAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFLogAgent.h; sourceTree = "<group>"; };
 		6CC8C1021BA7D552003CF335 /* AESTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESTools.h; sourceTree = "<group>"; };
 		6CC8C1031BA7D552003CF335 /* AESTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESTools.m; sourceTree = "<group>"; };
 		6CC8C1041BA7D552003CF335 /* GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZIP.h; sourceTree = "<group>"; };
@@ -282,13 +278,6 @@
 		6CC8C1141BA7D552003CF335 /* TFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFStyle.m; sourceTree = "<group>"; };
 		6CC8C1191BA7D552003CF335 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
-		6CC8C11D1BA7D552003CF335 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		6CC8C11E1BA7D552003CF335 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		6CC8C11F1BA7D552003CF335 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
-		6CC8C1201BA7D552003CF335 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		6CC8C1211BA7D552003CF335 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		6CC8C1221BA7D552003CF335 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
-		6CC8C1231BA7D552003CF335 /* libZipArchive-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libZipArchive-ios.a"; sourceTree = "<group>"; };
 		6CCF03941BA1849D005C4EC0 /* TimeFaceFoundation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFaceFoundation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCF03981BA1849D005C4EC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCF03991BA1849D005C4EC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -341,8 +330,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CC8C16F1BA7D552003CF335 /* libZipArchive-ios.a in Frameworks */,
-				6CC8C15D1BA7D552003CF335 /* libTFLog.a in Frameworks */,
 				43A0822C1BA7B19800AEFCE5 /* libz.dylib in Frameworks */,
 				43A0822A1BA7B06100AEFCE5 /* AddressBook.framework in Frameworks */,
 				42979CDF2F9E6D6770D3089A /* libPods.a in Frameworks */,
@@ -564,12 +551,10 @@
 				6CC8C0631BA7D552003CF335 /* Additions */,
 				6CC8C0D91BA7D552003CF335 /* NSStringEmojize */,
 				6CC8C0E21BA7D552003CF335 /* System Services */,
-				6CC8C0E81BA7D552003CF335 /* TFLog */,
 				6CC8C1011BA7D552003CF335 /* Tools */,
 				43FBFA431BB4D6E500493585 /* NetUtility.h */,
 				43FBFA441BB4D6E500493585 /* NetUtility.m */,
 				6CC8C1181BA7D552003CF335 /* ViewPage */,
-				6CC8C11B1BA7D552003CF335 /* ZipTools */,
 				B046C14A1BCE529B00D91D92 /* TFCoreUtility.h */,
 				B046C14B1BCE529B00D91D92 /* TFCoreUtility.m */,
 				B046C14D1BCE52BF00D91D92 /* TFCoreUtility */,
@@ -694,15 +679,6 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		6CC8C0E81BA7D552003CF335 /* TFLog */ = {
-			isa = PBXGroup;
-			children = (
-				6CC8C0E91BA7D552003CF335 /* libTFLog.a */,
-				6CC8C0EA1BA7D552003CF335 /* TFLogAgent.h */,
-			);
-			path = TFLog;
-			sourceTree = "<group>";
-		};
 		6CC8C1011BA7D552003CF335 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,28 +726,6 @@
 				6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */,
 			);
 			path = ViewPage;
-			sourceTree = "<group>";
-		};
-		6CC8C11B1BA7D552003CF335 /* ZipTools */ = {
-			isa = PBXGroup;
-			children = (
-				6CC8C11C1BA7D552003CF335 /* include */,
-				6CC8C1231BA7D552003CF335 /* libZipArchive-ios.a */,
-			);
-			path = ZipTools;
-			sourceTree = "<group>";
-		};
-		6CC8C11C1BA7D552003CF335 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				6CC8C11D1BA7D552003CF335 /* crypt.h */,
-				6CC8C11E1BA7D552003CF335 /* ioapi.h */,
-				6CC8C11F1BA7D552003CF335 /* mztools.h */,
-				6CC8C1201BA7D552003CF335 /* unzip.h */,
-				6CC8C1211BA7D552003CF335 /* zip.h */,
-				6CC8C1221BA7D552003CF335 /* ZipArchive.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		6CCF038B1BA1849D005C4EC0 = {

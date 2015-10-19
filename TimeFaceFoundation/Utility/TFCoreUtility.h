@@ -319,9 +319,9 @@ void TFMainRun(TFRun run);
  */
 - (void)addBookMark:(NSString *)dataId index:(NSUInteger)index isMark:(BOOL)isMark;
 
-- (void)unZipFile:(NSString *)zipFile
-       targetPath:(NSString *)targetPath
-        completed:(void (^)(bool result,NSError *error))completedBlock;
+//- (void)unZipFile:(NSString *)zipFile
+//       targetPath:(NSString *)targetPath
+//        completed:(void (^)(bool result,NSError *error))completedBlock;
 
 
 
