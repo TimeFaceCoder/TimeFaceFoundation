@@ -38,6 +38,8 @@
 		43A0822A1BA7B06100AEFCE5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A082291BA7B06100AEFCE5 /* AddressBook.framework */; };
 		43A0822C1BA7B19800AEFCE5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A0822B1BA7B19800AEFCE5 /* libz.dylib */; };
 		43FBFA451BB4D6E500493585 /* NetUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FBFA441BB4D6E500493585 /* NetUtility.m */; settings = {ASSET_TAGS = (); }; };
+		6C0145BF1BD4BFF6003DDED4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0145BD1BD4BFF6003DDED4 /* AppDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		6C0145C01BD4BFF6003DDED4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0145BE1BD4BFF6003DDED4 /* main.m */; settings = {ASSET_TAGS = (); }; };
 		6C8802021BCE292500C48EFC /* TFString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8802011BCE292500C48EFC /* TFString.m */; settings = {ASSET_TAGS = (); }; };
 		6C89B94B1BCF4B93002B12BC /* TFDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */; settings = {ASSET_TAGS = (); }; };
 		6CC8C1241BA7D552003CF335 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0651BA7D552003CF335 /* NSString+Additions.m */; };
@@ -85,8 +87,6 @@
 		6CC8C16B1BA7D552003CF335 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1121BA7D552003CF335 /* Reachability.m */; };
 		6CC8C16C1BA7D552003CF335 /* TFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1141BA7D552003CF335 /* TFStyle.m */; };
 		6CC8C16E1BA7D552003CF335 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */; };
-		6CCF039A1BA1849D005C4EC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF03991BA1849D005C4EC0 /* main.m */; };
-		6CCF039D1BA1849D005C4EC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF039C1BA1849D005C4EC0 /* AppDelegate.m */; };
 		6CCF03A51BA1849D005C4EC0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CCF03A41BA1849D005C4EC0 /* Images.xcassets */; };
 		6CCF03B41BA1849D005C4EC0 /* TimeFaceFoundationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF03B31BA1849D005C4EC0 /* TimeFaceFoundationTests.m */; };
 		B01AF5351BCE4AAD0098B6AC /* DashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = B01AF52E1BCE4AAD0098B6AC /* DashboardView.m */; settings = {ASSET_TAGS = (); }; };
@@ -183,6 +183,9 @@
 		43FBFA431BB4D6E500493585 /* NetUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetUtility.h; sourceTree = "<group>"; };
 		43FBFA441BB4D6E500493585 /* NetUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetUtility.m; sourceTree = "<group>"; };
 		53773D8A31E2E42C2C8E5B36 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6C0145BC1BD4BFF6003DDED4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6C0145BD1BD4BFF6003DDED4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6C0145BE1BD4BFF6003DDED4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C8802001BCE292500C48EFC /* TFString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFString.h; sourceTree = "<group>"; };
 		6C8802011BCE292500C48EFC /* TFString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFString.m; sourceTree = "<group>"; };
 		6C89B9491BCF4B93002B12BC /* TFDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDataHelper.h; sourceTree = "<group>"; };
@@ -280,9 +283,6 @@
 		6CC8C11A1BA7D552003CF335 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		6CCF03941BA1849D005C4EC0 /* TimeFaceFoundation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFaceFoundation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCF03981BA1849D005C4EC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CCF03991BA1849D005C4EC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6CCF039B1BA1849D005C4EC0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6CCF039C1BA1849D005C4EC0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6CCF03A41BA1849D005C4EC0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6CCF03A71BA1849D005C4EC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6CCF03AD1BA1849D005C4EC0 /* TimeFaceFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeFaceFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -731,6 +731,9 @@
 		6CCF038B1BA1849D005C4EC0 = {
 			isa = PBXGroup;
 			children = (
+				6C0145BC1BD4BFF6003DDED4 /* AppDelegate.h */,
+				6C0145BD1BD4BFF6003DDED4 /* AppDelegate.m */,
+				6C0145BE1BD4BFF6003DDED4 /* main.m */,
 				6CCF03961BA1849D005C4EC0 /* TimeFaceFoundation */,
 				6CCF03B01BA1849D005C4EC0 /* TimeFaceFoundationTests */,
 				6CCF03951BA1849D005C4EC0 /* Products */,
@@ -761,8 +764,6 @@
 				6CC8C0C01BA7D552003CF335 /* NetworkHelper */,
 				43A080771BA7A5BE00AEFCE5 /* TableView */,
 				43A081B91BA7A61E00AEFCE5 /* ViewController */,
-				6CCF039B1BA1849D005C4EC0 /* AppDelegate.h */,
-				6CCF039C1BA1849D005C4EC0 /* AppDelegate.m */,
 				6CCF03A61BA1849D005C4EC0 /* LaunchScreen.xib */,
 				6CCF03971BA1849D005C4EC0 /* Supporting Files */,
 			);
@@ -774,7 +775,6 @@
 			children = (
 				6CCF03A41BA1849D005C4EC0 /* Images.xcassets */,
 				6CCF03981BA1849D005C4EC0 /* Info.plist */,
-				6CCF03991BA1849D005C4EC0 /* main.m */,
 				43A082091BA7ABB600AEFCE5 /* TimeFaceFoundation-Prefix.pch */,
 				4370CBAB1BABE68000756E00 /* Localizable.strings */,
 			);
@@ -1016,7 +1016,6 @@
 				6CC8C1661BA7D552003CF335 /* InputLimit.m in Sources */,
 				B046C16A1BCE552A00D91D92 /* JMHoledView.m in Sources */,
 				43A081F41BA7A61E00AEFCE5 /* TNavigationViewController.m in Sources */,
-				6CCF039D1BA1849D005C4EC0 /* AppDelegate.m in Sources */,
 				6CC8C1641BA7D552003CF335 /* AESTools.m in Sources */,
 				43A082041BA7A61E00AEFCE5 /* WebViewJavascriptBridge.m in Sources */,
 				B046C1541BCE543000D91D92 /* TFStringUtility.m in Sources */,
@@ -1079,14 +1078,15 @@
 				43A081F51BA7A61E00AEFCE5 /* TSubTableViewController.m in Sources */,
 				6CC8C1261BA7D552003CF335 /* TTGlobalUICommon.m in Sources */,
 				6CC8C16E1BA7D552003CF335 /* ViewPagerController.m in Sources */,
+				6C0145C01BD4BFF6003DDED4 /* main.m in Sources */,
 				6CC8C13A1BA7D552003CF335 /* UIView+Snapshot.m in Sources */,
 				6CC8C1531BA7D552003CF335 /* IADownloadOperation.m in Sources */,
 				B046C1601BCE54BA00D91D92 /* TFSecurityUtility.m in Sources */,
 				B046C15A1BCE545C00D91D92 /* TFDeviceUtility.m in Sources */,
+				6C0145BF1BD4BFF6003DDED4 /* AppDelegate.m in Sources */,
 				6CC8C1511BA7D552003CF335 /* IADownloadHandler.m in Sources */,
 				43A080A01BA7A5BF00AEFCE5 /* TFTableViewDataSource.m in Sources */,
 				6CC8C1691BA7D552003CF335 /* MotionOrientation.m in Sources */,
-				6CCF039A1BA1849D005C4EC0 /* main.m in Sources */,
 				43A081F61BA7A61E00AEFCE5 /* TSubViewController.m in Sources */,
 				43A082241BA7AE5700AEFCE5 /* UserModel.m in Sources */,
 				6CC8C1281BA7D552003CF335 /* UIImage+Blur.m in Sources */,
