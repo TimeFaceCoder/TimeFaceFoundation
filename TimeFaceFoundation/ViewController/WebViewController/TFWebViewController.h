@@ -7,6 +7,7 @@
 //
 
 #import "TSubViewController.h"
+#import "NotificationMacro.h"
 
 typedef NS_ENUM(NSInteger, LocalViewType) {
     LocalViewTypeNone        = 0,

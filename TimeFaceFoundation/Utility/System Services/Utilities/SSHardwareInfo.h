@@ -7,6 +7,8 @@
 //
 
 //#import "SystemServicesConstants.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface SSHardwareInfo : NSObject
 

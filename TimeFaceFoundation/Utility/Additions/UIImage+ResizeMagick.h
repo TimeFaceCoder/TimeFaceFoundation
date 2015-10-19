@@ -5,7 +5,7 @@
 //  Created by Vlad Andersen on 1/5/13.
 //
 //
-
+#import <UIKit/UIKit.h>
 
 
 @interface UIImage (ResizeMagick)

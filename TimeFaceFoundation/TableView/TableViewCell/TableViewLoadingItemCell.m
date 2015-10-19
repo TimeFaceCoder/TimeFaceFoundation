@@ -9,6 +9,8 @@
 #import "TableViewLoadingItemCell.h"
 #import "FLAnimatedImage.h"
 #import "TFDefaultStyle.h"
+#import "AppMacro.h"
+#import "UIAdditions.h"
 
 @implementation TableViewLoadingItemCell
 

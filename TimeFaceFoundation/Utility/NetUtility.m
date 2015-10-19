@@ -7,6 +7,7 @@
 //
 
 #import "NetUtility.h"
+#import "AppMacro.h"
 
 #define TFPHOTOURLIMAGE  @"";
 @implementation NetUtility

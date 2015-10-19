@@ -7,6 +7,8 @@
 //
 
 #import "SSHardwareInfo.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 //#import "SSJailbreakCheck.h"
 //#import "SSProcessorInfo.h"
 //#import "SSAccessoryInfo.h"

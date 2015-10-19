@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIAdditions.h"
 
 @interface UIView (Additions)
 /**

@@ -9,6 +9,7 @@
 #import "UIImageView+FaceAwareFill.h"
 #import <CoreImage/CoreImage.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AppMacro.h"
 
 static CIDetector* _faceDetector;
 

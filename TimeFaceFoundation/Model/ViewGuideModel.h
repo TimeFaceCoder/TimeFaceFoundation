@@ -7,6 +7,7 @@
 //
 
 #import "TFModel.h"
+#import <UIKit/UIKit.h>
 
 @interface GuideModel : TFModel
 /**

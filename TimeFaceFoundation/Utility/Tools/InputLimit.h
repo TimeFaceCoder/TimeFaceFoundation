@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+
 #define PROPERTY_NAME @"limit"
 
 #define DECLARE_PROPERTY(className) \

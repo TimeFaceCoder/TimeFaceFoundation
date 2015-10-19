@@ -7,6 +7,7 @@
 //
 
 #import "JMHoledView.h"
+#import "UIAdditions.h"
 
 #pragma mark - holes objects
 

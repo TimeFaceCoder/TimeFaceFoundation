@@ -8,6 +8,7 @@
 
 #import "TFModel.h"
 #import "UserModel.h"
+#import <UIKit/UIKit.h>
 
 @interface ImageTagModel : TFModel
 

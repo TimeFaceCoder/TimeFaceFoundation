@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppMacro.h"
+#import "UIAdditions.h"
 
 
 @interface TFListHeaderView : UIView

@@ -8,6 +8,7 @@
 
 #import <CoreMotion/CoreMotion.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 
 extern NSString* const MotionOrientationChangedNotification;
 extern NSString* const MotionOrientationInterfaceOrientationChangedNotification;

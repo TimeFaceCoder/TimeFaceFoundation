@@ -7,7 +7,7 @@
 //
 
 #import "TFJSBridge.h"
-
+#import "NotificationMacro.h"
 @interface WebViewBridge : TFJSBridge
 
 @end

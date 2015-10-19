@@ -10,6 +10,7 @@
 #import "RLMObjectSchema.h"
 #import "RLMProperty.h"
 #import "RLMArray.h"
+#import "AppMacro.h"
 
 @implementation TFModel
 

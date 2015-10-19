@@ -12,6 +12,7 @@
 #import "../System Services/SystemServices.h"
 #import "Pinyin.h"
 
+
 @implementation TFStringUtility
 
 +(instancetype)shared {

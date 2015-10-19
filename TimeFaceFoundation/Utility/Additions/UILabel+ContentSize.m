@@ -5,7 +5,7 @@
 //  Created by boxwu on 5/26/15.
 //  Copyright (c) 2014 TimeFace. All rights reserved.
 //
-
+#import "UILabel+ContentSize.h"
 
 
 @implementation UILabel (Additions)

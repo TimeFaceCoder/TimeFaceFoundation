@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "UIAdditions.h"
+#import "AppMacro.h"
+#import "TFStyle.h"
+#import "TFDefaultStyle.h"
 
 @interface TFViewUtility : NSObject
 

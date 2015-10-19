@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FLAnimatedImage.h"
 #import "FLAnimatedImageView.h"
+#import "UIAdditions.h"
 
 
 @protocol ViewStateDataSource <NSObject>

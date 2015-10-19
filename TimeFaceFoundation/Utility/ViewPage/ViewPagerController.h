@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIPageViewController+ViewPageViewController.h"
+#import "UIAdditions.h"
 /**
  * Every option has a default value.
  * 

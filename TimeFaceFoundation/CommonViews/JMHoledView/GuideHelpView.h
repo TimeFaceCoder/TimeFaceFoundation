@@ -10,6 +10,7 @@
 
 #import "JMHoledView.h"
 #import "ViewGuideModel.h"
+#import "UIAdditions.h"
 
 @interface GuideHelpView : UIView<JMHoledViewDelegate>
 

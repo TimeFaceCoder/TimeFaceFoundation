@@ -7,6 +7,7 @@
 //
 
 #import "TFStyle.h"
+#import "AppMacro.h"
 
 @interface TFDefaultStyle : TFStyle
 
