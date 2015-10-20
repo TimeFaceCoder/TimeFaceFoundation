@@ -7,7 +7,6 @@
 //
 
 #import "TFStringUtility.h"
-#import "UserModel.h"
 #import "TFCoreUtility.h"
 #import "../System Services/SystemServices.h"
 #import "Pinyin.h"
@@ -28,25 +27,6 @@
 }
 
 
-
-/**
- *  获取用户userID
- *
- *  @return
- */
-- (NSString *)getUserId {
-    //    UserModel *user = [[KvStore shared] getCurrentUserModel];
-    UserModel *user = nil;
-    RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"logined" numValue:[NSNumber numberWithBool:YES] class:[UserModel class]];
-    if (result.count) {
-        user = (UserModel*)[result objectAtIndex:0];
-    }
-    if (!user) {
-        return @"";
-    }
-    return user.userId;
-    //    return user.userId;
-}
 -(NSString *)showUsername:(NSString *)name {
     NSString *username = @"";
     if ([[TFCoreUtility sharedUtility] validateUserPhone:name]) {

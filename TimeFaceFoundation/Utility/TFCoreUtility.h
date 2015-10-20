@@ -70,12 +70,7 @@ void TFMainRun(TFRun run);
 - (void)setDataUtility:(TFDataUtility*)utility;
 
 #pragma mark String
-/**
- *  获取用户userID
- *
- *  @return
- */
-- (NSString *)getUserId;
+
 - (NSString *)showUsername:(NSString *)name;
 
 
@@ -157,14 +152,14 @@ void TFMainRun(TFRun run);
  *  @return
  */
 - (NSString *)tempFilePathForURL:(NSURL *)URL;
-/**
- *  获取缓存文件路径
- *
- *  @param URL
- *
- *  @return
- */
-- (NSString *)realFilePathForURL:(NSURL *)URL;
+///**
+// *  获取缓存文件路径
+// *
+// *  @param URL
+// *
+// *  @return
+// */
+//- (NSString *)realFilePathForURL:(NSURL *)URL;
 
 
 

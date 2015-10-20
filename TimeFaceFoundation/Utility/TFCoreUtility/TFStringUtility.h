@@ -16,12 +16,6 @@
 
 
 
-/**
- *  获取用户userID
- *
- *  @return
- */
-- (NSString *)getUserId;
 - (NSString *)showUsername:(NSString *)name;
 
 

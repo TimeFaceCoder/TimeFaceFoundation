@@ -13,12 +13,11 @@
 #import "SSKeychain.h"
 #import "TFDefaultStyle.h"
 #import "System Services/SystemServices.h"
-#import "UserModel.h"
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 #import "TFDataHelper.h"
 #import "Pinyin.h"
-#import "RegionModel.h"
+
 
 static TFImageUtility *imageUtility = nil;
 static TFStringUtility *stringUtility = nil;
@@ -94,17 +93,7 @@ void TFMainRun(TFRun run) {
 
 
 #pragma mark String
-/**
- *  获取用户userID
- *
- *  @return
- */
-- (NSString *)getUserId {
-    if (stringUtility) {
-        return [stringUtility getUserId];
-    }
-    return nil;
-}
+
 -(NSString *)showUsername:(NSString *)name {
     
     if (stringUtility) {
@@ -302,13 +291,13 @@ void TFMainRun(TFRun run) {
     return nil;
 }
 
-- (NSString *)realFilePathForURL:(NSURL *)URL {
-    
-    if (fileUtility) {
-        return [fileUtility realFilePathForURL:URL];
-    }
-    return nil;
-}
+//- (NSString *)realFilePathForURL:(NSURL *)URL {
+//    
+//    if (fileUtility) {
+//        return [fileUtility realFilePathForURL:URL];
+//    }
+//    return nil;
+//}
 
 #pragma mark Image
 

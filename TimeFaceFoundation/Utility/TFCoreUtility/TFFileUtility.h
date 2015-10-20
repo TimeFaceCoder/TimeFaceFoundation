@@ -27,14 +27,14 @@
  *  @return
  */
 - (NSString *)tempFilePathForURL:(NSURL *)URL;
-/**
- *  获取缓存文件路径
- *
- *  @param URL
- *
- *  @return
- */
-- (NSString *)realFilePathForURL:(NSURL *)URL;
+///**
+// *  获取缓存文件路径
+// *
+// *  @param URL
+// *
+// *  @return
+// */
+//- (NSString *)realFilePathForURL:(NSURL *)URL;
 
 
 

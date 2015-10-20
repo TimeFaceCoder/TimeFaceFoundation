@@ -66,24 +66,24 @@
     return temporaryFilePath;
     
 }
-- (NSString *)realFilePathForURL:(NSURL *)URL {
-    NSAssert(URL,@"URL is nil");
-    NSError *error = nil;
-    NSString *hashedURLString = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[URL absoluteString]];
-    NSString *homeDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    homeDirectory = [homeDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@/",[[TFCoreUtility sharedUtility] getUserId],hashedURLString]];
-    BOOL isDirectoryCreated = [[NSFileManager defaultManager] createDirectoryAtPath:homeDirectory
-                                                        withIntermediateDirectories:YES
-                                                                         attributes:nil
-                                                                              error:&error];
-    if (!isDirectoryCreated) {
-        NSException *exception = [NSException exceptionWithName:NSInternalInconsistencyException
-                                                         reason:@"Failed to crate cache directory"
-                                                       userInfo:@{ NSUnderlyingErrorKey : error }];
-        @throw exception;
-    }
-    return homeDirectory;
-    
-}
+//- (NSString *)realFilePathForURL:(NSURL *)URL {
+//    NSAssert(URL,@"URL is nil");
+//    NSError *error = nil;
+//    NSString *hashedURLString = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[URL absoluteString]];
+//    NSString *homeDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    homeDirectory = [homeDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@/",[[TFCoreUtility sharedUtility] getUserId],hashedURLString]];
+//    BOOL isDirectoryCreated = [[NSFileManager defaultManager] createDirectoryAtPath:homeDirectory
+//                                                        withIntermediateDirectories:YES
+//                                                                         attributes:nil
+//                                                                              error:&error];
+//    if (!isDirectoryCreated) {
+//        NSException *exception = [NSException exceptionWithName:NSInternalInconsistencyException
+//                                                         reason:@"Failed to crate cache directory"
+//                                                       userInfo:@{ NSUnderlyingErrorKey : error }];
+//        @throw exception;
+//    }
+//    return homeDirectory;
+//    
+//}
 
 @end

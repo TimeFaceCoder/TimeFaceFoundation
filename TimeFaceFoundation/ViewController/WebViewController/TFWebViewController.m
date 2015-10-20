@@ -14,7 +14,6 @@
 #import <NJKWebViewProgress/NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>
 #import "TFDataHelper.h"
-#import "UserModel.h"
 
 @interface TFWebViewController ()<NJKWebViewProgressDelegate>{
     BOOL            firstLoaded;
@@ -181,30 +180,7 @@
              [self closeAction];
          }];
         
-        //获取当前登录用户
-        [_jsBridge registerHandler:@"currentUser" handler:^(id data, WVJBResponseCallback responseCallback)
-        {
-//            UserModel *userModel = [[KvStore shared] getCurrentUserModel];
-            UserModel *userModel = nil;
-            RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"logined" numValue:[NSNumber numberWithBool:YES] class:[UserModel class]];
-            if (result.count) {
-                userModel = (UserModel*)[result objectAtIndex:0];
-            }
-            if (userModel) {
-//                responseCallback(@{@"status":@"1",
-//                                   @"info":@"success",
-//                                   @"userId":userModel.userId,
-//                                   @"nickName":userModel.nickName,
-//                                   @"avatar":userModel.avatar,
-//                                   @"gender":[NSNumber numberWithInteger:userModel.gender],
-//                                   @"point":[NSNumber numberWithInteger:userModel.point]
-//                                   });
-            }
-            else {
-                responseCallback(@{@"status":@"0",@"info":@"user is nil" });
-            }
-        }];
-        
+                
                
         
         _progressProxy = [[NJKWebViewProgress alloc] init]; // instance variable
