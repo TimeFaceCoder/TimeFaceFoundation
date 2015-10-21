@@ -18,3 +18,6 @@
 #import "NSString+Emojize.h"
 #import "TFDataHelper.h"
 #import "NetUtility.h"
+#import "TFModel.h"
+#import "TFTableViewItem.h"
+#import "TFTableViewItemCell.h"

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, NetWorkActionType)
     NetWorkActionTypePut  = 2
 };
 
-typedef void(^NetWrokProgressBlock)(double percentDone,long long totalBytesWritten);
+typedef void (^NetWorkProgressBlock)(double percentDone,long totalBytesWritten);
 
 typedef NSString *(^NetWorkUrlBlock)(NSString *urlStr) ;
 
@@ -34,6 +34,8 @@ typedef void (^NetWorkErrorCodeBlock)(NSInteger errorCode);
 @property (nonatomic, copy) NSDictionary *headerDic;
 @property (nonatomic, strong) NetWorkErrorCodeBlock errorCodeBlock;
 
+@property (nonatomic, strong) NetWorkUrlBlock urlBlock;
+
 - (void)getDataByURL:(NSString *)url
               params:(NSDictionary *)params
             fileData:(NSMutableArray *)fileData
@@ -47,7 +49,7 @@ typedef void (^NetWorkErrorCodeBlock)(NSInteger errorCode);
                   hud:(NSString *)hud
                 start:(void (^)(id cacheResult))startBlock
             completed:(void (^)(id result,NSError *error))completedBlock
-             progress:(NetWrokProgressBlock)progressBlock;
+             progress:(NetWorkProgressBlock)progressBlock;
 
 
 - (void)putImageData:(UIImage *)image hashID:(NSUInteger)hashID  ;

@@ -84,7 +84,7 @@
                  hud:(NSString *)hud
                start:(void (^)(id cacheResult))startBlock
            completed:(void (^)(id result,NSError *error))completedBlock
-            progress:(NetWrokProgressBlock)progressBlock {
+            progress:(NetWorkProgressBlock)progressBlock {
     _netWorkType = NetWorkActionTypePost;
     [self handleByURL:url
                params:params
@@ -192,7 +192,7 @@
                       hud:(NSString *)hud
                     start:(void (^)(id cacheResult))startBlock
                 completed:(void (^)(id result,NSError *error))completedBlock
-                 progress:(NetWrokProgressBlock)progressBlock {
+                 progress:(NetWorkProgressBlock)progressBlock {
     
     if (!url) {
         completedBlock(nil,nil);
@@ -203,10 +203,17 @@
     if (hud.length) {
         [SVProgressHUD showWithStatus:hud];
     }
+    
+    if (_urlBlock) {
+        _urlBlock(url);
+    }
+    
     if (IS_RUNNING_IOS9) {
         //https
         url = [url stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
     }
+    
+    
     
     NSString *cacheKey = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
     TFLog(@"cacheKey:%@",cacheKey);
