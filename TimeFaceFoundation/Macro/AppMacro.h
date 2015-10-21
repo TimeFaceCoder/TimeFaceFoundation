@@ -106,58 +106,6 @@ typedef NS_ENUM (NSInteger, TFErrorCode) {
 
   
 };
-typedef NS_ENUM(NSInteger, LoginStatus) {
-    /**
-     *  进入Timeface
-     */
-    LoginStatusDefault = 0,
-    /**
-     *  补充信息
-     */
-    LoginStatusChangeInfo = 1,
-    /**
-     *  选择兴趣
-     */
-    LoginStatusChooseInterestes = 2,
-};
-// toast提示类型
-typedef NS_ENUM (NSInteger, MessageType) {
-    /**
-     *  默认提示
-     */
-    MessageTypeDefault             = 0,
-    /**
-     *  成功提示
-     */
-    MessageTypeSuccess                = 1,
-    /**
-     *  失败提示
-     */
-    MessageTypeFaild               = 2,
-};
-
-
-// 用户类型
-typedef NS_ENUM (NSInteger, MemberType) {
-	MemberTypeOthers                    = 1,
-	MemberTypeMyself                    = 2,
-	
-};
-// 时光类型
-typedef NS_ENUM (NSInteger, TimeType) {
-    /**
-     *  动态
-     */
-    TimeTypeDefault    = 2,
-    /**
-     *  话题
-     */
-    TimeTypeTopic      = 1,
-    /**
-     *  时光圈时光
-     */
-    TimeTypeCircleTime = 3,
-};
 
 
 typedef NS_ENUM(NSInteger, ScrollDirection) {
@@ -191,13 +139,6 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     ScrollDirectionHorizontal
 };
 
-
-typedef NS_ENUM(NSInteger, PushActionType) {
-    /**
-     *  进入web页面
-     */
-    PushActionTypeWebView        =  1,
-};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //本地存储key定义
