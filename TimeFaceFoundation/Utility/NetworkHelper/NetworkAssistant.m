@@ -186,7 +186,7 @@
 
 #pragma mark - 基础公用网络部分
 
-- (void)handleByURL:(NSString *)url
+- (void)handleByURL:(NSString *)interface
                    params:(NSDictionary *)params
                  fileData:(NSMutableArray *)fileData
                       hud:(NSString *)hud
@@ -194,7 +194,7 @@
                 completed:(void (^)(id result,NSError *error))completedBlock
                  progress:(NetWorkProgressBlock)progressBlock {
     
-    if (!url) {
+    if (!interface) {
         completedBlock(nil,nil);
         return;
     }
@@ -204,8 +204,9 @@
         [SVProgressHUD showWithStatus:hud];
     }
     
+    NSString *url = nil;
     if (_urlBlock) {
-        _urlBlock(url);
+        _urlBlock(interface,url);
     }
     
     if (IS_RUNNING_IOS9) {

@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, NetWorkActionType)
 
 typedef void (^NetWorkProgressBlock)(double percentDone,long totalBytesWritten);
 
-typedef NSString *(^NetWorkUrlBlock)(NSString *urlStr) ;
+typedef NSString *(^NetWorkUrlBlock)(NSString *interface, NSString *urlStr) ;
 
 typedef void (^NetWorkErrorCodeBlock)(NSInteger errorCode);
 
