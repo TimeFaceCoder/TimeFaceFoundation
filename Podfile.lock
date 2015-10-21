@@ -33,7 +33,7 @@ PODS:
   - GPUImage (0.1.7)
   - HHRouter (0.1.5)
   - JDStatusBarNotification (1.5.2)
-  - JSONModel (1.1.0)
+  - JSONModel (1.1.2)
   - JTCalendar (2.1.4)
   - Masonry (0.6.3)
   - NJKWebViewProgress (0.2.3):
@@ -50,9 +50,9 @@ PODS:
     - FLAnimatedImage (>= 1.0)
     - PINRemoteImage/Core
   - pop (1.0.8)
-  - Realm (0.95.3):
-    - Realm/Headers (= 0.95.3)
-  - Realm/Headers (0.95.3)
+  - Realm (0.96.1):
+    - Realm/Headers (= 0.96.1)
+  - Realm/Headers (0.96.1)
   - REFormattedNumberField (1.1.5)
   - RETableViewManager (1.6):
     - REFormattedNumberField (~> 1.1.5)
@@ -97,14 +97,14 @@ SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   HHRouter: c82ce169fea838ea85a819133df40d19605f5c95
   JDStatusBarNotification: a36d09ccbb047217572b074a61e7ca10dddc5f0a
-  JSONModel: ec77e9865236a7a09d9cf7668df6b4b328d9ec1d
+  JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
   JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   PINCache: 0581b0a7578fc0bbc6c7a8b70b0615388bea064c
   PINRemoteImage: 7560f0c975b0495d232e954342c5f49979335015
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
-  Realm: 55885fa05865344994ad8b56da96669ffa39fbf1
+  Realm: d05e4621f67fb1c36acd4e573ac5b52a407fc2cc
   REFormattedNumberField: be3d55dd709f65541fb26b7e1709da07903147f8
   RETableViewManager: 9667ecb29c005c32df40a1dd1828224840a351a2
   REValidation: 38c4de1be58455f8b00aab208ac80db316a66b7f
@@ -112,4 +112,4 @@ SPEC CHECKSUMS:
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

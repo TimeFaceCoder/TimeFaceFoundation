@@ -6,8 +6,8 @@
 //  right © 2015 timeface. All rights reserved.
 //
 
-#import "RLMObject.h"
-#import "RLMArray.h"
+#import <Realm/RLMObject.h>
+#import <Realm/RLMArray.h>
 
 @interface TFModel : RLMObject
 

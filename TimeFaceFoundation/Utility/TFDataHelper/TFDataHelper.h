@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RLMRealm.h"
-#import "RLMResults.h"
-#import "RLMObject.h"
+#import <Realm/RLMRealm.h>
+#import <Realm/RLMResults.h>
+#import <Realm/RLMObject.h>
 
 @interface TFDataHelper : NSObject
 

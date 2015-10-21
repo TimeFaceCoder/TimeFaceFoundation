@@ -7,9 +7,9 @@
 //
 
 #import "TFModel.h"
-#import "RLMObjectSchema.h"
-#import "RLMProperty.h"
-#import "RLMArray.h"
+#import <Realm/RLMObjectSchema.h>
+#import <Realm/RLMProperty.h>
+#import <Realm/RLMArray.h>
 #import "AppMacro.h"
 
 @implementation TFModel
