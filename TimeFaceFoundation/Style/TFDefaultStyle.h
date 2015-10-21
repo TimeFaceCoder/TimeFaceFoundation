@@ -38,8 +38,7 @@
  */
 @property (nonatomic ,readonly) UIFont  *font14;
 
-@property (nonatomic ,readonly) UIFont  *timeContentFont;
-@property (nonatomic ,readonly) UIFont  *timeTitleFont;
+
 /**
  *  14号粗体字体
  */
@@ -83,6 +82,8 @@
  *  30号字体
  */
 @property (nonatomic ,readonly) UIFont  *font30;
+
+/////////////////////////////////////////////全局颜色定义//////////////////////////////////////////
 
 /**
  *  默认黑
@@ -144,14 +145,9 @@
  *  333字体颜色
  */
 @property (nonatomic ,readonly) UIColor *textColor;
-/**
- *  555字体颜色
- */
-@property (nonatomic ,readonly) UIColor *textColor2;
-/**
- *  666字体颜色
- */
-@property (nonatomic ,readonly) UIColor *textColor3;
+
+
+
 
 
 @property (nonatomic ,readonly) UIColor *viewBackgroundColor;
@@ -164,182 +160,24 @@
 
 @property (nonatomic ,readonly) UIColor *defaultTabBarBgColor;
 
-///////////////////////////////////////////动态关注字体格式定义/////////////////////////////////////////
-@property (nonatomic ,readonly) UIColor *nickNameTextColor;
-@property (nonatomic ,readonly) UIColor *timeClientTextColor;
-@property (nonatomic ,readonly) UIColor *timeTitleTextColor;
-@property (nonatomic ,readonly) UIColor *bookTitleTextColor;
-
-///////////////////////////////////////////AlertView样式定义/////////////////////////////////////////
-@property (nonatomic ,readonly) UIColor *alertCancelColor;
-
-/**
- *  登录页面
- */
-@property (nonatomic ,readonly) UIColor *loginButtonEnableColor;
-/**
- *  注册页面
- */
-@property (nonatomic ,readonly) UIColor *verifyEnableTextColor;
-@property (nonatomic ,readonly) UIColor *verifyEnableBorderColor;
-
-/**
- *  左侧菜单－黄色
- */
-@property (nonatomic ,readonly) UIColor *leftMenuYellowColor;
-@property (nonatomic ,readonly) UIColor *leftMenuGrayColor;
-/**
- *  设置页面
- */
-@property (nonatomic ,readonly) UIColor *signOutTextColor;
-
-/**
- *  分享页面
- */
-@property (nonatomic ,readonly) UIColor *shareViewLineColor;
-@property (nonatomic ,readonly) UIColor *shareContentBgColor;
-@property (nonatomic ,readonly) UIColor *tfBlurIntroductionPageControlNormalColor;
-
-/**
- *  用户中心页面
- */
-@property (nonatomic ,readonly) UIColor *avatarBorderColor;
-/**
- *  时光列表页面
- */
-@property (nonatomic ,readonly) UIColor *timeEdgeBackgroundColor;
-@property (nonatomic ,readonly) UIColor *userEdgeBackgroundColor;
-@property (nonatomic ,readonly) UIColor *needleColor;
-
-/**
- *  订单详情
- */
-@property (nonatomic ,readonly) UIColor *paymentRedColor;
-/**
- *  物流列表页面
- */
-@property (nonatomic ,readonly) UIColor *logisticGrayColor;
-@property (nonatomic ,readonly) UIColor *logisticGrayLineColor;
-
-/**
- *  活动列表页面
- */
-@property (nonatomic ,readonly) UIColor *eventBlueColor;
-@property (nonatomic ,readonly) UIColor *eventBlackColor;
-@property (nonatomic ,readonly) UIColor *eventGrayColor;
-
 /////////////////////////////////////////////HUD提示-START//////////////////////////////////////////
 @property (nonatomic ,readonly) UIFont  *loadingTextFont;
 @property (nonatomic ,readonly) UIColor *loadingTextColor;
 @property (nonatomic ,readonly) UIColor *reloadLineColor;
 /////////////////////////////////////////////HUD提示-END////////////////////////////////////////////
 
-/**
- *  用户名称颜色值
- */
-@property (nonatomic ,readonly) UIColor *personNameKeyColor;
-/**
- *  搜索输入框placeholder颜色值
- */
-@property (nonatomic, readonly) UIColor *searchPlaceHolderColor;
-/**
- *  追溯字体颜色
- */
-@property (nonatomic, readonly) UIColor *traceLabelColor;
-/**
- *  赞和评论数字颜色
- */
-@property (nonatomic, readonly) UIColor *actionCountNumberColor;
-/**
- *  时光详情里地线
- */
-@property (nonatomic, readonly) UIColor *timeDetailLineColor;
+
+
+///////////////////////////////////////////AlertView样式定义/////////////////////////////////////////
+@property (nonatomic ,readonly) UIColor *alertCancelColor;
+
+
 /**
  *  搜索无结果时的颜色数组
  */
 @property (nonatomic, readonly) NSArray *searchNotResultColors;
-/**
- *  推荐logo背景色
- */
-@property (nonatomic, readonly) UIColor *recommendLogoBgColor;
-/**
- *  对话字体颜色
- */
-@property (nonatomic, readonly) UIColor *dialogContentColor;
 
 
-/////////////////////////////////////////////////记录时光////////////////////////////////////////////
-@property (nonatomic ,readonly) UIColor *sendButtonColor;
-@property (nonatomic ,readonly) UIColor *lightLineColor;
-@property (nonatomic ,readonly) UIColor *boldLineColor;
-@property (nonatomic ,readonly) UIColor *sectionHeaderTextColor;
-@property (nonatomic ,readonly) UIColor *sectionBgColor;
-@property (nonatomic ,readonly) UIColor *searchBgColor;
-@property (nonatomic ,readonly) UIColor *searchLineColor;
-@property (nonatomic ,readonly) UIColor *slectedBgColor;
-@property (nonatomic ,readonly) UIColor *postTimeProgressColor;
-@property (nonatomic ,readonly) UIColor *circleSendButtonColor;
-////////////////////////////////////////////////记录时光/////////////////////////////////////////////
 
-////////////////////////////////////////////////收藏列表/////////////////////////////////////////////
-@property (nonatomic ,readonly) UIColor *collectionAuthorColor;
-@property (nonatomic ,readonly) UIColor *collectionDateColor;
-@property (nonatomic ,readonly) UIColor *podDownloadProgressColor;
-@property (nonatomic ,readonly) UIColor *podDownloadBgColor;
-////////////////////////////////////////////////收藏列表/////////////////////////////////////////////
-@property (nonatomic ,readonly) UIColor *printerTabBgColor;
-
-
-@property (nonatomic ,readonly) UIColor *searchTabColor;
-@property (nonatomic ,readonly) UIColor *searchTabBgColor;
-
-@property (nonatomic ,readonly) NSArray *introColors;
-@property (nonatomic ,readonly) NSArray *circleColors;
-@property (nonatomic ,readonly) NSArray *viewStateLoading;
-
-@property (nonatomic, readonly) UIColor *numLogoBackgroundColor;
-
-@property (nonatomic, readonly) UIColor *librarySelectedBgColor;
-
-@property (nonatomic, readonly) UIColor *librarySelectedHBgColor;
-/**
- *  活动发起人字体颜色
- */
-@property (nonatomic, readonly) UIColor *sponsorTextColor;
-/**
- *  选择时光页面背景图片
- */
-@property (nonatomic, readonly) UIColor *selectTimeBgColor;
-
-/**
- *  微信书
- */
-@property (nonatomic, readonly) UIColor *bottomBackgroundColor;
-@property (nonatomic, readonly) UIColor *waitCheckColor;
-/**
- *  首页时光背景图片数组
- */
-@property (nonatomic, readonly) NSArray *timeBgImageArray;
-/**
- *  首页内容字体颜色
- */
-@property (nonatomic, readonly) UIColor *homeContentTextColor;
-/**
- *  自定义浅蓝色
- */
-@property (nonatomic, readonly) UIColor *customLightBlue;
-/**
- *  新品优惠背景
- */
-@property (nonatomic, readonly) UIColor *preferentialFreshColor;
-/**
- *  满减优惠背景
- */
-@property (nonatomic, readonly) UIColor *preferentialReduceColor;
-
-@property (nonatomic, readonly) UIColor *refreshBgColor;
-
-
-@property (nonatomic, readonly) NSArray *refreshBallArray;
 
 @end
