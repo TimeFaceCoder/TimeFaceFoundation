@@ -17,5 +17,4 @@
 #import "TFDefaultStyle.h"
 #import "NSString+Emojize.h"
 #import "TFDataHelper.h"
-#import "TFLogAgent.h"
 #import "NetUtility.h"
