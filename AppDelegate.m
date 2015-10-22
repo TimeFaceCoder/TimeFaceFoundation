@@ -31,6 +31,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     [self.window makeKeyAndVisible];
 
+    [[TFCoreUtility sharedUtility] setDeviceUtility:[TFDeviceUtility shared]];
     NSString *deviceId = [[TFCoreUtility sharedUtility] getDeviceId];
     TFLog(@"deviceId = %@",deviceId);
     

@@ -46,52 +46,19 @@ void TFMainRun(TFRun run) {
         if (!utility) {
             utility = [[self alloc] init];
         }
-        imageUtility = [TFImageUtility shared];
-        stringUtility = [TFStringUtility shared];
-        fileUtility = [TFFileUtility shared];
-        deviceUtility = [TFDeviceUtility shared];
-        viewUtility = [TFViewUtility shared];
-        securityUtility = [TFSecurityUtility shared];
-        dataUtility = [TFDataUtility shared];
     });
     return utility;
 }
 
-- (void)setImageUtility:(TFImageUtility*)utility {
-    imageUtility = utility;
-}
 
-- (void)setStringUtility:(TFStringUtility*)utility {
-    stringUtility = utility;
-}
-
-- (void)setFileUtility:(TFFileUtility*)utility {
-    fileUtility = utility;
-}
-
-- (void)setDeviceUtility:(TFDeviceUtility*)utility {
-    deviceUtility = utility;
-}
-
-- (void)setViewUtility:(TFViewUtility*)utility {
-    viewUtility = utility;
-}
-
-- (void)setSecurityUtility:(TFSecurityUtility*)utility {
-    securityUtility = utility;
-}
-
-- (void)setDataUtility:(TFDataUtility*)utility {
-    dataUtility = utility;
-}
 
 
 #pragma mark String
 
 -(NSString *)showUsername:(NSString *)name {
     
-    if (stringUtility) {
-       return  [stringUtility showUsername:name];
+    if (_stringUtility) {
+       return  [_stringUtility showUsername:name];
     }
     return nil;
     
@@ -102,28 +69,28 @@ void TFMainRun(TFRun run) {
 
 - (NSString *)getTimeDescriptionStringByTimeInterval:(NSTimeInterval)timeInterval {
     
-    if (stringUtility) {
-       return  [stringUtility getTimeDescriptionStringByTimeInterval:timeInterval];
+    if (_stringUtility) {
+       return  [_stringUtility getTimeDescriptionStringByTimeInterval:timeInterval];
     }
     return nil;
     
 }
 - (NSString *)getTimeStringByTimeInterval:(NSTimeInterval)timeInterval {
-    if (stringUtility) {
-        return [stringUtility getTimeStringByTimeInterval:timeInterval];
+    if (_stringUtility) {
+        return [_stringUtility getTimeStringByTimeInterval:timeInterval];
     }
     return nil;
 }
 - (NSString *)getScreen {
-    if (stringUtility) {
-        return [stringUtility getScreen];
+    if (_stringUtility) {
+        return [_stringUtility getScreen];
     }
     return nil;
 }
 - (NSString *)subString:(NSString *)str length:(NSInteger)length {
     
-    if (stringUtility) {
-        return  [stringUtility subString:str length:length];
+    if (_stringUtility) {
+        return  [_stringUtility subString:str length:length];
     }
     return nil;
     
@@ -139,8 +106,8 @@ void TFMainRun(TFRun run) {
  */
 - (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format {
     
-    if (stringUtility) {
-        return  [stringUtility stringFromDate:date format:format];
+    if (_stringUtility) {
+        return  [_stringUtility stringFromDate:date format:format];
     }
     return nil;
     
@@ -155,40 +122,40 @@ void TFMainRun(TFRun run) {
  */
 - (NSString *)stringFromTimeInterval:(NSTimeInterval)timeInterval format:(NSString *)format {
     
-    if (stringUtility) {
-        return [stringUtility stringFromTimeInterval:timeInterval format:format];
+    if (_stringUtility) {
+        return [_stringUtility stringFromTimeInterval:timeInterval format:format];
     }
     return nil;
     
 }
 
 - (NSString*)getTimeDescriptionStringByTimeIntervalForTimeDetail:(NSTimeInterval)timeInterval {
-    if (stringUtility) {
-        return [stringUtility getTimeDescriptionStringByTimeIntervalForTimeDetail:timeInterval];
+    if (_stringUtility) {
+        return [_stringUtility getTimeDescriptionStringByTimeIntervalForTimeDetail:timeInterval];
     }
     return nil;
     
     
 }
 - (NSString *)getTimeStringByTimeInterval2:(NSTimeInterval)timeInterval {
-    if (stringUtility) {
-        return [stringUtility getTimeStringByTimeInterval2:timeInterval];
+    if (_stringUtility) {
+        return [_stringUtility getTimeStringByTimeInterval2:timeInterval];
     }
     return nil;
     
 }
 - (NSString *)getStringFromUrl:(NSString *)url withKey:(NSString *)key{
     
-    if (stringUtility) {
-        return [stringUtility getStringFromUrl:url withKey:key];
+    if (_stringUtility) {
+        return [_stringUtility getStringFromUrl:url withKey:key];
     }
     return nil;
     
 }
 - (NSString *)getCircleIdFromUrl:(NSString *)url withKey:(NSString *)key {
     
-    if (stringUtility) {
-        return [stringUtility getCircleIdFromUrl:url withKey:key];
+    if (_stringUtility) {
+        return [_stringUtility getCircleIdFromUrl:url withKey:key];
     }
     
     return nil;
@@ -207,8 +174,8 @@ void TFMainRun(TFRun run) {
  *  @return
  */
 - (NSString *)handleImageUrl:(NSString *)url type:(NSString *)type {
-    if (stringUtility) {
-        return [stringUtility handleImageUrl:url type:type];
+    if (_stringUtility) {
+        return [_stringUtility handleImageUrl:url type:type];
     }
     return nil;
 }
@@ -216,8 +183,8 @@ void TFMainRun(TFRun run) {
 
 -(NSString *)getPinyinName:(NSString *)name {
     
-    if (stringUtility) {
-        return [stringUtility getPinyinName:name];
+    if (_stringUtility) {
+        return [_stringUtility getPinyinName:name];
     }
     return nil;
     
@@ -232,8 +199,8 @@ void TFMainRun(TFRun run) {
  */
 -(NSString *) shareMessageWithString:(NSString *)string maxLength:(NSUInteger)maxLength {
     
-    if (stringUtility) {
-        return [stringUtility shareMessageWithString:string maxLength:maxLength];
+    if (_stringUtility) {
+        return [_stringUtility shareMessageWithString:string maxLength:maxLength];
     }
     return nil;
     
@@ -249,8 +216,8 @@ void TFMainRun(TFRun run) {
  */
 -(NSString *) substringToIndex:(NSInteger)index withString:(NSString *)string {
     
-    if (stringUtility) {
-        return [stringUtility substringToIndex:index withString:string];
+    if (_stringUtility) {
+        return [_stringUtility substringToIndex:index withString:string];
     }
     return nil;
 }
@@ -272,23 +239,23 @@ void TFMainRun(TFRun run) {
  */
 - (NSString*)getDirectoryDBPath:(NSString *)dbName {
     
-    if (fileUtility) {
-        return [fileUtility getDirectoryDBPath:dbName];
+    if (_fileUtility) {
+        return [_fileUtility getDirectoryDBPath:dbName];
     }
     return nil;
 }
 
 - (NSString *)tempFilePathForURL:(NSURL *)URL {
-    if (fileUtility) {
-        return [fileUtility tempFilePathForURL:URL];
+    if (_fileUtility) {
+        return [_fileUtility tempFilePathForURL:URL];
     }
     return nil;
 }
 
 //- (NSString *)realFilePathForURL:(NSURL *)URL {
 //    
-//    if (fileUtility) {
-//        return [fileUtility realFilePathForURL:URL];
+//    if (_fileUtility) {
+//        return [_fileUtility realFilePathForURL:URL];
 //    }
 //    return nil;
 //}
@@ -304,8 +271,8 @@ void TFMainRun(TFRun run) {
  */
 - (UIImage *)createImageWithColor:(UIColor *)color {
     
-    if (imageUtility) {
-        return [imageUtility createImageWithColor:color];
+    if (_imageUtility) {
+        return [_imageUtility createImageWithColor:color];
     }
     return nil;
 }
@@ -321,8 +288,8 @@ void TFMainRun(TFRun run) {
  */
 - (UIImage *)createImageWithColor:(UIColor *)color width:(CGFloat)width height:(CGFloat)height {
     
-    if (imageUtility) {
-        return [imageUtility createImageWithColor:color width:width height:height];
+    if (_imageUtility) {
+        return [_imageUtility createImageWithColor:color width:width height:height];
     }
     return nil;
     
@@ -338,21 +305,21 @@ void TFMainRun(TFRun run) {
  */
 - (UIImage *)createImageWithColor:(UIColor *)color alpha:(CGFloat)alpha {
     
-    if (imageUtility) {
-        return [imageUtility createImageWithColor:color alpha:alpha];
+    if (_imageUtility) {
+        return [_imageUtility createImageWithColor:color alpha:alpha];
     }
     return nil;
 }
 - (UIImage *)currentViewToImage {
     
-    if (imageUtility) {
-        return [imageUtility currentViewToImage];
+    if (_imageUtility) {
+        return [_imageUtility currentViewToImage];
     }
     return nil;
 }
 -(UIImage *)getImageFromView:(UIView *)orgView {
-    if (imageUtility) {
-        return [imageUtility getImageFromView:orgView];
+    if (_imageUtility) {
+        return [_imageUtility getImageFromView:orgView];
     }
     
     return nil;
@@ -363,8 +330,8 @@ void TFMainRun(TFRun run) {
 #pragma mark Device
 - (NSString *)getDeviceId {
     
-    if (deviceUtility) {
-        return [deviceUtility getDeviceId];
+    if (_deviceUtility) {
+        return [_deviceUtility getDeviceId];
     }
     return nil;
 }
@@ -375,8 +342,8 @@ void TFMainRun(TFRun run) {
 #pragma mark Security
 - (NSString *)getMD5StringFromNSString:(NSString *)string {
     
-    if (securityUtility) {
-        return [securityUtility getMD5StringFromNSString:string];
+    if (_securityUtility) {
+        return [_securityUtility getMD5StringFromNSString:string];
     }
     return nil;
     
@@ -399,8 +366,8 @@ void TFMainRun(TFRun run) {
                               selector:(SEL)selector {
     
     
-    if (viewUtility) {
-        return [viewUtility createBarButtonsWithImage:imageName selectedImageName:selectedImageName delegate:delegate selector:selector];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonsWithImage:imageName selectedImageName:selectedImageName delegate:delegate selector:selector];
     }
     return nil;
 }
@@ -411,8 +378,8 @@ void TFMainRun(TFRun run) {
                                selector:(SEL)selector {
     
     
-    if (viewUtility) {
-        return [viewUtility createBarButtonsWithImages:imageNames selectedImageNames:selectedImageNames delegate:delegate selector:selector];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonsWithImages:imageNames selectedImageNames:selectedImageNames delegate:delegate selector:selector];
     }
     return nil;
 }
@@ -422,15 +389,15 @@ void TFMainRun(TFRun run) {
                               delegate:(id)delegate
                               selector:(SEL)selector {
     
-    if (viewUtility) {
-        return [viewUtility createBarButtonsWithTitle:title delegate:delegate selector:selector];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonsWithTitle:title delegate:delegate selector:selector];
     }
     return nil;
 }
 
 - (NSArray *)createBarButtonsWithButton:(UIButton *)button {
-    if (viewUtility) {
-        return [viewUtility createBarButtonsWithButton:button];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonsWithButton:button];
     }
     return nil;
 
@@ -440,8 +407,8 @@ void TFMainRun(TFRun run) {
                              delegate:(id)delegate
                              selector:(SEL)selector {
     
-    if (viewUtility) {
-        return [viewUtility createBarButtonsWithView:view delegate:delegate selector:selector];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonsWithView:view delegate:delegate selector:selector];
     }
     return nil;
     
@@ -452,8 +419,8 @@ void TFMainRun(TFRun run) {
                                      delegate:(id)delegate
                                      selector:(SEL)selector {
     
-    if (viewUtility) {
-        return [viewUtility createBarButtonWithImage:imageName selectedImageName:selectedImageName delegate:delegate selector:selector];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonWithImage:imageName selectedImageName:selectedImageName delegate:delegate selector:selector];
     }
     return nil;
 
@@ -463,8 +430,8 @@ void TFMainRun(TFRun run) {
                                      delegate:(id)delegate
                                      selector:(SEL)selector {
     
-    if (viewUtility) {
-        return [viewUtility createBarButtonWithTitle:title delegate:delegate selector:selector];
+    if (_viewUtility) {
+        return [_viewUtility createBarButtonWithTitle:title delegate:delegate selector:selector];
     }
     return nil;
 
@@ -474,37 +441,37 @@ void TFMainRun(TFRun run) {
 
 - (void)saveValueByKey:(NSString *)key value:(id)value {
     
-    if (dataUtility) {
-        [dataUtility saveValueByKey:key value:value];
+    if (_dataUtility) {
+        [_dataUtility saveValueByKey:key value:value];
     }
 }
 
 - (void)removeValueByKey:(NSString *)key {
     
-    if (dataUtility) {
-        [dataUtility removeValueByKey:key];
+    if (_dataUtility) {
+        [_dataUtility removeValueByKey:key];
     }
 }
 
 - (void)setBoolByKey:(NSString *)key value:(BOOL)value {
     
-    if (dataUtility) {
-        [dataUtility setBoolByKey:key value:value];
+    if (_dataUtility) {
+        [_dataUtility setBoolByKey:key value:value];
     }
 }
 
 - (id)getValueByKey:(NSString *)key {
     
-    if (dataUtility) {
-        return [dataUtility getValueByKey:key];
+    if (_dataUtility) {
+        return [_dataUtility getValueByKey:key];
     }
     return nil;
 }
 
 - (BOOL)getBoolByKey:(NSString *)key {
     
-    if (dataUtility) {
-        return [dataUtility getBoolByKey:key];
+    if (_dataUtility) {
+        return [_dataUtility getBoolByKey:key];
     }
     return NO;
 }

@@ -16,13 +16,6 @@
 #import "TFDataUtility.h"
 
 
-static TFImageUtility *imageUtility = nil;
-static TFStringUtility *stringUtility = nil;
-static TFFileUtility *fileUtility = nil;
-static TFDeviceUtility *deviceUtility = nil;
-static TFViewUtility *viewUtility = nil;
-static TFSecurityUtility *securityUtility = nil;
-static TFDataUtility *dataUtility = nil;
 
 typedef void (^TFRun)(void);
 
@@ -44,49 +37,24 @@ void TFMainRun(TFRun run);
 
 + (instancetype)sharedUtility;
 
-/**
- *  设置图片处理工具类
- *
- *  @param utility
- */
-- (void)setImageUtility:(TFImageUtility*)utility;
 
-/**
- *  设置字符串处理工具类
- *
- *  @param utility
- */
-- (void)setStringUtility:(TFStringUtility*)utility;
-/**
- *  设置文件相关处理工具类
- *
- *  @param utility
- */
-- (void)setFileUtility:(TFFileUtility*)utility;
-/**
- *  设置设备相关处理工具类
- *
- *  @param utility
- */
-- (void)setDeviceUtility:(TFDeviceUtility*)utility;
-/**
- *  设置视图处理工具类
- *
- *  @param utility
- */
-- (void)setViewUtility:(TFViewUtility*)utility;
-/**
- *  设置加密安全处理工具类
- *
- *  @param utility
- */
-- (void)setSecurityUtility:(TFSecurityUtility*)utility;
-/**
- *  设置数据处理相关工具类
- *
- *  @param utility 
- */
-- (void)setDataUtility:(TFDataUtility*)utility;
+
+@property (nonatomic, strong) TFImageUtility *imageUtility;
+
+@property (nonatomic, strong) TFStringUtility *stringUtility;
+
+@property (nonatomic, strong) TFFileUtility  *fileUtility;
+
+@property (nonatomic, strong) TFDeviceUtility  *deviceUtility;
+
+@property (nonatomic, strong) TFViewUtility    *viewUtility;
+
+@property (nonatomic, strong) TFSecurityUtility  *securityUtility;
+
+@property (nonatomic, strong) TFDataUtility   *dataUtility;
+
+
+
 
 #pragma mark String
 
