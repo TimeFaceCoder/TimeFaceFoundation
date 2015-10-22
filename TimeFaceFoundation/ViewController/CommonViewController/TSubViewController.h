@@ -61,11 +61,11 @@ typedef id (^TFViewControllerBlock)(id object);
 
 #pragma mark - Public
 - (void)showBackButton;
-- (void)showStateView:(TFViewState)viewState;
+- (void)showStateView:(NSInteger)viewState;
 - (void)removeStateView;
 
-- (NSString *)stateViewTitle:(TFViewState)viewState;
-- (NSString *)stateViewButtonTitle:(TFViewState)viewState;
-- (UIImage *)stateViewImage:(TFViewState)viewState;
+- (NSString *)stateViewTitle:(NSInteger)viewState;
+- (NSString *)stateViewButtonTitle:(NSInteger)viewState;
+- (UIImage *)stateViewImage:(NSInteger)viewState;
 
 @end

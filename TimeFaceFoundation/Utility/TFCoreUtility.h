@@ -15,10 +15,29 @@
 #import "TFSecurityUtility.h"
 #import "TFDataUtility.h"
 
+
+static TFImageUtility *imageUtility = nil;
+static TFStringUtility *stringUtility = nil;
+static TFFileUtility *fileUtility = nil;
+static TFDeviceUtility *deviceUtility = nil;
+static TFViewUtility *viewUtility = nil;
+static TFSecurityUtility *securityUtility = nil;
+static TFDataUtility *dataUtility = nil;
+
 typedef void (^TFRun)(void);
 
+/**
+ *  后台执行
+ *
+ *  @param run
+ */
 void TFAsyncRun(TFRun run);
 
+/**
+ *  主线程执行
+ *
+ *  @param run
+ */
 void TFMainRun(TFRun run);
 
 @interface TFCoreUtility : NSObject

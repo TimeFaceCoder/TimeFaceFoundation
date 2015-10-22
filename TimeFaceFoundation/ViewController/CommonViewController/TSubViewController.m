@@ -146,7 +146,7 @@
     return _stateView;
 }
 
-- (void)showStateView:(TFViewState)viewState {
+- (void)showStateView:(NSInteger)viewState {
     _viewState = viewState;
     [self.stateView showStateView];
 }
@@ -165,7 +165,7 @@
     
 }
 
-- (NSString *)stateViewTitle:(TFViewState)viewState {
+- (NSString *)stateViewTitle:(NSInteger)viewState {
     NSString *title = @"";
     switch (viewState) {
         case TFViewStateDataError:
@@ -187,7 +187,7 @@
     return title;
 }
 
-- (NSString *)stateViewButtonTitle:(TFViewState)viewState {
+- (NSString *)stateViewButtonTitle:(NSInteger)viewState {
     NSString *title = @"";
     switch (viewState) {
         case TFViewStateDataError:
@@ -211,7 +211,7 @@
 
 
 
-- (UIImage *)stateViewImage:(TFViewState)viewState {
+- (UIImage *)stateViewImage:(NSInteger)viewState {
     UIImage *image = [UIImage new];
     switch (viewState) {
         case TFViewStateDataError:

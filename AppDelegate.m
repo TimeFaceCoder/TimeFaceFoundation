@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "TFCoreUtility.h"
 #import "TNavigationViewController.h"
 #import <GKFadeNavigationController/GKFadeNavigationController.h>
 
@@ -31,6 +31,8 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     [self.window makeKeyAndVisible];
 
+    NSString *deviceId = [[TFCoreUtility sharedUtility] getDeviceId];
+    TFLog(@"deviceId = %@",deviceId);
     
     return YES;
 }

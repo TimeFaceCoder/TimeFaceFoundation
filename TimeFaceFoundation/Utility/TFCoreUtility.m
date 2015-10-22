@@ -19,13 +19,7 @@
 #import "Pinyin.h"
 
 
-static TFImageUtility *imageUtility = nil;
-static TFStringUtility *stringUtility = nil;
-static TFFileUtility *fileUtility = nil;
-static TFDeviceUtility *deviceUtility = nil;
-static TFViewUtility *viewUtility = nil;
-static TFSecurityUtility *securityUtility = nil;
-static TFDataUtility *dataUtility = nil;
+
 
 
 void TFAsyncRun(TFRun run) {
