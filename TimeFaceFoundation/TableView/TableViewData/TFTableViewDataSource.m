@@ -188,7 +188,7 @@ const static NSInteger kPageSize = 20;
         
         //read data use network
         [weakSelf.tableViewDataManager reloadView:result
-                                            block:^(BOOL finished, id object)
+                                            block:^(BOOL finished, id object,NSError *error)
          {
              if (finished) {
                  //加载列
@@ -205,6 +205,10 @@ const static NSInteger kPageSize = 20;
                      
                      if (weakSelf.delegate &&[weakSelf.delegate respondsToSelector:@selector(didFinishLoad:)]) {
                          [weakSelf.delegate didFinishLoad:dataLoadPolicy];
+                     }
+                     if (error && weakSelf.delegate &&[weakSelf.delegate respondsToSelector:@selector(didFailLoadWithError:)]) {
+                         [weakSelf.delegate didFailLoadWithError:error];
+                         [self stopPullRefresh];
                      }
                      if (dataLoadPolicy == DataLoadPolicyCache) {
                          //开始下拉刷新

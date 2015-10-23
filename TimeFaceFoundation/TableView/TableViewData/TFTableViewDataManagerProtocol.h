@@ -15,7 +15,7 @@ typedef void (^SelectionHandler)(RETableViewItem *item);
 //删除block
 typedef void (^DeleteHanlder)(RETableViewItem *item);
 //列表Cell load 完成block
-typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object);
+typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object,NSError *error);
 
 @protocol TFTableViewDataManagerProtocol <NSObject>
 
