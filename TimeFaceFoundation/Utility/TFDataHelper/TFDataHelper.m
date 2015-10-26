@@ -22,7 +22,7 @@
         docPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
         #endif
         NSString *dbPath = [docPath stringByAppendingPathComponent:@"tfDB.realm"];
-        instance = [[TFDataHelper alloc]initWithPath:dbPath];
+        instance = [[self alloc]initWithPath:dbPath];
     });
     return instance;
 }
