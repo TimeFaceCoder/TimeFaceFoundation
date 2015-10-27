@@ -7,13 +7,14 @@
 //
 #import <RETableViewManager/RETableViewManager.h>
 #import "TFTableViewDataSource.h"
-
+//事件完成block
+typedef void (^Completion)(void);
 //列表内View事件
 typedef void (^CellViewClickHandler)(RETableViewItem *item ,NSInteger actionType);
 //列表点击事件
 typedef void (^SelectionHandler)(RETableViewItem *item);
 //删除block
-typedef void (^DeleteHanlder)(RETableViewItem *item);
+typedef void (^DeleteHanlder)(RETableViewItem *item,Completion completion);
 //列表Cell load 完成block
 typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object,NSError *error);
 
@@ -56,7 +57,7 @@ typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object,NSError *e
  *
  *  @param item 
  */
-- (void)deleteHanlder:(RETableViewItem *)item;
+- (void)deleteHanlder:(RETableViewItem *)item completion:(void (^)(void))completion;
 
 /**
  *  刷新指定Cell

@@ -44,8 +44,8 @@
         [weakSelf selectionHandler:item];
     };
     
-    _deleteHanlder = ^(RETableViewItem *item) {
-        [weakSelf deleteHanlder:item];
+    _deleteHanlder = ^(RETableViewItem *item ,Completion completion) {
+        [weakSelf deleteHanlder:item completion:completion];
     };
     
     return self;
@@ -65,7 +65,7 @@
 - (void)selectionHandler:(RETableViewItem *)item {
     
 }
-- (void)deleteHanlder:(RETableViewItem *)item {
+- (void)deleteHanlder:(RETableViewItem *)item completion:(void (^)(void))completion {
     
 }
 
