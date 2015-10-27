@@ -229,7 +229,7 @@ const static NSInteger kPageSize = 20;
     };
     
     NSString *url = [[URLHelper sharedHelper] urlByListType:_listType];
-    [[NetworkAssistant sharedAssistant] getDataByURL:url
+    [[NetworkAssistant sharedAssistant] getDataByInterFace:url
                                               params:_params
                                             fileData:nil
                                                  hud:nil
