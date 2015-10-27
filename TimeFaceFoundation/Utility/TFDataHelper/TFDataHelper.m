@@ -13,7 +13,7 @@
 
 + (instancetype) shared {
     static dispatch_once_t once;
-    static id instance;
+    static TFDataHelper *instance = nil;
     dispatch_once(&once, ^{
         NSString *docPath = nil;
         #ifdef DEBUG
@@ -59,9 +59,8 @@
  */
 - (RLMResults*)getObjectsWithKey:(NSString*)key strValue:(NSString*)value class:(Class)className {
     if (_defaultRealm) {
-        RLMResults *result = [className allObjectsInRealm:_defaultRealm];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"%@ = '%@'",key,value];
-        result = [className objectsWithPredicate:pred];
+        NSString *queryStr = [NSString stringWithFormat:@"%@ = '%@'",key,value];
+        RLMResults *result = [className objectsInRealm:_defaultRealm where:queryStr];
         return result;
     }
     return nil;
@@ -69,9 +68,8 @@
 
 - (RLMResults*)getObjectsWithKey:(NSString *)key numValue:(NSNumber *)value class:(Class)className {
     if (_defaultRealm) {
-        RLMResults *result = [className allObjectsInRealm:_defaultRealm];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"%@ = %@",key,value];
-        result = [className objectsWithPredicate:pred];
+        NSString *queryStr = [NSString stringWithFormat:@"%@ = %@",key,value];
+        RLMResults *result = [className objectsInRealm:_defaultRealm where:queryStr];
         return result;
     }
     return nil;

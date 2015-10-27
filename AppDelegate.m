@@ -10,6 +10,7 @@
 #import "TFCoreUtility.h"
 #import "TNavigationViewController.h"
 #import <GKFadeNavigationController/GKFadeNavigationController.h>
+#import "TestViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,6 +30,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    
+    
+    //初始化style
+    [TFStyle setGlobalStyleSheet:[[TFDefaultStyle alloc] init]];
+    
+    self.window.rootViewController = [[TestViewController alloc]init];
+    
+    
     [self.window makeKeyAndVisible];
 
     [[TFCoreUtility sharedUtility] setDeviceUtility:[TFDeviceUtility shared]];
