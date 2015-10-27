@@ -1218,11 +1218,7 @@
 				GCC_PREFIX_HEADER = "TimeFaceFoundation/TimeFaceFoundation-Prefix.pch";
 				INFOPLIST_FILE = TimeFaceFoundation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/TimeFaceFoundation/Utility/ZipTools",
-					"$(PROJECT_DIR)/TimeFaceFoundation/Utility/TFLog",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.timeface.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
@@ -1245,11 +1241,7 @@
 				GCC_PREFIX_HEADER = "TimeFaceFoundation/TimeFaceFoundation-Prefix.pch";
 				INFOPLIST_FILE = TimeFaceFoundation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/TimeFaceFoundation/Utility/ZipTools",
-					"$(PROJECT_DIR)/TimeFaceFoundation/Utility/TFLog",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.timeface.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
