@@ -17,6 +17,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    NetWorkUrlBlock block = ^(NSString *interface, NSString *url){
+//        if ([interface isEqualToString:@"keyLogin"]) {
+//            url = [NSString stringWithFormat:@"%@%@",@"dsdsd",interface];
+//        } else {
+//            url = [NSString stringWithFormat:@"%@%@",@"dsdsds",interface];
+//        }
+//        return url;
+//    };
+//    
+//    [[NetworkAssistant sharedAssistant] setUrlBlock:block];
+//    
+//    [[NetworkAssistant sharedAssistant] getDataByInterFace:@"dsdsds" params:nil fileData:nil hud:nil start:nil completed:^(id result, NSError *error)
+//     {
+//        
+//     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

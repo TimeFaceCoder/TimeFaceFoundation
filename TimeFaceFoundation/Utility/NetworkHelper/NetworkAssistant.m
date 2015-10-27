@@ -207,7 +207,7 @@
     
     NSString *url = nil;
     if (_urlBlock) {
-        _urlBlock(interface,url);
+        url = _urlBlock(interface,url);
     }
     
     if (IS_RUNNING_IOS9) {
