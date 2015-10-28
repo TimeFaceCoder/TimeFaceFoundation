@@ -81,41 +81,43 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
 /**
  *  tableview
  */
-@property (nonatomic ,weak  ) UITableView                    *tableView;
+@property (nonatomic ,weak  ) UITableView                   *tableView;
 /**
  *  tableview 管理器
  */
-@property (nonatomic ,strong) RETableViewManager             *manager;
+@property (nonatomic ,strong) RETableViewManager            *manager;
 
-@property (nonatomic ,copy  ) NSString                       *lastedId;
-
-@property (nonatomic, strong) NSString  *addressId;
+@property (nonatomic ,copy  ) NSString                      *lastedId;
 
 /**
  *  参数字典
  */
-@property (nonatomic ,strong) NSMutableDictionary            *params;
+@property (nonatomic ,strong) NSMutableDictionary           *params;
 /**
  *  item的数量
  */
-@property (nonatomic ,assign) NSInteger           itemCount;
+@property (nonatomic ,assign) NSInteger                     itemCount;
+/**
+ *  列表类型
+ */
+@property (nonatomic ,assign) NSInteger                     listType;
 
 - (id)initWithTableView:(UITableView *)tableView
                listType:(NSInteger)listType
-               delegate:(id /*<NewTableViewDataSourceDelegate>*/)delegate;
-/**
- *  加载列表数据
- *
- *  @param loadPolicy
- *  @param params
- */
-- (void)load:(DataLoadPolicy)loadPolicy params:(NSDictionary *)params;
+               delegate:(id /*<TFTableViewDataSourceDelegate>*/)delegate;
 /**
  *  刷新列表数据
  *
  *  @param pullToRefresh 是否使用下拉刷新模式
  */
 - (void)reloadTableViewData:(BOOL)pullToRefresh;
+/**
+ *  开始加载数据
+ *
+ *  @param pullToRefresh
+ *  @param params
+ */
+- (void)startLoading:(BOOL)pullToRefresh params:(NSDictionary *)params;
 
 /**
  *  停止加载

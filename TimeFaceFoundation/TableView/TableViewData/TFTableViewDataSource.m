@@ -45,10 +45,6 @@
  */
 @property (nonatomic ,assign) NSUInteger                     currentPage;
 /**
- *  列表类型
- */
-@property (nonatomic ,assign) NSInteger                       listType;
-/**
  *  向上滚动阈值
  */
 @property (nonatomic ,assign) CGFloat                        upThresholdY;
@@ -124,6 +120,19 @@ const static NSInteger kPageSize = 20;
     }
     else {
         [self load:DataLoadPolicyReload params:_params];
+    }
+}
+
+- (void)startLoading:(BOOL)pullToRefresh params:(NSDictionary *)params {
+    if (pullToRefresh) {
+        pullToRefresh = [self.delegate showPullRefresh];
+    }
+    if (pullToRefresh) {
+        _params = [NSMutableDictionary dictionaryWithDictionary:params];
+        [self.tableView triggerPullToRefresh];
+    }
+    else {
+        [self load:DataLoadPolicyNone params:params];
     }
 }
 

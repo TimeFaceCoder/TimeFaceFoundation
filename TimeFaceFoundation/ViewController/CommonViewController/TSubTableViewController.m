@@ -119,14 +119,14 @@
 
 - (void)startLoadData {
     if (!_loaded) {
-        [self.dataSource load:DataLoadPolicyNone params:self.requestParams];
+        [self.dataSource startLoading:NO params:self.requestParams];
         _loaded = YES;
     }
 }
 
 
 - (void)reloadData {
-    [self.dataSource load:DataLoadPolicyNone params:self.requestParams];
+    [self.dataSource reloadTableViewData:YES];
 }
 
 - (void)reloadCell:(NSNotification *)notification {
