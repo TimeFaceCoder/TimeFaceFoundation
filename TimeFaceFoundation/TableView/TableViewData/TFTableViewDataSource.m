@@ -202,12 +202,8 @@ const static NSInteger kPageSize = 20;
                  _loading = NO;
                  dispatch_async(dispatch_get_main_queue(), ^{
                      //数据加载完成
-                     
-                     if (weakSelf.delegate &&[weakSelf.delegate respondsToSelector:@selector(didFinishLoad:)]) {
-                         [weakSelf.delegate didFinishLoad:dataLoadPolicy];
-                     }
-                     if (error && weakSelf.delegate &&[weakSelf.delegate respondsToSelector:@selector(didFailLoadWithError:)]) {
-                         [weakSelf.delegate didFailLoadWithError:error];
+                     if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
+                         [weakSelf.delegate didFinishLoad:dataLoadPolicy error:error];
                          [self stopPullRefresh];
                      }
                      if (dataLoadPolicy == DataLoadPolicyCache) {
@@ -242,7 +238,7 @@ const static NSInteger kPageSize = 20;
              //处理出错且没有缓存的情况
              handleTableViewData(nil,loadPolicy);
              _loading = NO;
-             [weakSelf.delegate didFailLoadWithError:error];
+             [weakSelf.delegate didFinishLoad:loadPolicy error:error];
              [self stopPullRefresh];
              
          }

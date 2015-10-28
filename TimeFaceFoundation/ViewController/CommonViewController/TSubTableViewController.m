@@ -165,47 +165,37 @@
     [self showStateView:TFViewStateLoading];
 }
 
-- (void)didFinishLoad:(DataLoadPolicy)loadPolicy{
-    TFLog(@"%s",__func__);
-    [self removeStateView];
-    self.tableView.tableFooterView = [[UIView alloc] init];
-}
-//- (void)didFinishLoad:(DataLoadPolicy)loadPolicy{
-//    TFLog(@"%s",__func__);
-//    [self removeStateView];
-//    self.tableView.tableFooterView = [[UIView alloc] init];
-//}
-- (CGFloat)topInsetY {
-    return 64.5;
-}
 
 - (CGPoint)offsetForStateView:(UIView *)view {
     return CGPointMake(0, 0);
 }
 
-- (void)didFailLoadWithError:(NSError*)error {
+- (void)didFinishLoad:(DataLoadPolicy)loadPolicy error:(NSError *)error {
     TFLog(@"%s",__func__);
-    if ([error.domain isEqualToString:APP_ERROR_DOMAIN]) {
-        if (error.code == TFErrorCodeEmpty) {
-            //空数据
-            //            if (_listType == ListTypeCircleContacts) {
-            //                [self showStateView:TFViewStateNoContacts];
-            //            } else {
-            //                [self showStateView:TFViewStateNoData];
-            //            }
-        }
-        if (error.code == TFErrorCodeNetwork) {
-            //网络错误
-            [self showStateView:TFViewStateNetError];
-        }
-        if (error.code == TFErrorCodeAPI ||
-            error.code == TFErrorCodeHTTP) {
-            //其他错误
-            [self showStateView:TFViewStateDataError];
-        }
+    if (!error) {
+        [self removeStateView];
+        self.tableView.tableFooterView = [[UIView alloc] init];
     }
     else {
-        [self showStateView:TFViewStateDataError];
+        TFLog(@"%s",__func__);
+        if ([error.domain isEqualToString:APP_ERROR_DOMAIN]) {
+            if (error.code == TFErrorCodeEmpty) {
+                //空数据
+                [self showStateView:TFViewStateNoData];
+            }
+            if (error.code == TFErrorCodeNetwork) {
+                //网络错误
+                [self showStateView:TFViewStateNetError];
+            }
+            if (error.code == TFErrorCodeAPI ||
+                error.code == TFErrorCodeHTTP) {
+                //其他错误
+                [self showStateView:TFViewStateDataError];
+            }
+        }
+        else {
+            [self showStateView:TFViewStateDataError];
+        }
     }
 }
 
