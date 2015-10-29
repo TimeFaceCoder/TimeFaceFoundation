@@ -44,12 +44,11 @@
 - (UIImage *)currentViewToImage;
 
 /**
- *  将时间转为字符串
+ *  截取指定view为图片
  *
- *  @param date   时间（NSDate）
- *  @param format 格式（yyyy-MM-dd HH:mm:ss zzz）
+ *  @param orgView
  *
- *  @return
+ *  @return 
  */
 -(UIImage *)getImageFromView:(UIView *)orgView;
 

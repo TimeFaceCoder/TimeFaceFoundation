@@ -409,7 +409,7 @@
         if (!rootObject) {
             error = [NSError errorWithDomain:APP_ERROR_DOMAIN
                                         code:TFErrorCodeAPI
-                                    userInfo:nil];
+                                    userInfo:@{@"info":@"数据解析错误"}];
         } else {
             NSInteger status = [[rootObject objectForKey:@"status"] boolValue];
             TFLog(@"errorcode = %@",[rootObject objectForKey:@"errorCode"]);
@@ -447,17 +447,10 @@
         completedBlock(nil,error);
     }
     else {
-        
-        NSString *errorData = [[NSString alloc] initWithData:[error.userInfo objectForKey:@"cn.timeface.response.error.data"]
-                                                    encoding:NSUTF8StringEncoding];
-        
-        TFLog(@"error:%@",errorData);
-        
-        
         //整理错误信息
         error = [NSError errorWithDomain:APP_ERROR_DOMAIN
                                     code:TFErrorCodeAPI
-                                userInfo:nil];
+                                userInfo:error.userInfo];
         TFLog(@"error:%@",error.userInfo);
         completedBlock(nil,error);
     }

@@ -82,27 +82,47 @@ typedef NS_ENUM (NSInteger, TFErrorCode) {
     /**
      *  未知错误
      */
-    TFErrorCodeUnknown      =   0,
+    TFErrorCodeUnknown         = 0,
     /**
      *  API错误
      */
-    TFErrorCodeAPI          =   1,
+    TFErrorCodeAPI             = 1,
     /**
      *  HTTP错误
      */
-    TFErrorCodeHTTP         =   2,
+    TFErrorCodeHTTP            = 2,
     /**
      *  网络错误
      */
-    TFErrorCodeNetwork      =   3,
+    TFErrorCodeNetwork         = 3,
     /**
      *  空数据
      */
-    TFErrorCodeEmpty        =   4,
+    TFErrorCodeEmpty           = 4,
     /**
      *  类型错误
      */
-    TFErrorCodeClassType    =   5,
+    TFErrorCodeClassType       = 5,
+    /**
+     *  定位信息获取失败
+     */
+    TFErrorCodeLocationError   = 6,
+    /**
+     *  照片权限获取失败
+     */
+    TFErrorCodePhotosError     = 7,
+    /**
+     *  麦克风权限获取失败
+     */
+    TFErrorCodeMicrophoneError = 8,
+    /**
+     *  相机权限获取失败
+     */
+    TFErrorCodeCameraError     = 9,
+    /**
+     *  联系人权限获取失败
+     */
+    TFErrorCodeContactsError   = 10,
 
   
 };
