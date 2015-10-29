@@ -179,19 +179,38 @@
     else {
         TFLog(@"%s",__func__);
         if ([error.domain isEqualToString:APP_ERROR_DOMAIN]) {
-            if (error.code == TFErrorCodeEmpty) {
-                //空数据
-                [self showStateView:TFViewStateNoData];
+            TFViewState state = TFViewStateNone;
+            switch (error.code) {
+                case TFErrorCodeUnknown:
+                case TFErrorCodeAPI:
+                case TFErrorCodeHTTP:
+                    state = TFViewStateDataError;
+                    break;
+                case TFErrorCodeNetwork:
+                    state = TFViewStateNetError;
+                    break;
+                case TFErrorCodeEmpty:
+                    state = TFViewStateNoData;
+                    break;
+                case TFErrorCodeLocationError:
+                    state = TFViewStateLocationError;
+                    break;
+                case TFErrorCodePhotosError:
+                    state = TFViewStatePhotosError;
+                    break;
+                case TFErrorCodeMicrophoneError:
+                    state = TFViewStateMicrophoneError;
+                    break;
+                case TFErrorCodeCameraError:
+                    state = TFViewStateCameraError;
+                    break;
+                case TFErrorCodeContactsError:
+                    state = TFViewStateContactsError;
+                    break;
+                default:
+                    break;
             }
-            if (error.code == TFErrorCodeNetwork) {
-                //网络错误
-                [self showStateView:TFViewStateNetError];
-            }
-            if (error.code == TFErrorCodeAPI ||
-                error.code == TFErrorCodeHTTP) {
-                //其他错误
-                [self showStateView:TFViewStateDataError];
-            }
+            [self showStateView:state];
         }
         else {
             [self showStateView:TFViewStateDataError];
@@ -219,13 +238,7 @@
     else if (lastPosition - currentPostion > 30) {
         lastPosition = currentPostion;
     }
-    
-    
 }
-
-
-
-
 - (void)scrollViewDidScrollUp:(CGFloat)deltaY
 {
     [self moveToolbar:-deltaY animated:YES];

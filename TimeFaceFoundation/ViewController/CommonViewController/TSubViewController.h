@@ -17,26 +17,47 @@
 
 
 typedef NS_ENUM (NSInteger, TFViewState) {
+    TFViewStateNone            = 0,
     /**
      *  正在加载
      */
-    TFViewStateLoading   = 1,
+    TFViewStateLoading         = 1,
     /**
      *  网络错误
      */
-    TFViewStateNetError  = 2,
+    TFViewStateNetError        = 2,
     /**
      *  数据错误
      */
-    TFViewStateDataError = 3,
+    TFViewStateDataError       = 3,
     /**
      *  空数据
      */
-    TFViewStateNoData    = 4,
+    TFViewStateNoData          = 4,
     /**
      *  连接超时
      */
-    TFViewStateTimeOut   = 5,
+    TFViewStateTimeOut         = 5,
+    /**
+     *  定位信息获取失败
+     */
+    TFViewStateLocationError   = 6,
+    /**
+     *  照片权限获取失败
+     */
+    TFViewStatePhotosError     = 7,
+    /**
+     *  麦克风权限获取失败
+     */
+    TFViewStateMicrophoneError = 8,
+    /**
+     *  相机权限获取失败
+     */
+    TFViewStateCameraError     = 9,
+    /**
+     *  联系人权限获取失败
+     */
+    TFViewStateContactsError   = 10,
 };
 
 typedef id (^TFViewControllerBlock)(id object);
