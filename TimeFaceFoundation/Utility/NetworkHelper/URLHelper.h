@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+const static NSString   *kInterfaceKey = @"interface";
+const static NSString   *kClassKey = @"class";
+
 @interface URLHelper : NSObject
 
 + (instancetype)sharedHelper;
