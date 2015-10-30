@@ -102,6 +102,7 @@
 		B046C1631BCE54E000D91D92 /* TFDataUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1621BCE54E000D91D92 /* TFDataUtility.m */; };
 		B046C1691BCE552A00D91D92 /* GuideHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1661BCE552A00D91D92 /* GuideHelpView.m */; };
 		B046C16A1BCE552A00D91D92 /* JMHoledView.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1681BCE552A00D91D92 /* JMHoledView.m */; };
+		B06CC4CA1BE2FDBA003E2E32 /* TimeFaceFoundationConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B06CC4C91BE2FDBA003E2E32 /* TimeFaceFoundationConst.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -307,6 +308,8 @@
 		B046C1661BCE552A00D91D92 /* GuideHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideHelpView.m; sourceTree = "<group>"; };
 		B046C1671BCE552A00D91D92 /* JMHoledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMHoledView.h; sourceTree = "<group>"; };
 		B046C1681BCE552A00D91D92 /* JMHoledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMHoledView.m; sourceTree = "<group>"; };
+		B06CC4C81BE2FDBA003E2E32 /* TimeFaceFoundationConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFaceFoundationConst.h; sourceTree = "<group>"; };
+		B06CC4C91BE2FDBA003E2E32 /* TimeFaceFoundationConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFaceFoundationConst.m; sourceTree = "<group>"; };
 		DB05BEFD8FC60321E377DB5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -730,6 +733,8 @@
 			isa = PBXGroup;
 			children = (
 				B046C14E1BCE530F00D91D92 /* TimeFaceFoundation.h */,
+				B06CC4C81BE2FDBA003E2E32 /* TimeFaceFoundationConst.h */,
+				B06CC4C91BE2FDBA003E2E32 /* TimeFaceFoundationConst.m */,
 				B046C1411BCE51DD00D91D92 /* CommonViews */,
 				438D1DB71BA8160C0034E7B7 /* Macro */,
 				6CC8C0621BA7D552003CF335 /* Utility */,
@@ -1004,6 +1009,7 @@
 				6CC8C1571BA7D552003CF335 /* URLHelper.m in Sources */,
 				6CC8C1521BA7D552003CF335 /* IADownloadManager.m in Sources */,
 				43A082231BA7AE5700AEFCE5 /* TFModel.m in Sources */,
+				B06CC4CA1BE2FDBA003E2E32 /* TimeFaceFoundationConst.m in Sources */,
 				6CC8C1661BA7D552003CF335 /* InputLimit.m in Sources */,
 				B046C16A1BCE552A00D91D92 /* JMHoledView.m in Sources */,
 				43A081F41BA7A61E00AEFCE5 /* TNavigationViewController.m in Sources */,

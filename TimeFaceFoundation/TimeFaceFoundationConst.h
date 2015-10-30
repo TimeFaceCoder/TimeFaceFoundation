@@ -1,0 +1,17 @@
+//
+//  TimeFaceFoundationConst.h
+//  TimeFaceFoundation
+//
+//  Created by Melvin on 10/30/15.
+//  Copyright © 2015 timeface. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+
+/////////////////////////////////////////////Common Error Code//////////////////////////////////////
+extern NSInteger const kTTFErrorCodeUnknown;
+
+/////////////////////////////////////////////Common View State//////////////////////////////////////
+
