@@ -70,7 +70,7 @@ const YTKKeyValueStore *store;
     NSError *error = nil;
     id object = [[NSClassFromString(className) alloc] initWithDictionary:dic error:&error];
     if (error) {
-        TFLog(@"%s:%@",__func__,[error debugDescription]);
+        NSLog(@"%s:%@",__func__,[error debugDescription]);
     }
     return object;
 }
