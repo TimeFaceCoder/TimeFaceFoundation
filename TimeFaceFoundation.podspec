@@ -28,4 +28,5 @@ Pod::Spec.new do |s|
   s.dependency 'ActionSheetPicker-3.0'
   s.dependency 'Masonry'
   s.dependency 'SVProgressHUD'
+  s.dependency 'FMDB'
 end
