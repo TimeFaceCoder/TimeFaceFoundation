@@ -63,7 +63,7 @@
 /**
  *  所有引导配置
  */
-@property (nonatomic, strong) NSArray *guides;
+@property (nonatomic, strong) NSArray <GuideModel> *guides;
 
 /**
  *  当前
