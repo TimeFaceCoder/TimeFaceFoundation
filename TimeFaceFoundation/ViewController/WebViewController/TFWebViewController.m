@@ -14,6 +14,7 @@
 #import <NJKWebViewProgress/NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>
 #import "TFDataHelper.h"
+#import "TimeFaceFoundationConst.h"
 
 @interface TFWebViewController ()<NJKWebViewProgressDelegate>{
     BOOL            firstLoaded;
@@ -337,7 +338,7 @@
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error {
     [self webViewDidFinishLoad:webView];
     if (error) {
-        [self showStateView:TFViewStateDataError];
+        [self showStateView:kTFViewStateDataError];
     }
 }
 

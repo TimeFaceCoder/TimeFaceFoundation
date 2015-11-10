@@ -9,6 +9,7 @@
 #import "TSubViewController.h"
 #import <CoreMotion/CoreMotion.h>
 #import "TFStateView.h"
+#import "TimeFaceFoundationConst.h"
 //#import "TFLogAgent.h"
 
 #import "JMHoledView.h"
@@ -121,7 +122,7 @@
         _manager = [[CMMotionManager alloc] init];
     }
    
-    [self showStateView:TFViewStateLoading];
+    [self showStateView:kTFViewStateLoading];
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,19 +169,19 @@
 - (NSString *)stateViewTitle:(NSInteger)viewState {
     NSString *title = @"";
     switch (viewState) {
-        case TFViewStateDataError:
+        case kTFViewStateDataError:
             title = NSLocalizedString(@"网络数据异常", nil);
             break;
-        case TFViewStateLoading:
+        case kTFViewStateLoading:
             title = NSLocalizedString(@"正在加载数据", nil);
             break;
-        case TFViewStateNetError:
+        case kTFViewStateNetError:
             title = NSLocalizedString(@"网络连接错误", nil);
             break;
-        case TFViewStateNoData:
+        case kTFViewStateNoData:
             title = NSLocalizedString(@"网络数据为空", nil);
             break;
-        case TFViewStateTimeOut:
+        case kTFViewStateTimeOut:
             title = NSLocalizedString(@"网络连接超时", nil);
             break;
     }
@@ -190,19 +191,19 @@
 - (NSString *)stateViewButtonTitle:(NSInteger)viewState {
     NSString *title = @"";
     switch (viewState) {
-        case TFViewStateDataError:
+        case kTFViewStateDataError:
             title = NSLocalizedString(@"重新加载", nil);
             break;
-        case TFViewStateLoading:
+        case kTFViewStateLoading:
             
             break;
-        case TFViewStateNetError:
+        case kTFViewStateNetError:
             title = NSLocalizedString(@"设置网络", nil);
             break;
-        case TFViewStateNoData:
+        case kTFViewStateNoData:
             
             break;
-        case TFViewStateTimeOut:
+        case kTFViewStateTimeOut:
             title = NSLocalizedString(@"重新加载", nil);
             break;
     }
@@ -214,19 +215,19 @@
 - (UIImage *)stateViewImage:(NSInteger)viewState {
     UIImage *image = [UIImage new];
     switch (viewState) {
-        case TFViewStateDataError:
+        case kTFViewStateDataError:
             image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
             break;
-        case TFViewStateLoading:
+        case kTFViewStateLoading:
             
             break;
-        case TFViewStateNetError:
+        case kTFViewStateNetError:
             image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
             break;
-        case TFViewStateNoData:
+        case kTFViewStateNoData:
             image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
             break;
-        case TFViewStateTimeOut:
+        case kTFViewStateTimeOut:
             image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
             break;
     }
@@ -270,7 +271,7 @@
 }
 
 - (FLAnimatedImage *)animationImageForStateView:(UIView *)view {
-    if (_viewState == TFViewStateLoading) {
+    if (_viewState == kTFViewStateLoading) {
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"ViewLoading" withExtension:@"gif"];
         NSData *data = [NSData dataWithContentsOfURL:url];
         FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:data];

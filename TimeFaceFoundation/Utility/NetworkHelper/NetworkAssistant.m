@@ -14,6 +14,8 @@
 #import "TFCoreUtility.h"
 #import "GZIP.h"
 #import <EGOCache/EGOCache.h>
+#import "TimeFaceFoundationConst.h"
+
 
 
 //NSString* const kMJSONErrorDomain = @"com.press-mart.timeface.json";
@@ -261,7 +263,7 @@
     if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
         //网络异常
         NSError *error = [NSError errorWithDomain:APP_ERROR_DOMAIN
-                                             code:TFErrorCodeNetwork
+                                             code:kTFErrorCodeNetwork
                                          userInfo:nil];
         completedBlock(nil,error);
     }
@@ -408,13 +410,13 @@
         
         if (!rootObject) {
             error = [NSError errorWithDomain:APP_ERROR_DOMAIN
-                                        code:TFErrorCodeAPI
+                                        code:kTFErrorCodeAPI
                                     userInfo:@{@"info":@"数据解析错误"}];
         } else {
             NSInteger status = [[rootObject objectForKey:@"status"] boolValue];
             TFLog(@"errorcode = %@",[rootObject objectForKey:@"errorCode"]);
-            TFErrorCode code = [[rootObject objectForKey:@"errorCode"] integerValue];
-            if (!status && code != TFErrorCodeUnknown) {
+            NSInteger code = [[rootObject objectForKey:@"errorCode"] integerValue];
+            if (!status && code != kTFErrorCodeUnknown) {
                 error = [NSError errorWithDomain:APP_ERROR_DOMAIN
                                             code:code
                                         userInfo:nil];
@@ -441,15 +443,15 @@
 {
     if (error.code == -1005) {
         
-        NSError *error = [NSError errorWithDomain:APP_ERROR_DOMAIN
-                                             code:TFErrorCodeNetwork
-                                         userInfo:nil];
+        error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+                                             code:kTFErrorCodeNetwork
+                                         userInfo:error.userInfo];
         completedBlock(nil,error);
     }
     else {
         //整理错误信息
         error = [NSError errorWithDomain:APP_ERROR_DOMAIN
-                                    code:TFErrorCodeAPI
+                                    code:kTFErrorCodeAPI
                                 userInfo:error.userInfo];
         TFLog(@"error:%@",error.userInfo);
         completedBlock(nil,error);

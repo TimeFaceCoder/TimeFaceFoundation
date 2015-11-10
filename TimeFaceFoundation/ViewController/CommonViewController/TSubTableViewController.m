@@ -9,6 +9,7 @@
 #import "TSubTableViewController.h"
 #import "UIViewController+ScrollFullScreen.h"
 #import "TFCoreUtility.h"
+#import "TimeFaceFoundationConst.h"
 
 @interface TSubTableViewController (){
     CGFloat lastPosition;
@@ -162,7 +163,7 @@
 
 - (void)didStartLoad {
     TFLog(@"%s",__func__);
-    [self showStateView:TFViewStateLoading];
+    [self showStateView:kTFViewStateLoading];
 }
 
 
@@ -179,33 +180,33 @@
     else {
         TFLog(@"%s",__func__);
         if ([error.domain isEqualToString:APP_ERROR_DOMAIN]) {
-            TFViewState state = TFViewStateNone;
+            NSInteger state = kTFViewStateNone;
             switch (error.code) {
-                case TFErrorCodeUnknown:
-                case TFErrorCodeAPI:
-                case TFErrorCodeHTTP:
-                    state = TFViewStateDataError;
+                case kTFErrorCodeUnknown:
+                case kTFErrorCodeAPI:
+                case kTFErrorCodeHTTP:
+                    state = kTFViewStateDataError;
                     break;
-                case TFErrorCodeNetwork:
-                    state = TFViewStateNetError;
+                case kTFErrorCodeNetwork:
+                    state = kTFViewStateNetError;
                     break;
-                case TFErrorCodeEmpty:
-                    state = TFViewStateNoData;
+                case kTFErrorCodeEmpty:
+                    state = kTFViewStateNoData;
                     break;
-                case TFErrorCodeLocationError:
-                    state = TFViewStateLocationError;
+                case kTFErrorCodeLocationError:
+                    state = kTFViewStateLocationError;
                     break;
-                case TFErrorCodePhotosError:
-                    state = TFViewStatePhotosError;
+                case kTFErrorCodePhotosError:
+                    state = kTFViewStatePhotosError;
                     break;
-                case TFErrorCodeMicrophoneError:
-                    state = TFViewStateMicrophoneError;
+                case kTFErrorCodeMicrophoneError:
+                    state = kTFViewStateMicrophoneError;
                     break;
-                case TFErrorCodeCameraError:
-                    state = TFViewStateCameraError;
+                case kTFErrorCodeCameraError:
+                    state = kTFViewStateCameraError;
                     break;
-                case TFErrorCodeContactsError:
-                    state = TFViewStateContactsError;
+                case kTFErrorCodeContactsError:
+                    state = kTFViewStateContactsError;
                     break;
                 default:
                     break;
@@ -213,7 +214,7 @@
             [self showStateView:state];
         }
         else {
-            [self showStateView:TFViewStateDataError];
+            [self showStateView:kTFViewStateDataError];
         }
     }
 }
