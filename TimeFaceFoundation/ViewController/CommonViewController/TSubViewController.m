@@ -312,12 +312,12 @@
 -(void) checkGuide {
     NSString *viewId = self.class.description;
     //取出当前页面 的引导信息
-//    ViewGuideModel *model = [[KvStore shared] loadViewGuideWithViewId:viewId];
-    ViewGuideModel *model = nil;
-    RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"viewId" strValue:viewId class:[ViewGuideModel class]];
-    if (result.count) {
-        model = [result objectAtIndex:0];
-    }
+    ViewGuideModel *model = [[TFDataHelper shared] loadViewGuideWithViewId:viewId];
+//    ViewGuideModel *model = nil;
+//    RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"viewId" strValue:viewId class:[ViewGuideModel class]];
+//    if (result.count) {
+//        model = [result objectAtIndex:0];
+//    }
     if (!model) {
         TFLog(@"（%@）页面未找到引导信息！",viewId);
         return ;

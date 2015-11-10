@@ -230,8 +230,8 @@
     [self.holedView removeFromSuperview];
     self.holedView = nil;
     _guideModel.index++;
-//    [[KvStore shared] save:_guideModel objId:_guideModel.viewId];
-    [[TFDataHelper shared] saveObject:_guideModel];
+    [[TFDataHelper shared] save:_guideModel objId:_guideModel.viewId];
+//    [[TFDataHelper shared] saveObject:_guideModel];
 
     
     if (_guideModel.index < _guideModel.guides.count) {

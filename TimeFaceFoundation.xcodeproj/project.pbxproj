@@ -34,8 +34,8 @@
 		43FBFA451BB4D6E500493585 /* NetUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FBFA441BB4D6E500493585 /* NetUtility.m */; };
 		6C0145BF1BD4BFF6003DDED4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0145BD1BD4BFF6003DDED4 /* AppDelegate.m */; };
 		6C0145C01BD4BFF6003DDED4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0145BE1BD4BFF6003DDED4 /* main.m */; };
+		6C1831841BE9976600384FAE /* YTKKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1831831BE9976600384FAE /* YTKKeyValueStore.m */; };
 		6C4F351F1BDE229100AAD4CD /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F351E1BDE229100AAD4CD /* TestViewController.m */; };
-		6C8802021BCE292500C48EFC /* TFString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8802011BCE292500C48EFC /* TFString.m */; };
 		6C89B94B1BCF4B93002B12BC /* TFDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */; };
 		6CC8C1241BA7D552003CF335 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0651BA7D552003CF335 /* NSString+Additions.m */; };
 		6CC8C1251BA7D552003CF335 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0671BA7D552003CF335 /* NSTimer+Extension.m */; };
@@ -170,10 +170,10 @@
 		6C0145BC1BD4BFF6003DDED4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6C0145BD1BD4BFF6003DDED4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6C0145BE1BD4BFF6003DDED4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6C1831821BE9976600384FAE /* YTKKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKKeyValueStore.h; sourceTree = "<group>"; };
+		6C1831831BE9976600384FAE /* YTKKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKKeyValueStore.m; sourceTree = "<group>"; };
 		6C4F351D1BDE229100AAD4CD /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		6C4F351E1BDE229100AAD4CD /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		6C8802001BCE292500C48EFC /* TFString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFString.h; sourceTree = "<group>"; };
-		6C8802011BCE292500C48EFC /* TFString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFString.m; sourceTree = "<group>"; };
 		6C89B9491BCF4B93002B12BC /* TFDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDataHelper.h; sourceTree = "<group>"; };
 		6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDataHelper.m; sourceTree = "<group>"; };
 		6CC8C0641BA7D552003CF335 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
@@ -505,8 +505,6 @@
 				43A0821C1BA7AE5700AEFCE5 /* TFModel.m */,
 				43A0821F1BA7AE5700AEFCE5 /* ViewGuideModel.h */,
 				43A082201BA7AE5700AEFCE5 /* ViewGuideModel.m */,
-				6C8802001BCE292500C48EFC /* TFString.h */,
-				6C8802011BCE292500C48EFC /* TFString.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -514,6 +512,8 @@
 		6C89B9481BCF4B82002B12BC /* TFDataHelper */ = {
 			isa = PBXGroup;
 			children = (
+				6C1831821BE9976600384FAE /* YTKKeyValueStore.h */,
+				6C1831831BE9976600384FAE /* YTKKeyValueStore.m */,
 				6C89B9491BCF4B93002B12BC /* TFDataHelper.h */,
 				6C89B94A1BCF4B93002B12BC /* TFDataHelper.m */,
 			);
@@ -1005,7 +1005,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C8802021BCE292500C48EFC /* TFString.m in Sources */,
 				6CC8C1571BA7D552003CF335 /* URLHelper.m in Sources */,
 				6CC8C1521BA7D552003CF335 /* IADownloadManager.m in Sources */,
 				43A082231BA7AE5700AEFCE5 /* TFModel.m in Sources */,
@@ -1082,6 +1081,7 @@
 				6C4F351F1BDE229100AAD4CD /* TestViewController.m in Sources */,
 				43A081F61BA7A61E00AEFCE5 /* TSubViewController.m in Sources */,
 				6CC8C1281BA7D552003CF335 /* UIImage+Blur.m in Sources */,
+				6C1831841BE9976600384FAE /* YTKKeyValueStore.m in Sources */,
 				6CC8C13D1BA7D552003CF335 /* UIWebView+Additions.m in Sources */,
 				6CC8C1301BA7D552003CF335 /* UIImageView+TFCache.m in Sources */,
 				6CC8C1321BA7D552003CF335 /* UILabel+ContentSize.m in Sources */,

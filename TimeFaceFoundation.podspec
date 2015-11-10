@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TimeFaceFoundation"
-  s.version      = "0.1.7"
+  s.version      = "0.2.1"
   s.summary      = "时光流影iOS开发框架"
   s.homepage     = "https://github.com/TimeFaceCoder/TimeFaceFoundation"
   s.license      = "Copyright (C) 2015 TimeFace, Inc.  All rights reserved."
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.dependency 'JTCalendar'
   s.dependency 'PINRemoteImage'
   s.dependency 'GKFadeNavigationController'
-  s.dependency 'Realm'
+  s.dependency 'JSONModel'
   s.dependency 'SSKeychain'
   s.dependency 'pop'
   s.dependency 'AFNetworking'
@@ -28,4 +28,5 @@ Pod::Spec.new do |s|
   s.dependency 'ActionSheetPicker-3.0'
   s.dependency 'Masonry'
   s.dependency 'SVProgressHUD'
+  s.dependency 'FMDB'
 end

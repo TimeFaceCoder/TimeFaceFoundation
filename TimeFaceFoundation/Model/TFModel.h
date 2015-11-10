@@ -6,14 +6,15 @@
 //  right © 2015 timeface. All rights reserved.
 //
 
-#import <Realm/RLMObject.h>
-#import <Realm/RLMArray.h>
+//#import <Realm/RLMObject.h>
+//#import <Realm/RLMArray.h>
+#import "JSONModel.h"
 
-@interface TFModel : RLMObject
+@interface TFModel : JSONModel
 
-- (id)initWithDictionary:(NSDictionary*)dict error:(NSError**)error;
-
-
-- (NSDictionary*)toDictionary;
+//- (id)initWithDictionary:(NSDictionary*)dict error:(NSError**)error;
+//
+//
+//- (NSDictionary*)toDictionary;
 
 @end

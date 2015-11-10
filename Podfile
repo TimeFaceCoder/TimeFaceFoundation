@@ -19,5 +19,5 @@ pod 'JTCalendar'
 pod 'PINRemoteImage'
 pod 'GKFadeNavigationController‘
 pod 'Masonry'
-pod 'Realm'
+pod 'JSONModel'
 pod 'SVProgressHUD'

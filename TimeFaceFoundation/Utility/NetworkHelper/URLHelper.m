@@ -8,8 +8,7 @@
 
 #import "URLHelper.h"
 
-const static NSString   *kInterfaceKey = @"interface";
-const static NSString   *kClassKey = @"class";
+
 static NSDictionary     *urlDictionary = nil;
 
 @implementation URLHelper {
