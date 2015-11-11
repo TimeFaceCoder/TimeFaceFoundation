@@ -9,7 +9,6 @@
 #import "TFAlertView.h"
 #import "TFCoreUtility.h"
 #import "TFDefaultStyle.h"
-#import <GPUImage/GPUImage.h>
 #import <pop/POP.h>
 #import "TimeFaceFoundationConst.h"
 
@@ -45,8 +44,6 @@
  *  石榴仔头部图片
  */
 @property (nonatomic ,strong) UIImageView   *faceImageView;
-
-//@property (nonatomic ,strong) GPUImageiOSBlurFilter *blurFilter;
 
 
 /**
@@ -135,16 +132,7 @@ const static NSInteger kSecondButtonTag = 101;
         UITapGestureRecognizer *viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                   action:@selector(handleClick:)];
         [self addGestureRecognizer:viewTap];
-//        
-//        //init view
-//        _blurFilter = [[GPUImageiOSBlurFilter alloc] init];
-//        _blurFilter.blurRadiusInPixels = 1.0;
-//        
-//        
-//        //毛玻璃背景
-//        UIImage *blurredSnapshotImage = [_blurFilter imageByFilteringImage:[self currentViewToImage]];
-//        [self.blurImageView setImage:blurredSnapshotImage];
-        [self.blurImageView setImage:[[[TFCoreUtility sharedUtility] currentViewToImage] blurredImage]];
+        [self.blurImageView setImage:[[[TFCoreUtility sharedUtility] currentViewToImage] applyLightEffect]];
 
         _blurImageView.layer.opacity = 0.0;
         _blurImageView.userInteractionEnabled = NO;

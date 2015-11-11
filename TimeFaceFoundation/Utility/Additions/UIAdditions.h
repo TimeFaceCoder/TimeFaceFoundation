@@ -18,7 +18,6 @@
 #import "UIImage+Letters.h"
 #import "UIImage+ResizeMagick.h"
 #import "UIImage+ImageEffects.h"
-#import "UIImage+Blur.h"
 #import "UIButton+Expand.h"
 #import "NSDate+DateTools.h"
 #import "UIViewController+TopMostViewController.h"

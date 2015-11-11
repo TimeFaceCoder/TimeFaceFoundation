@@ -41,7 +41,6 @@
 		6CC8C1251BA7D552003CF335 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0671BA7D552003CF335 /* NSTimer+Extension.m */; };
 		6CC8C1261BA7D552003CF335 /* TTGlobalUICommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0691BA7D552003CF335 /* TTGlobalUICommon.m */; };
 		6CC8C1271BA7D552003CF335 /* UIButton+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C06C1BA7D552003CF335 /* UIButton+Expand.m */; };
-		6CC8C1281BA7D552003CF335 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C06E1BA7D552003CF335 /* UIImage+Blur.m */; };
 		6CC8C1291BA7D552003CF335 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0701BA7D552003CF335 /* UIImage+Crop.m */; };
 		6CC8C12A1BA7D552003CF335 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0721BA7D552003CF335 /* UIImage+ImageEffects.m */; };
 		6CC8C12B1BA7D552003CF335 /* UIImage+Letters.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0741BA7D552003CF335 /* UIImage+Letters.m */; };
@@ -56,7 +55,6 @@
 		6CC8C1361BA7D552003CF335 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C08A1BA7D552003CF335 /* UIView+Additions.m */; };
 		6CC8C1371BA7D552003CF335 /* UIView+Genie.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C08C1BA7D552003CF335 /* UIView+Genie.m */; };
 		6CC8C1391BA7D552003CF335 /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0901BA7D552003CF335 /* UIView+Origami.m */; };
-		6CC8C13A1BA7D552003CF335 /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0921BA7D552003CF335 /* UIView+Snapshot.m */; };
 		6CC8C13B1BA7D552003CF335 /* UIViewController+ScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0941BA7D552003CF335 /* UIViewController+ScrollFullScreen.m */; };
 		6CC8C13C1BA7D552003CF335 /* UIViewController+TopMostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0961BA7D552003CF335 /* UIViewController+TopMostViewController.m */; };
 		6CC8C13D1BA7D552003CF335 /* UIWebView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0981BA7D552003CF335 /* UIWebView+Additions.m */; };
@@ -183,8 +181,6 @@
 		6CC8C06A1BA7D552003CF335 /* UIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAdditions.h; sourceTree = "<group>"; };
 		6CC8C06B1BA7D552003CF335 /* UIButton+Expand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Expand.h"; sourceTree = "<group>"; };
 		6CC8C06C1BA7D552003CF335 /* UIButton+Expand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Expand.m"; sourceTree = "<group>"; };
-		6CC8C06D1BA7D552003CF335 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
-		6CC8C06E1BA7D552003CF335 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		6CC8C06F1BA7D552003CF335 /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
 		6CC8C0701BA7D552003CF335 /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
 		6CC8C0711BA7D552003CF335 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -213,8 +209,6 @@
 		6CC8C08C1BA7D552003CF335 /* UIView+Genie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Genie.m"; sourceTree = "<group>"; };
 		6CC8C08F1BA7D552003CF335 /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origami.h"; sourceTree = "<group>"; };
 		6CC8C0901BA7D552003CF335 /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
-		6CC8C0911BA7D552003CF335 /* UIView+Snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Snapshot.h"; sourceTree = "<group>"; };
-		6CC8C0921BA7D552003CF335 /* UIView+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshot.m"; sourceTree = "<group>"; };
 		6CC8C0931BA7D552003CF335 /* UIViewController+ScrollFullScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ScrollFullScreen.h"; sourceTree = "<group>"; };
 		6CC8C0941BA7D552003CF335 /* UIViewController+ScrollFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ScrollFullScreen.m"; sourceTree = "<group>"; };
 		6CC8C0951BA7D552003CF335 /* UIViewController+TopMostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TopMostViewController.h"; sourceTree = "<group>"; };
@@ -546,8 +540,6 @@
 				6CC8C06A1BA7D552003CF335 /* UIAdditions.h */,
 				6CC8C06B1BA7D552003CF335 /* UIButton+Expand.h */,
 				6CC8C06C1BA7D552003CF335 /* UIButton+Expand.m */,
-				6CC8C06D1BA7D552003CF335 /* UIImage+Blur.h */,
-				6CC8C06E1BA7D552003CF335 /* UIImage+Blur.m */,
 				6CC8C06F1BA7D552003CF335 /* UIImage+Crop.h */,
 				6CC8C0701BA7D552003CF335 /* UIImage+Crop.m */,
 				6CC8C0711BA7D552003CF335 /* UIImage+ImageEffects.h */,
@@ -576,8 +568,6 @@
 				6CC8C08C1BA7D552003CF335 /* UIView+Genie.m */,
 				6CC8C08F1BA7D552003CF335 /* UIView+Origami.h */,
 				6CC8C0901BA7D552003CF335 /* UIView+Origami.m */,
-				6CC8C0911BA7D552003CF335 /* UIView+Snapshot.h */,
-				6CC8C0921BA7D552003CF335 /* UIView+Snapshot.m */,
 				6CC8C0931BA7D552003CF335 /* UIViewController+ScrollFullScreen.h */,
 				6CC8C0941BA7D552003CF335 /* UIViewController+ScrollFullScreen.m */,
 				6CC8C0951BA7D552003CF335 /* UIViewController+TopMostViewController.h */,
@@ -1066,7 +1056,6 @@
 				6CC8C1261BA7D552003CF335 /* TTGlobalUICommon.m in Sources */,
 				6CC8C16E1BA7D552003CF335 /* ViewPagerController.m in Sources */,
 				6C0145C01BD4BFF6003DDED4 /* main.m in Sources */,
-				6CC8C13A1BA7D552003CF335 /* UIView+Snapshot.m in Sources */,
 				6CC8C1531BA7D552003CF335 /* IADownloadOperation.m in Sources */,
 				B046C1601BCE54BA00D91D92 /* TFSecurityUtility.m in Sources */,
 				B046C15A1BCE545C00D91D92 /* TFDeviceUtility.m in Sources */,
@@ -1076,7 +1065,6 @@
 				6CC8C1691BA7D552003CF335 /* MotionOrientation.m in Sources */,
 				6C4F351F1BDE229100AAD4CD /* TestViewController.m in Sources */,
 				43A081F61BA7A61E00AEFCE5 /* TSubViewController.m in Sources */,
-				6CC8C1281BA7D552003CF335 /* UIImage+Blur.m in Sources */,
 				6C1831841BE9976600384FAE /* YTKKeyValueStore.m in Sources */,
 				6CC8C13D1BA7D552003CF335 /* UIWebView+Additions.m in Sources */,
 				6CC8C1301BA7D552003CF335 /* UIImageView+TFCache.m in Sources */,
