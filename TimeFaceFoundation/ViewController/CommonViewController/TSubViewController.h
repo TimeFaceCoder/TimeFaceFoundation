@@ -18,6 +18,25 @@
 
 typedef id (^TFViewControllerBlock)(id object);
 
+// toast提示类型
+typedef NS_ENUM (NSInteger, MessageType) {
+    /**
+     *  默认提示
+     */
+    MessageTypeDefault = 0,
+    /**
+     *  成功提示
+     */
+    MessageTypeSuccess = 1,
+    /**
+     *  失败提示
+     */
+    MessageTypeFaild   = 2,
+    /**
+     *  一般性消息提示
+     */
+    MessageTypeInfo    = 3
+};
 
 @interface TSubViewController : UIViewController
 /**
@@ -41,6 +60,8 @@ typedef id (^TFViewControllerBlock)(id object);
 - (void)showStateView:(NSInteger)viewState;
 - (void)removeStateView;
 
+- (void)showToastMessage:(NSString *)message messageType:(MessageType)messageType;
+- (void)dismissToastView;
 - (NSString *)stateViewTitle:(NSInteger)viewState;
 - (NSString *)stateViewButtonTitle:(NSInteger)viewState;
 - (UIImage *)stateViewImage:(NSInteger)viewState;

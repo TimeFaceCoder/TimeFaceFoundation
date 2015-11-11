@@ -20,7 +20,6 @@
 #import "GuideHelpView.h"
 
 @interface TSubViewController ()<ViewStateDataSource,ViewStateDelegate> {
-    CGRect stateViewFrame;
 }
 /**
  *  页面参数
@@ -63,12 +62,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    [TFLogAgent startTracPage:NSStringFromClass([self class])];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [TFLogAgent endTracPage:NSStringFromClass([self class])];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -93,8 +90,8 @@
 }
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
     [_manager stopDeviceMotionUpdates];
+    [self removeGuideView];
 }
 
 - (void)dealloc {
@@ -107,12 +104,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    stateViewFrame = self.view.bounds;
-
-    // Do any additional setup after loading the view.
-    
-    
-    
     if (!_requestParams) {
         _requestParams = [NSMutableDictionary dictionary];
     }
@@ -140,7 +131,7 @@
 
 - (TFStateView *)stateView {
     if (!_stateView) {
-        _stateView = [[TFStateView alloc] initWithFrame:stateViewFrame];
+        _stateView = [[TFStateView alloc] init];
         _stateView.stateDataSource = self;
         _stateView.stateDelegate = self;
     }
@@ -164,6 +155,31 @@
 
 - (void)reloadData {
     
+}
+
+- (void)showToastMessage:(NSString *)message messageType:(MessageType)messageType {
+    TFMainRun(^{
+        switch (messageType) {
+            case MessageTypeDefault:
+                [SVProgressHUD showWithStatus:message];
+                break;
+            case MessageTypeSuccess:
+                [SVProgressHUD showSuccessWithStatus:message];
+                break;
+            case MessageTypeFaild:
+                [SVProgressHUD showErrorWithStatus:message];
+                break;
+            default:
+                [SVProgressHUD showInfoWithStatus:message];
+                break;
+        }
+    });
+}
+
+- (void)dismissToastView {
+    TFMainRun(^{
+        [SVProgressHUD dismiss];
+    });
 }
 
 - (NSString *)stateViewTitle:(NSInteger)viewState {
@@ -314,29 +330,26 @@
     NSString *viewId = self.class.description;
     //取出当前页面 的引导信息
     ViewGuideModel *model = [[TFDataHelper shared] loadViewGuideWithViewId:viewId];
-//    ViewGuideModel *model = nil;
-//    RLMResults *result = [[TFDataHelper shared] getObjectsWithKey:@"viewId" strValue:viewId class:[ViewGuideModel class]];
-//    if (result.count) {
-//        model = [result objectAtIndex:0];
-//    }
     if (!model) {
         TFLog(@"（%@）页面未找到引导信息！",viewId);
-        return ;
+        return;
     }
     //引导 开始
     if (model.index < model.guides.count) {
-        [self performSelector:@selector(startGuide:) withObject:model afterDelay:model.delayShow];
+        [self performSelector:@selector(startGuide:)
+                   withObject:model
+                   afterDelay:model.delayShow];
     } else {
         TFLog(@"（%@）引导信息已处理完！",viewId);
     }
 }
--(void) startGuide:(ViewGuideModel *)model {
+-(void)startGuide:(ViewGuideModel *)model {
     [[UIApplication sharedApplication].keyWindow addSubview:self.guideHelpView];
-    [_guideHelpView refreshGuide:model inview:self];
+    [self.guideHelpView refreshGuide:model inview:self];
 }
 
 - (void)removeGuideView {
-    
+    [self.guideHelpView removeFromSuperview];
 }
 
 /**

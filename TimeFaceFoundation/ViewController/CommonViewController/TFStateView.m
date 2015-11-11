@@ -147,7 +147,7 @@
 }
 
 - (BOOL)canShowImage {
-    return (_imageView.image && _imageView.superview);
+    return ((_imageView.animationImages || _imageView.image) && _imageView.superview);
 }
 
 - (BOOL)canShowTitle {
@@ -258,10 +258,15 @@
     
     NSNumber *imgWidth = @(roundf(_imageView.image.size.width));
     NSNumber *imgHeight = @(roundf(_imageView.image.size.height));
-    if (_imageView.animatedImage) {
-        //gif
-        imgWidth = @(roundf(_imageView.animatedImage.size.width/2));
-        imgHeight = @(roundf(_imageView.animatedImage.size.height/2));
+//    if (_imageView.animatedImage) {
+//        //gif
+//        imgWidth = @(roundf(_imageView.animatedImage.size.width/2));
+//        imgHeight = @(roundf(_imageView.animatedImage.size.height/2));
+//    }
+    if (_imageView.animationImages) {
+        //png array
+        imgWidth = @(roundf(_imageView.animationImages[0].size.width));
+        imgHeight = @(roundf(_imageView.animationImages[0].size.height));
     }
     NSNumber *trailing = @(roundf((width-[imgWidth floatValue])/2.0));
     
@@ -272,7 +277,7 @@
     NSMutableArray *verticalSubviews = [NSMutableArray new];
     
     // Assign the image view's horizontal constraints
-    if (_imageView.superview) {
+    if ([self canShowImage]) {
         [views setObject:_imageView forKey:@"imageView"];
         [verticalSubviews addObject:@"[imageView(imgHeight)]"];
         
@@ -509,7 +514,7 @@ static char const * const kStateView            = "stateView";
 
 - (CGRect)state_frame
 {
-    CGRect frame = [UIScreen mainScreen].bounds;
+    CGRect frame = self.superview.bounds;
     
     if (self.stateDataSource && [self.stateDataSource respondsToSelector:@selector(frameForStateView:)]) {
         frame = [self.stateDataSource frameForStateView:self];
@@ -667,11 +672,11 @@ static char const * const kStateView            = "stateView";
             view.imageView.animatedImage = [self state_animationImage];
         }
         //images
-//        if ([self state_images]) {
-//            view.imageView.animationImages = [self state_images];
-//            view.imageView.animationDuration = (CGFloat)[self state_images].count/12.0;
-//            [view.imageView startAnimating];
-//        }
+        if ([self state_images]) {
+            view.imageView.animationImages = [self state_images];
+            view.imageView.animationDuration = (CGFloat)[self state_images].count/12.0;
+            [view.imageView startAnimating];
+        }
         
         // Configure button
         [view.button setAttributedTitle:[self state_buttonTitleForState:0] forState:0];
@@ -685,18 +690,9 @@ static char const * const kStateView            = "stateView";
     }
     
     // Configure Offset
-//    view.offset = [self state_offset];
+    view.offset = [self state_offset];
     // Configure frame
-//    view.frame = [self state_frame];
-    
-    self.frame = [self state_frame];
-//    view.frame = self.frame;
-//    self.tfTop += 30.f;
-    
-    CGRect frame =view.frame;
-    frame.origin.y =0;
-    frame.size.height =self.frame.size.height;
-    self.tfTop += 64.f;
+    view.frame = [self state_frame];
     
     // Configure the empty dataset view
     view.backgroundColor = [self state_dataSetBackgroundColor];
@@ -704,7 +700,7 @@ static char const * const kStateView            = "stateView";
     
     [view updateConstraints];
     [view layoutIfNeeded];
-
+    
 }
 
 - (void)state_invalidate

@@ -8,16 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "JMHoledView.h"
-#import "ViewGuideModel.h"
-#import "UIAdditions.h"
-
-@interface GuideHelpView : UIView<JMHoledViewDelegate>
-
-@property (nonatomic ,strong           ) JMHoledView *holedView;
-@property (nonatomic ,strong           ) ViewGuideModel *guideModel;
-@property (nonatomic ,strong           ) UIViewController *viewController;
-
+@class ViewGuideModel;
+@interface GuideHelpView : UIView
 -(void) refreshGuide:(ViewGuideModel *)model inview:(id)sender;
 
 @end

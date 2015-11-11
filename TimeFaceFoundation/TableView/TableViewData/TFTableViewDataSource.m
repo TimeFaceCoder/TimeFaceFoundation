@@ -101,7 +101,7 @@ const static NSInteger kPageSize = 20;
     //注册Cell
     [self registerClass];
     
-    if (self.listType) {
+    if (self.listType && [self.delegate showPullRefresh]) {
         [self addPullRefresh];
     }
     _downThresholdY = 200.0;
@@ -116,6 +116,9 @@ const static NSInteger kPageSize = 20;
 }
 
 - (void)reloadTableViewData:(BOOL)pullToRefresh {
+    if (pullToRefresh) {
+        pullToRefresh = [self.delegate showPullRefresh];
+    }
     if (pullToRefresh) {
         [self.tableView triggerPullToRefresh];
     }
@@ -174,10 +177,7 @@ const static NSInteger kPageSize = 20;
         [_params setValue:[self getLastedId] forKey:@"lastedId"];
     }
     
-    
-    
     __weak __typeof(self)weakSelf = self;
-    
     void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy) = ^(id result,DataLoadPolicy dataLoadPolicy) {
         if (dataLoadPolicy == DataLoadPolicyReload ||
             dataLoadPolicy == DataLoadPolicyNone) {
@@ -236,13 +236,13 @@ const static NSInteger kPageSize = 20;
     
     NSString *url = [[URLHelper sharedHelper] urlByListType:_listType];
     [[NetworkAssistant sharedAssistant] getDataByInterFace:url
-                                              params:_params
-                                            fileData:nil
-                                                 hud:nil
-                                               start:^(id cacheResult){
-                                                   _loading = YES;
-                                               }
-                                           completed:^(id result, NSError *error)
+                                                    params:_params
+                                                  fileData:nil
+                                                       hud:nil
+                                                     start:^(id cacheResult){
+                                                         _loading = YES;
+                                                     }
+                                                 completed:^(id result, NSError *error)
      {
          if (error) {
              //处理出错且没有缓存的情况

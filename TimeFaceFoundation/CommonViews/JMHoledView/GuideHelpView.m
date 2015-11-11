@@ -8,6 +8,17 @@
 
 #import "GuideHelpView.h"
 #import "TFDataHelper.h"
+#import "JMHoledView.h"
+#import "ViewGuideModel.h"
+#import "UIAdditions.h"
+
+@interface GuideHelpView()<JMHoledViewDelegate>
+
+@property (nonatomic ,strong) JMHoledView      *holedView;
+@property (nonatomic ,strong) ViewGuideModel   *guideModel;
+@property (nonatomic ,strong) UIViewController *viewController;
+
+@end
 
 @implementation GuideHelpView
 
@@ -231,7 +242,6 @@
     self.holedView = nil;
     _guideModel.index++;
     [[TFDataHelper shared] save:_guideModel objId:_guideModel.viewId];
-//    [[TFDataHelper shared] saveObject:_guideModel];
 
     
     if (_guideModel.index < _guideModel.guides.count) {

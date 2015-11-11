@@ -36,7 +36,6 @@
  *  @return
  */
 -(id) getObject:(NSString *)className objId:(NSString *)objId;
-//-(id) getObjectByClass:(Class *)aClass objId:(NSString *)objId;
 
 /**
  *  获取所有数据
@@ -73,49 +72,6 @@
  *  @return 
  */
 -(ViewGuideModel *) loadViewGuideWithViewId:(NSString *)viewId;
-
-///**
-// *  存储一个对象
-// *
-// *  @param object
-// */
-//- (void)saveObject:(RLMObject*)object;
-//
-///**
-// *  通过一个key-value获取一个指定类型对象(value为字符类型)
-// *
-// *  @param key
-// *  @param value
-// *  @param className
-// *
-// *  @return
-// */
-//- (RLMResults*)getObjectsWithKey:(NSString*)key strValue:(NSString*)value class:(Class)className;
-///**
-// *  通过一个key-value获取一个指定类型对象(value为数字类型)
-// *
-// *  @param key
-// *  @param value
-// *  @param className
-// *
-// *  @return
-// */
-//- (RLMResults*)getObjectsWithKey:(NSString *)key numValue:(NSNumber *)value class:(Class)className;
-///**
-// *  获取一个类型所有的对象
-// *
-// *  @param className
-// *
-// *  @return
-// */
-//- (RLMResults*)getAllObject:(Class)className;
-///**
-// *  删除指定数据
-// *
-// *  @param object
-// */
-//- (void)removeObject:(RLMObject*)object;
-
 
 
 @end

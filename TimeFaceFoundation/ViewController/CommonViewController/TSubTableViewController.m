@@ -15,9 +15,8 @@
     CGFloat lastPosition;
 }
 
-@property (nonatomic ,strong ,readwrite) UITableView            *tableView;
-@property (nonatomic ,strong ,readwrite) UISearchBar            *searchBar;
-@property (nonatomic ,strong ,readwrite) TFTableViewDataSource    *dataSource;
+@property (nonatomic ,strong ,readwrite) UITableView           *tableView;
+@property (nonatomic ,strong ,readwrite) TFTableViewDataSource *dataSource;
 
 @end
 
@@ -29,7 +28,6 @@
     if (self) {
         // Custom initialization
         self.tableViewStyle = UITableViewStylePlain;
-        self.showSearchBar = YES;
         self.usePullReload = YES;
     }
     return self;
