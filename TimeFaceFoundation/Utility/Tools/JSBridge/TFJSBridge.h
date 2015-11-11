@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "AppMacro.h"
 
 #define kProtocolScheme         @"tfcall"
 #define kBridgeName             @"external"

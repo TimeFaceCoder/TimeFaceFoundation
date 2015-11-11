@@ -21,6 +21,7 @@
 #import "TFListHeaderView.h"
 
 #import "NetworkAssistant.h"
+#import "TimeFaceFoundationConst.h"
 
 
 
@@ -55,7 +56,7 @@
 /**
  *  当前滚动方向
  */
-@property (nonatomic ,assign) ScrollDirection                previousScrollDirection;
+@property (nonatomic ,assign) NSInteger                previousScrollDirection;
 /**
  *  Y轴偏移
  */
@@ -301,10 +302,10 @@ const static NSInteger kPageSize = 20;
  *
  *  @return ScrollDirection
  */
-- (ScrollDirection)detectScrollDirection:(CGFloat)currentOffsetY previousOffsetY:(CGFloat)previousOffsetY {
-    return currentOffsetY > previousOffsetY ? ScrollDirectionUp   :
-    currentOffsetY < previousOffsetY ? ScrollDirectionDown :
-    ScrollDirectionNone;
+- (NSInteger)detectScrollDirection:(CGFloat)currentOffsetY previousOffsetY:(CGFloat)previousOffsetY {
+    return currentOffsetY > previousOffsetY ? kTFScrollDirectionUp   :
+    currentOffsetY < previousOffsetY ? kTFScrollDirectionDown :
+    kTFScrollDirectionNone;
 }
 
 - (NSString *)getLastedId {
@@ -396,14 +397,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     
     
     CGFloat currentOffsetY = scrollView.contentOffset.y;
-    ScrollDirection currentScrollDirection = [self detectScrollDirection:currentOffsetY previousOffsetY:_previousOffsetY];
+    NSInteger currentScrollDirection = [self detectScrollDirection:currentOffsetY previousOffsetY:_previousOffsetY];
     CGFloat topBoundary = -scrollView.contentInset.top;
     CGFloat bottomBoundary = scrollView.contentSize.height + scrollView.contentInset.bottom;
     
     BOOL isOverTopBoundary = currentOffsetY <= topBoundary;
     BOOL isOverBottomBoundary = currentOffsetY >= bottomBoundary;
     
-    BOOL isBouncing = (isOverTopBoundary && currentScrollDirection != ScrollDirectionDown) || (isOverBottomBoundary && currentScrollDirection != ScrollDirectionUp);
+    BOOL isBouncing = (isOverTopBoundary && currentScrollDirection != kTFScrollDirectionDown) || (isOverBottomBoundary && currentScrollDirection != kTFScrollDirectionUp);
     if (isBouncing || !scrollView.isDragging) {
         return;
     }
@@ -412,7 +413,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     _accumulatedY += deltaY;
     
     switch (currentScrollDirection) {
-        case ScrollDirectionUp:
+        case kTFScrollDirectionUp:
         {
             BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
             
@@ -423,7 +424,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
             }
         }
             break;
-        case ScrollDirectionDown:
+        case kTFScrollDirectionDown:
         {
             BOOL isOverThreshold = _accumulatedY > _downThresholdY;
             
@@ -434,11 +435,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
             }
         }
             break;
-        case ScrollDirectionNone:
-        case ScrollDirectionVertical:
-        case ScrollDirectionHorizontal:
-        case ScrollDirectionLeft:
-        case ScrollDirectionRight:
+        case kTFScrollDirectionNone:
+        case kTFScrollDirectionVertical:
+        case kTFScrollDirectionHorizontal:
+        case kTFScrollDirectionLeft:
+        case kTFScrollDirectionRight:
             break;
     }
     
@@ -463,7 +464,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     CGFloat bottomBoundary = scrollView.contentSize.height + scrollView.contentInset.bottom;
     
     switch (_previousScrollDirection) {
-        case ScrollDirectionUp:
+        case kTFScrollDirectionUp:
         {
             BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
             BOOL isOverBottomBoundary = currentOffsetY >= bottomBoundary;
@@ -475,7 +476,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
             }
             break;
         }
-        case ScrollDirectionDown:
+        case kTFScrollDirectionDown:
         {
             BOOL isOverThreshold = _accumulatedY > _downThresholdY;
             BOOL isOverTopBoundary = currentOffsetY <= topBoundary;
@@ -488,11 +489,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
             }
             break;
         }
-        case ScrollDirectionNone:
-        case ScrollDirectionVertical:
-        case ScrollDirectionHorizontal:
-        case ScrollDirectionRight:
-        case ScrollDirectionLeft:
+        case kTFScrollDirectionNone:
+        case kTFScrollDirectionVertical:
+        case kTFScrollDirectionHorizontal:
+        case kTFScrollDirectionRight:
+        case kTFScrollDirectionLeft:
             break;
     }
     

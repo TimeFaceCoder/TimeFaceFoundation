@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TFDirectionalPanGestureRecognizer.h"
-#import "AppMacro.h"
 
 typedef NS_ENUM(NSUInteger, TFNavigationViewControllerNavigationBarVisibility) {
     TFNavigationViewControllerNavigationBarVisibilityUndefined = 0, // Initial value, don't set this

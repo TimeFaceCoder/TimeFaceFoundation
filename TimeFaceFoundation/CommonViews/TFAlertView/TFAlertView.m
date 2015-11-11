@@ -11,6 +11,7 @@
 #import "TFDefaultStyle.h"
 #import <GPUImage/GPUImage.h>
 #import <pop/POP.h>
+#import "TimeFaceFoundationConst.h"
 
 @interface TFAlertView()
 

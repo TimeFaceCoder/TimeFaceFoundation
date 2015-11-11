@@ -8,6 +8,7 @@
 
 #import "UIImage+Letters.h"
 #import "TFDefaultStyle.h"
+#import "TimeFaceFoundationConst.h"
 
 @implementation UIImage (Letters)
 

@@ -8,4 +8,8 @@
 
 #import "TimeFaceFoundationConst.h"
 
-/////////////////////////////////////////////Common Error Code//////////////////////////////////////
+///////////////////////////////////////////Common Notification//////////////////////////////////////
+NSString * const kTFOpenLocalNotification    = @"kTFOpenLocalNotification";
+NSString * const kTFCloseWebViewNotification = @"kTFCloseWebViewNotification";
+NSString * const kTFAutoLoadNotification     = @"kTFAutoLoadNotification";
+NSString * const kTFReloadCellNotification   = @"kTFReloadCellNotification";

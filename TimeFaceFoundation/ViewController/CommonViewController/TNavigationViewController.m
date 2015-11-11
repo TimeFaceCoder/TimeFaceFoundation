@@ -10,6 +10,7 @@
 #import "TNavigationBar.h"
 #import "ViewTransitionAnimator.h"
 #import "TFDefaultStyle.h"
+#import "TimeFaceFoundationConst.h"
 
 #define kGKDefaultVisibility YES
 #define IS_OS_OLDER_THAN_IOS_8 [[[UIDevice currentDevice] systemVersion] floatValue] <= 8.f

@@ -7,6 +7,7 @@
 //
 
 #import "WebViewBridge.h"
+#import "TimeFaceFoundationConst.h"
 
 
 @implementation WebViewBridge
@@ -27,7 +28,7 @@
  */
 - (void)showTimeDetail:(NSArray *)params {
     if (params && [params count] > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_OPEN_LOCAL_VIEW
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTFOpenLocalNotification
                                                             object:nil
                                                           userInfo:@{@"dataId":[params objectAtIndex:0],
                                                                      @"type":@"1"}];
@@ -40,7 +41,7 @@
  */
 - (void)showTalkDetail:(NSArray *)params {
     if (params && [params count] > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_OPEN_LOCAL_VIEW
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTFOpenLocalNotification
                                                             object:nil
                                                           userInfo:@{@"dataId":[params objectAtIndex:0],
                                                                      @"type":@"2"}];
@@ -54,7 +55,7 @@
  */
 - (void)showUserDetail:(NSArray *)params {
     if (params && [params count] > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_OPEN_LOCAL_VIEW
+        [[NSNotificationCenter defaultCenter] postNotificationName:kTFOpenLocalNotification
                                                             object:nil
                                                           userInfo:@{@"dataId":[params objectAtIndex:0],
                                                                      @"type":@"3"}];
@@ -63,7 +64,7 @@
 
 
 - (void)closeWebView {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_CLOSE_WEBVIEW
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTFCloseWebViewNotification
                                                         object:nil
                                                       userInfo:nil];
 }

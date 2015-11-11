@@ -9,7 +9,7 @@
 #import "TableViewLoadingItemCell.h"
 #import "FLAnimatedImage.h"
 #import "TFDefaultStyle.h"
-#import "AppMacro.h"
+#import "TimeFaceFoundationConst.h"
 #import "UIAdditions.h"
 
 @implementation TableViewLoadingItemCell
@@ -76,7 +76,7 @@
     self.textLabel.tfCenterY = self.loadingView.tfCenterY;
     CGFloat left = (self.tfWidth - (self.loadingView.tfWidth + self.textLabel.tfWidth) ) / 2;
     self.loadingView.tfLeft = left;
-    self.textLabel.tfLeft = self.loadingView.tfRight + VIEW_LEFT_SPACE/2;
+    self.textLabel.tfLeft = self.loadingView.tfRight + 6;
     
 }
 

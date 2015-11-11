@@ -8,6 +8,7 @@
 
 #import "TFJSBridge.h"
 #import <objc/runtime.h>
+#import "TimeFaceFoundationConst.h"
 
 
 @interface TFJSBridge ()<UIWebViewDelegate>

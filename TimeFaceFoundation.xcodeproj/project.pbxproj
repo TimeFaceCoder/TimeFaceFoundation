@@ -118,8 +118,6 @@
 /* Begin PBXFileReference section */
 		4370CBAA1BABE68000756E00 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4370CBAC1BABE6A900756E00 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		438D1DB81BA8160C0034E7B7 /* AppMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacro.h; sourceTree = "<group>"; };
-		438D1DBB1BA8160C0034E7B7 /* NotificationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
 		43A080751BA7A5BE00AEFCE5 /* TFDefaultStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDefaultStyle.h; sourceTree = "<group>"; };
 		43A080761BA7A5BE00AEFCE5 /* TFDefaultStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDefaultStyle.m; sourceTree = "<group>"; };
 		43A080791BA7A5BE00AEFCE5 /* TableViewLoadingItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewLoadingItemCell.h; sourceTree = "<group>"; };
@@ -347,8 +345,6 @@
 		438D1DB71BA8160C0034E7B7 /* Macro */ = {
 			isa = PBXGroup;
 			children = (
-				438D1DB81BA8160C0034E7B7 /* AppMacro.h */,
-				438D1DBB1BA8160C0034E7B7 /* NotificationMacro.h */,
 			);
 			path = Macro;
 			sourceTree = "<group>";

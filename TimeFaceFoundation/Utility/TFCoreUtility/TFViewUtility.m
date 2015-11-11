@@ -7,6 +7,7 @@
 //
 
 #import "TFViewUtility.h"
+#import "TimeFaceFoundationConst.h"
 
 @implementation TFViewUtility
 
@@ -38,7 +39,7 @@
                               selector:(SEL)selector {
     
     UIBarButtonItem *barButtonSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [barButtonSpacer setWidth:NAV_BUTTON_SPACE];
+    [barButtonSpacer setWidth:0];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *buttomImage = [UIImage imageNamed:imageName];
@@ -61,7 +62,7 @@
     
     NSMutableArray *barButtons = [NSMutableArray arrayWithCapacity:1];
     UIBarButtonItem *barButtonSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [barButtonSpacer setWidth:NAV_BUTTON_SPACE];
+    [barButtonSpacer setWidth:0];
     [barButtons addObject:barButtonSpacer];
     NSInteger index = 0;
     for (NSString *imageName in imageNames) {
@@ -92,7 +93,7 @@
                               selector:(SEL)selector {
     
     UIBarButtonItem *barButtonSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [barButtonSpacer setWidth:NAV_BUTTON_SPACE];
+    [barButtonSpacer setWidth:0];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:title forState:UIControlStateNormal];
@@ -108,7 +109,7 @@
 
 - (NSArray *)createBarButtonsWithButton:(UIButton *)button {
     UIBarButtonItem *barButtonSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [barButtonSpacer setWidth:NAV_BUTTON_SPACE];
+    [barButtonSpacer setWidth:0];
     
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
@@ -120,7 +121,7 @@
                              selector:(SEL)selector {
     
     UIBarButtonItem *barButtonSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [barButtonSpacer setWidth:NAV_BUTTON_SPACE];
+    [barButtonSpacer setWidth:0];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
     
     

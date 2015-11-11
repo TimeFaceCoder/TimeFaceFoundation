@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 #import "TFDefaultStyle.h"
 #import "TFCoreUtility.h"
-#import "AppMacro.h"
+#import "TimeFaceFoundationConst.h"
 
 #define fequal(a,b) (fabs((a) - (b)) < FLT_EPSILON)
 #define fequalzero(a) (fabs(a) < FLT_EPSILON)

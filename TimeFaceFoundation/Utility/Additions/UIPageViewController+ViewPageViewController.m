@@ -7,6 +7,7 @@
 //
 
 #import "UIPageViewController+ViewPageViewController.h"
+#import "TimeFaceFoundationConst.h"
 
 #define kObserverForUIQueuingScrollView  @"contentInset"
 

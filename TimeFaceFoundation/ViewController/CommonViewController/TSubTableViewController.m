@@ -82,24 +82,24 @@
     if (self.listType) {
         [self startLoadData];
     }
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTICE_RELOAD_CELL object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kTFReloadCellNotification object:nil];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(autoReload:)
-                                                 name:NOTICE_AUTOLOAD_DATA
+                                                 name:kTFAutoLoadNotification
                                                object:nil];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTICE_AUTOLOAD_DATA
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kTFAutoLoadNotification
                                                   object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadCell:)
-                                                 name:NOTICE_RELOAD_CELL
+                                                 name:kTFReloadCellNotification
                                                object:nil];
     
 }
@@ -179,7 +179,7 @@
     }
     else {
         TFLog(@"%s",__func__);
-        if ([error.domain isEqualToString:APP_ERROR_DOMAIN]) {
+        if ([error.domain isEqualToString:TF_APP_ERROR_DOMAIN]) {
             NSInteger state = kTFViewStateNone;
             switch (error.code) {
                 case kTFErrorCodeUnknown:
@@ -226,13 +226,13 @@
     if (currentPostion - lastPosition > 30) {
         lastPosition = currentPostion;
         //向上滚动
-        if (currentPostion > kNoticeoffset) {
-            BOOL noticed = [[TFCoreUtility sharedUtility] getBoolByKey:STORE_KEY_SCROLLNOTICE];
+        if (currentPostion > 3000) {
+            BOOL noticed = [[TFCoreUtility sharedUtility] getBoolByKey:@"STORE_KEY_SCROLLNOTICE"];
             if (!noticed) {
                 [JDStatusBarNotification showWithStatus:@"点击这里返回顶部"
                                            dismissAfter:1.5
                                               styleName:@"scrollNotice"];
-                [[TFCoreUtility sharedUtility] setBoolByKey:STORE_KEY_SCROLLNOTICE value:YES];
+                [[TFCoreUtility sharedUtility] setBoolByKey:@"STORE_KEY_SCROLLNOTICE" value:YES];
             }
         }
     }

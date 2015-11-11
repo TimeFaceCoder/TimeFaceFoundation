@@ -8,8 +8,6 @@
 
 #import "TSubViewController.h"
 #import "TFTableViewDataSource.h"
-#import "AppMacro.h"
-#import "NotificationMacro.h"
 
 @interface TSubTableViewController : TSubViewController <TFTableViewDataSourceDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
 

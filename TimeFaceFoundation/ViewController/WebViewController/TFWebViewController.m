@@ -99,20 +99,20 @@
     //关闭web view 通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotice:)
-                                                 name:NOTICE_CLOSE_WEBVIEW
+                                                 name:kTFCloseWebViewNotification
                                                object:nil];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleNotice:)
-                                                 name:NOTICE_OPEN_LOCAL_VIEW
+                                                 name:kTFOpenLocalNotification
                                                object:nil];
 }
 
 - (void)removeObserver {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTICE_CLOSE_WEBVIEW object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTICE_OPEN_LOCAL_VIEW object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kTFCloseWebViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kTFOpenLocalNotification object:nil];
     
 }
 
@@ -234,11 +234,11 @@
 }
 
 - (void)handleNotice:(NSNotification *)notice {
-    if ([notice.name isEqualToString:NOTICE_CLOSE_WEBVIEW]) {
+    if ([notice.name isEqualToString:kTFCloseWebViewNotification]) {
         //关闭
         [self closeAction];
     }
-    if ([notice.name isEqualToString:NOTICE_OPEN_LOCAL_VIEW]) {
+    if ([notice.name isEqualToString:kTFOpenLocalNotification]) {
         //打开本地页面
         NSInteger type = [[[notice userInfo] objectForKey:@"type"] integerValue];
         NSString *dataId = [[[notice userInfo] objectForKey:@"dataId"] stringValue];
@@ -347,7 +347,7 @@
     UIBarButtonItem *barButtonSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                      target:nil
                                                                                      action:nil];
-    [barButtonSpacer setWidth:NAV_BUTTON_SPACE];
+    [barButtonSpacer setWidth:0];
     
     UIButton *button = [UIButton createButtonWithImage:@"NavButtonBack.png"
                                           imagePressed:@"NavButtonBackH.png"

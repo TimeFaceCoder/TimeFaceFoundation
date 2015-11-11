@@ -8,6 +8,7 @@
 
 #import "ViewPagerController.h"
 #import "TFDefaultStyle.h"
+#import "TimeFaceFoundationConst.h"
 
 
 #pragma mark - Constants and macros
@@ -31,11 +32,11 @@
 #define kContentViewBackgroundColor [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:0.75]
 #define kDefaultContentColor [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
-ScrollDirection detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
+NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
 {
-    return currentOffsetX > previousOffsetX ? ScrollDirectionRight   :
-    currentOffsetX < previousOffsetX ? ScrollDirectionLeft :
-    ScrollDirectionNone;
+    return currentOffsetX > previousOffsetX ? kTFScrollDirectionRight   :
+    currentOffsetX < previousOffsetX ? kTFScrollDirectionLeft :
+    kTFScrollDirectionNone;
 }
 
 #pragma mark - UIColor+Equality

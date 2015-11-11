@@ -10,7 +10,6 @@
 //#import <Realm/RLMObjectSchema.h>
 //#import <Realm/RLMProperty.h>
 //#import <Realm/RLMArray.h>
-#import "AppMacro.h"
 
 @implementation TFModel
 

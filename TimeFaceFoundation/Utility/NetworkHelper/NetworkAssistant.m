@@ -17,10 +17,7 @@
 #import "TimeFaceFoundationConst.h"
 
 
-
-//NSString* const kMJSONErrorDomain = @"com.press-mart.timeface.json";
-
-//NSInteger const kMJSONErrorCodeInvalidJSON = 101;
+#define NSNullObjects               @[@"",@0,@{},@[]]
 
 @interface NetworkAssistant()
 
@@ -212,11 +209,6 @@
         url = _urlBlock(interface,url);
     }
     
-    if (IS_RUNNING_IOS9) {
-        //https
-        url = [url stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
-    }
-    
     
     
     NSString *cacheKey = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
@@ -224,14 +216,13 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     
-    if (IS_RUNNING_IOS9) {
-        //忽略证书校验
-        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-//        policy.validatesCertificateChain = NO;
-        policy.allowInvalidCertificates  = YES;
-        policy.validatesDomainName       = NO;
-        manager.securityPolicy           = policy;
-    }
+//    if (IS_RUNNING_IOS9) {
+//        //忽略证书校验
+//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//        policy.allowInvalidCertificates  = YES;
+//        policy.validatesDomainName       = NO;
+//        manager.securityPolicy           = policy;
+//    }
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
@@ -262,7 +253,7 @@
     //检测网络是否正常
     if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
         //网络异常
-        NSError *error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+        NSError *error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
                                              code:kTFErrorCodeNetwork
                                          userInfo:nil];
         completedBlock(nil,error);
@@ -409,7 +400,7 @@
         }
         
         if (!rootObject) {
-            error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+            error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
                                         code:kTFErrorCodeAPI
                                     userInfo:@{@"info":@"数据解析错误"}];
         } else {
@@ -417,7 +408,7 @@
             TFLog(@"errorcode = %@",[rootObject objectForKey:@"errorCode"]);
             NSInteger code = [[rootObject objectForKey:@"errorCode"] integerValue];
             if (!status && code != kTFErrorCodeUnknown) {
-                error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+                error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
                                             code:code
                                         userInfo:nil];
             }
@@ -443,14 +434,14 @@
 {
     if (error.code == -1005) {
         
-        error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+        error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
                                              code:kTFErrorCodeNetwork
                                          userInfo:error.userInfo];
         completedBlock(nil,error);
     }
     else {
         //整理错误信息
-        error = [NSError errorWithDomain:APP_ERROR_DOMAIN
+        error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
                                     code:kTFErrorCodeAPI
                                 userInfo:error.userInfo];
         TFLog(@"error:%@",error.userInfo);

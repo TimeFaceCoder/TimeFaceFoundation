@@ -7,45 +7,28 @@
 //
 
 #import "TFDefaultStyle.h"
+#import "TimeFaceFoundationConst.h"
 
 @implementation TFDefaultStyle
 
 - (UIFont *)font8 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:10];
-    }
     return [UIFont systemFontOfSize:8];
 }
 - (UIFont *)font10 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:11];
-    }
     return [UIFont systemFontOfSize:10];
 }
 - (UIFont *)font10B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:11];
-    }
     return [UIFont boldSystemFontOfSize:10];
 }
 
 - (UIFont *)font12 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:13];
-    }
     return [UIFont systemFontOfSize:12];
 }
 - (UIFont *)font12B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:13];
-    }
     return [UIFont boldSystemFontOfSize:12];
 }
 
 - (UIFont *)font14 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:15];
-    }
     return [UIFont systemFontOfSize:14];
 }
 
@@ -54,71 +37,41 @@
 
 
 - (UIFont *)font14B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:15];
-    }
     return [UIFont boldSystemFontOfSize:14];
 }
 
 - (UIFont *)font15 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:16];
-    }
     return [UIFont systemFontOfSize:15];
 }
 - (UIFont *)font15B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:16];
-    }
     return [UIFont boldSystemFontOfSize:15];
 }
 
 - (UIFont *)font16 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:17];
-    }
     return [UIFont systemFontOfSize:16];
 }
 
 - (UIFont *)font16B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:17];
-    }
     return [UIFont boldSystemFontOfSize:16];
 }
 
 - (UIFont *)font18 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:20];
-    }
     return [UIFont systemFontOfSize:18];
 }
 
 - (UIFont *)font18B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:20];
-    }
     return [UIFont boldSystemFontOfSize:18];
 }
 
 - (UIFont *)font20 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:22];
-    }
     return [UIFont systemFontOfSize:20];
 }
 
 - (UIFont *)font20B {
-    if (iPhone6Plus) {
-        return [UIFont boldSystemFontOfSize:22];
-    }
     return [UIFont boldSystemFontOfSize:20];
 }
 
 - (UIFont *)font30 {
-    if (iPhone6Plus) {
-        return [UIFont systemFontOfSize:36];
-    }
     return [UIFont systemFontOfSize:30];
 }
 

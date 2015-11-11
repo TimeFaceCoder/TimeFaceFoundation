@@ -9,6 +9,7 @@
 #import "TFStateView.h"
 #import <objc/runtime.h>
 #import "TFDefaultStyle.h"
+#import "TimeFaceFoundationConst.h"
 
 @interface StateView () {
     
