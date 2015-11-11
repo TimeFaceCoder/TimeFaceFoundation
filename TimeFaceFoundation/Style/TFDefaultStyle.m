@@ -11,9 +11,8 @@
 
 @implementation TFDefaultStyle
 
-- (UIFont *)font8 {
-    return [UIFont systemFontOfSize:8];
-}
+/////////////////////////////////////////////全局字体格式定义//////////////////////////////////////////
+
 - (UIFont *)font10 {
     return [UIFont systemFontOfSize:10];
 }
@@ -32,19 +31,8 @@
     return [UIFont systemFontOfSize:14];
 }
 
-
-
-
-
 - (UIFont *)font14B {
     return [UIFont boldSystemFontOfSize:14];
-}
-
-- (UIFont *)font15 {
-    return [UIFont systemFontOfSize:15];
-}
-- (UIFont *)font15B {
-    return [UIFont boldSystemFontOfSize:15];
 }
 
 - (UIFont *)font16 {
@@ -63,80 +51,7 @@
     return [UIFont boldSystemFontOfSize:18];
 }
 
-- (UIFont *)font20 {
-    return [UIFont systemFontOfSize:20];
-}
-
-- (UIFont *)font20B {
-    return [UIFont boldSystemFontOfSize:20];
-}
-
-- (UIFont *)font30 {
-    return [UIFont systemFontOfSize:30];
-}
-
-- (UIColor *)defaultBlackColor {
-    return [self getColorByHex:@"333333"];
-}
-- (UIColor *)defaultBlueColor {
-    return [self getColorByHex:@"039ae3"];
-}
-- (UIColor *)defaultBlueDragColor {
-    return [self getColorByHex:@"058ccd"];
-}
-- (UIColor *)defaultGrayColor {
-    return [self getColorByHex:@"9b9b9b"];
-}
-- (UIColor *)defaultGreenColor {
-    return [self getColorByHex:@"7bb427"];
-}
-- (UIColor *)defaultGreenDragColor {
-    return [self getColorByHex:@"6faa19"];
-}
-- (UIColor *)defaultRedColor {
-    return [self getColorByHex:@"f01204"];
-}
-- (UIColor *)defaultRedDragColor {
-    return RGBCOLOR(180, 0, 27);
-}
-- (UIColor *)defaultWhiteColor {
-    return [self getColorByHex:@"f0f0f0"];
-}
-- (UIColor *)defaultPlaceholderColor {
-    return [self getColorByHex:@"bdbdbd"];
-}
-- (UIColor *)defaultSplitLineColor {
-    return [self getColorByHex:@"bdbdbd"];
-}
-- (UIColor *)defaultBackgroundGrayColor {
-    return [self getColorByHex:@"ededed"];
-}
-- (UIColor*)defaultHighLightGrayColor {
-    return RGBCOLOR(104, 104, 104);
-}
-- (UIColor *)defaultOrangeColor {
-    return RGBCOLOR(247, 153, 61);
-}
-
-- (UIColor *)defaultViewBackgroundColor {
-    return RGBCOLOR(228, 231, 238);
-}
-
-- (UIColor *)defaultTabBarBgColor {
-    return [self getColorByHex:@"F5F5F5"];
-}
-
-- (UIColor *)lineColor {
-    return [self getColorByHex:@"9b9b9b"];
-}
-
-- (UIColor *)textColor {
-    return [self getColorByHex:@"333333"];
-}
-
-
-
-
+/////////////////////////////////////////////全局颜色定义//////////////////////////////////////////
 
 - (UIColor *)viewBackgroundColor {
     return RGBCOLOR(226,230,236);
@@ -155,10 +70,29 @@
 }
 
 
-
+///////////////////////////////////////////AlertView样式定义/////////////////////////////////////////
 - (UIColor *)alertCancelColor {
     return [self getColorByHex:@"b5b5b5"];
 }
+- (UIColor *)alertCancelHColor {
+    return [self getColorByHex:@"a9a9a9"];
+}
+- (UIColor *)alertOKColor {
+    return [self getColorByHex:@"ffa800"];
+}
+- (UIColor *)alertOKHColor {
+    return [self getColorByHex:@"e69800"];
+}
+- (UIColor *)alertLineColor {
+    return [self getColorByHex:@"9b9b9b"];
+}
+- (UIColor *)alertTitleColor {
+    return [self getColorByHex:@"ffa800"];
+}
+- (UIColor *)alertContentColor {
+    return [self getColorByHex:@"b5b5b5"];
+}
+
 
 
 
@@ -171,7 +105,7 @@
 - (UIColor *)loadingTextColor {
     return [self getColorByHex:@"7c7c7c"];
 }
-- (UIColor *)reloadLineColor {
+- (UIColor *)loadingLineColor {
     return [self getColorByHex:@"dfdfdf"];
 }
 /////////////////////////////////////////////HUD提示-END////////////////////////////////////////////

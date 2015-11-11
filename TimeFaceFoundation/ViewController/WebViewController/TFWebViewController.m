@@ -361,7 +361,7 @@
                                                target:self
                                              selector:@selector(closeAction)];
     
-    [close setTitleColor:TFSTYLEVAR(defaultBlueColor)
+    [close setTitleColor:[UIColor darkTextColor]
                 forState:UIControlStateNormal];
     UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:close];
     

@@ -133,7 +133,7 @@
         _button.backgroundColor = [UIColor whiteColor];
         _button.titleLabel.textColor = TFSTYLEVAR(loadingTextColor);
         _button.layer.borderWidth = 1;
-        _button.layer.borderColor = TFSTYLEVAR(reloadLineColor).CGColor;
+        _button.layer.borderColor = TFSTYLEVAR(loadingLineColor).CGColor;
         _button.tfSize = CGSizeMake(236/2, 30);
         _button.layer.cornerRadius = 8;
         _button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;

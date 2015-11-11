@@ -79,9 +79,6 @@
 }
 
 + (UIColor *)randomColor {
-    NSInteger index = arc4random() % 5;
-    return [TFSTYLEVAR(searchNotResultColors) objectAtIndex:index];
-
     float red = 0.0;
     while (red < 0.1 || red > 0.84) {
         red = drand48();

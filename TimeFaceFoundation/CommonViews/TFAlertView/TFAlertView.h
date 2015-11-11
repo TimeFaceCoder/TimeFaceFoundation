@@ -23,7 +23,6 @@ typedef void (^AlertClickBlock)(NSInteger index);
 
 @interface TFAlertView : UIView
 
-
 /**
  *  打开AlertView
  *
@@ -32,7 +31,7 @@ typedef void (^AlertClickBlock)(NSInteger index);
  *  @param alertType
  *  @param clickBlock
  *
- *  @return 
+ *  @return
  */
 + (id)showAlertWithTitle:(NSString *)title
                  content:(NSString *)content
@@ -47,6 +46,7 @@ typedef void (^AlertClickBlock)(NSInteger index);
               clickBlock:(AlertClickBlock)clickBlock;
 
 - (void)show;
+
 
 
 
