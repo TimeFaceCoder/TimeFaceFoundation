@@ -13,7 +13,6 @@
 #import "HHRouter.h"
 #import "TFStyle.h"
 #import "TFDefaultStyle.h"
-#import "NSString+Emojize.h"
 #import "TFDataHelper.h"
 #import "NetUtility.h"
 #import "TFModel.h"

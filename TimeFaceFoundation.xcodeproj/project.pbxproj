@@ -67,7 +67,6 @@
 		6CC8C1551BA7D552003CF335 /* IASequentialDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D41BA7D552003CF335 /* IASequentialDownloadManager.m */; };
 		6CC8C1561BA7D552003CF335 /* NetworkAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D61BA7D552003CF335 /* NetworkAssistant.m */; };
 		6CC8C1571BA7D552003CF335 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D81BA7D552003CF335 /* URLHelper.m */; };
-		6CC8C1581BA7D552003CF335 /* NSString+Emojize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0DC1BA7D552003CF335 /* NSString+Emojize.m */; };
 		6CC8C15B1BA7D552003CF335 /* SystemServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0E41BA7D552003CF335 /* SystemServices.m */; };
 		6CC8C15C1BA7D552003CF335 /* SSHardwareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0E71BA7D552003CF335 /* SSHardwareInfo.m */; };
 		6CC8C1641BA7D552003CF335 /* AESTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C1031BA7D552003CF335 /* AESTools.m */; };
@@ -233,9 +232,6 @@
 		6CC8C0D61BA7D552003CF335 /* NetworkAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkAssistant.m; sourceTree = "<group>"; };
 		6CC8C0D71BA7D552003CF335 /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		6CC8C0D81BA7D552003CF335 /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
-		6CC8C0DA1BA7D552003CF335 /* emojis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emojis.h; sourceTree = "<group>"; };
-		6CC8C0DB1BA7D552003CF335 /* NSString+Emojize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emojize.h"; sourceTree = "<group>"; };
-		6CC8C0DC1BA7D552003CF335 /* NSString+Emojize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emojize.m"; sourceTree = "<group>"; };
 		6CC8C0E31BA7D552003CF335 /* SystemServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemServices.h; sourceTree = "<group>"; };
 		6CC8C0E41BA7D552003CF335 /* SystemServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemServices.m; sourceTree = "<group>"; };
 		6CC8C0E61BA7D552003CF335 /* SSHardwareInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHardwareInfo.h; sourceTree = "<group>"; };
@@ -515,7 +511,6 @@
 			children = (
 				6C89B9481BCF4B82002B12BC /* TFDataHelper */,
 				6CC8C0631BA7D552003CF335 /* Additions */,
-				6CC8C0D91BA7D552003CF335 /* NSStringEmojize */,
 				6CC8C0E21BA7D552003CF335 /* System Services */,
 				6CC8C1011BA7D552003CF335 /* Tools */,
 				43FBFA431BB4D6E500493585 /* NetUtility.h */,
@@ -610,16 +605,6 @@
 				6CC8C0D41BA7D552003CF335 /* IASequentialDownloadManager.m */,
 			);
 			path = DownloadManager;
-			sourceTree = "<group>";
-		};
-		6CC8C0D91BA7D552003CF335 /* NSStringEmojize */ = {
-			isa = PBXGroup;
-			children = (
-				6CC8C0DA1BA7D552003CF335 /* emojis.h */,
-				6CC8C0DB1BA7D552003CF335 /* NSString+Emojize.h */,
-				6CC8C0DC1BA7D552003CF335 /* NSString+Emojize.m */,
-			);
-			path = NSStringEmojize;
 			sourceTree = "<group>";
 		};
 		6CC8C0E21BA7D552003CF335 /* System Services */ = {
@@ -1019,7 +1004,6 @@
 				43A0809E1BA7A5BF00AEFCE5 /* TableViewLoadingItemCell.m in Sources */,
 				43A080A31BA7A5BF00AEFCE5 /* TableViewLoadingItem.m in Sources */,
 				43FBFA451BB4D6E500493585 /* NetUtility.m in Sources */,
-				6CC8C1581BA7D552003CF335 /* NSString+Emojize.m in Sources */,
 				6CC8C1681BA7D552003CF335 /* TFJSBridge.m in Sources */,
 				6CC8C1551BA7D552003CF335 /* IASequentialDownloadManager.m in Sources */,
 				6CC8C1501BA7D552003CF335 /* IACacheManager.m in Sources */,
