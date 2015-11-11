@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "UIAdditions.h"
-#import "AppMacro.h"
 #import "NotificationMacro.h"
 #import "HHRouter.h"
 #import "TFStyle.h"
