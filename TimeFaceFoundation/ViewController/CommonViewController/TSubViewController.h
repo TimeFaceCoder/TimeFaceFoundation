@@ -14,6 +14,7 @@
 #import "TFCoreUtility.h"
 #import "ViewControllerDelegate.h"
 #import "TFAlertView.h"
+#import "TimeFaceFoundationConst.h"
 
 
 typedef id (^TFViewControllerBlock)(id object);

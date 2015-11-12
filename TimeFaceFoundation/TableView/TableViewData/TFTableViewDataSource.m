@@ -412,36 +412,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     CGFloat deltaY = _previousOffsetY - currentOffsetY;
     _accumulatedY += deltaY;
     
-    switch (currentScrollDirection) {
-        case kTFScrollDirectionUp:
-        {
-            BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
-            
-            if (isOverThreshold || isOverBottomBoundary)  {
-                if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScrollUp:)]) {
-                    [_delegate scrollViewDidScrollUp:deltaY];
-                }
+    if (currentScrollDirection == kTFScrollDirectionUp) {
+        BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
+        
+        if (isOverThreshold || isOverBottomBoundary)  {
+            if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScrollUp:)]) {
+                [_delegate scrollViewDidScrollUp:deltaY];
             }
         }
-            break;
-        case kTFScrollDirectionDown:
-        {
-            BOOL isOverThreshold = _accumulatedY > _downThresholdY;
-            
-            if (isOverThreshold || isOverTopBoundary) {
-                if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScrollDown:)]) {
-                    [_delegate scrollViewDidScrollDown:deltaY];
-                }
-            }
-        }
-            break;
-        case kTFScrollDirectionNone:
-        case kTFScrollDirectionVertical:
-        case kTFScrollDirectionHorizontal:
-        case kTFScrollDirectionLeft:
-        case kTFScrollDirectionRight:
-            break;
     }
+    else if (currentScrollDirection == kTFScrollDirectionDown) {
+        BOOL isOverThreshold = _accumulatedY > _downThresholdY;
+        
+        if (isOverThreshold || isOverTopBoundary) {
+            if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScrollDown:)]) {
+                [_delegate scrollViewDidScrollDown:deltaY];
+            }
+        }
+    }
+    else {
+        
+    }
+    
     
     // reset acuumulated y when move opposite direction
     if (!isOverTopBoundary && !isOverBottomBoundary && _previousScrollDirection != currentScrollDirection) {
@@ -463,41 +455,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     CGFloat topBoundary = -scrollView.contentInset.top;
     CGFloat bottomBoundary = scrollView.contentSize.height + scrollView.contentInset.bottom;
     
-    switch (_previousScrollDirection) {
-        case kTFScrollDirectionUp:
-        {
-            BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
-            BOOL isOverBottomBoundary = currentOffsetY >= bottomBoundary;
-            
-            if (isOverThreshold || isOverBottomBoundary) {
-                if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollUp)]) {
-                    [_delegate scrollFullScreenScrollViewDidEndDraggingScrollUp];
-                }
+    if (_previousScrollDirection == kTFScrollDirectionUp) {
+        BOOL isOverThreshold = _accumulatedY < -_upThresholdY;
+        BOOL isOverBottomBoundary = currentOffsetY >= bottomBoundary;
+        
+        if (isOverThreshold || isOverBottomBoundary) {
+            if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollUp)]) {
+                [_delegate scrollFullScreenScrollViewDidEndDraggingScrollUp];
             }
-            break;
         }
-        case kTFScrollDirectionDown:
-        {
-            BOOL isOverThreshold = _accumulatedY > _downThresholdY;
-            BOOL isOverTopBoundary = currentOffsetY <= topBoundary;
-            
-            if (isOverThreshold || isOverTopBoundary) {
-                if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollDown)]) {
-                    [self setLastedId:@""];
-                    [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
-                }
-            }
-            break;
-        }
-        case kTFScrollDirectionNone:
-        case kTFScrollDirectionVertical:
-        case kTFScrollDirectionHorizontal:
-        case kTFScrollDirectionRight:
-        case kTFScrollDirectionLeft:
-            break;
     }
-    
-    
+    else if (_previousScrollDirection == kTFScrollDirectionDown) {
+        BOOL isOverThreshold = _accumulatedY > _downThresholdY;
+        BOOL isOverTopBoundary = currentOffsetY <= topBoundary;
+        
+        if (isOverThreshold || isOverTopBoundary) {
+            if ([_delegate respondsToSelector:@selector(scrollFullScreenScrollViewDidEndDraggingScrollDown)]) {
+                [self setLastedId:@""];
+                [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
+            }
+        }
+
+    }
+    else {
+        
+    }
 }
 
 - (void)addPullRefresh {

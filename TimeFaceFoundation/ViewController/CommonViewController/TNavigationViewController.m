@@ -66,7 +66,7 @@
         
         [[TNavigationBar appearance] setTitleTextAttributes:
          @{ NSForegroundColorAttributeName: TFSTYLEVAR(navBarTitleColor),
-            NSFontAttributeName: TFSTYLEVAR(font18)}];
+            NSFontAttributeName: TFSTYLEVAR(navBarTitleFont)}];
 
         [[TNavigationBar appearance] setBarBgColor:TFSTYLEVAR(navBarBackgroundColor)];
 

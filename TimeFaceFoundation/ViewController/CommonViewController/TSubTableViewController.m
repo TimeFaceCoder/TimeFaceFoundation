@@ -179,35 +179,31 @@
         TFLog(@"%s",__func__);
         if ([error.domain isEqualToString:TF_APP_ERROR_DOMAIN]) {
             NSInteger state = kTFViewStateNone;
-            switch (error.code) {
-                case kTFErrorCodeUnknown:
-                case kTFErrorCodeAPI:
-                case kTFErrorCodeHTTP:
-                    state = kTFViewStateDataError;
-                    break;
-                case kTFErrorCodeNetwork:
-                    state = kTFViewStateNetError;
-                    break;
-                case kTFErrorCodeEmpty:
-                    state = kTFViewStateNoData;
-                    break;
-                case kTFErrorCodeLocationError:
-                    state = kTFViewStateLocationError;
-                    break;
-                case kTFErrorCodePhotosError:
-                    state = kTFViewStatePhotosError;
-                    break;
-                case kTFErrorCodeMicrophoneError:
-                    state = kTFViewStateMicrophoneError;
-                    break;
-                case kTFErrorCodeCameraError:
-                    state = kTFViewStateCameraError;
-                    break;
-                case kTFErrorCodeContactsError:
-                    state = kTFViewStateContactsError;
-                    break;
-                default:
-                    break;
+            if (error.code == kTFErrorCodeAPI ||
+                error.code == kTFErrorCodeHTTP ||
+                error.code == kTFErrorCodeUnknown) {
+                state = kTFViewStateDataError;
+            }
+            if (error.code == kTFErrorCodeNetwork) {
+                state = kTFViewStateNetError;
+            }
+            if (error.code == kTFErrorCodeEmpty) {
+                state = kTFViewStateNoData;
+            }
+            if (error.code == kTFErrorCodeLocationError) {
+                state = kTFViewStateLocationError;
+            }
+            if (error.code == kTFErrorCodePhotosError) {
+                state = kTFViewStatePhotosError;
+            }
+            if (error.code == kTFErrorCodeMicrophoneError) {
+                state = kTFViewStateMicrophoneError;
+            }
+            if (error.code == kTFErrorCodeCameraError) {
+                state = kTFViewStateCameraError;
+            }
+            if (error.code == kTFErrorCodeContactsError) {
+                state = kTFViewStateContactsError;
             }
             [self showStateView:state];
         }

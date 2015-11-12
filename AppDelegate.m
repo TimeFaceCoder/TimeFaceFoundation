@@ -11,7 +11,6 @@
 #import "TNavigationViewController.h"
 #import <GKFadeNavigationController/GKFadeNavigationController.h>
 #import "TestViewController.h"
-#import "TimeFaceFoundationConst.h"
 
 @interface AppDelegate ()
 

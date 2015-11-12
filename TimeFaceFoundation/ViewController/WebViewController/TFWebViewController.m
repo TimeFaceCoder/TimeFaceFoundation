@@ -9,7 +9,6 @@
 #import "TFWebViewController.h"
 #import "TFDefaultStyle.h"
 #import "TFCoreUtility.h"
-#import "WebViewBridge.h"
 #import "WebViewJavascriptBridge.h"
 #import <NJKWebViewProgress/NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>

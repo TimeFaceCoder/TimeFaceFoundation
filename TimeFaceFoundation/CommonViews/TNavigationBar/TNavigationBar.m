@@ -38,20 +38,11 @@ static CGFloat const kSpaceToCoverStatusBars = 20.0f;
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    
-//    _colorOverly.image=[[image stretchableImageWithLeftCapWidth:1 topCapHeight:1] applyBlurWithRadius:2
-//                                                                                            tintColor:RGBACOLOR(100, 100, 100, 0.5)
-//                                                                                saturationDeltaFactor:2
-//                                                                                            maskImage:nil];
-    
     _colorOverly.image = [image stretchableImageWithLeftCapWidth:1 topCapHeight:1];
-    
-//    _colorOverly.image = [image applyTintEffectWithColor:color];
     _colorOverly.alpha = .9;
 }
 
-- (UIImageView *)colorOverly
-{
+- (UIImageView *)colorOverly {
     if (!_colorOverly) {
         if (!_colorOverly) {
             _colorOverly=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.tfWidth, self.tfHeight+kSpaceToCoverStatusBars)];

@@ -24,7 +24,6 @@
 		43A081F61BA7A61E00AEFCE5 /* TSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A081CB1BA7A61E00AEFCE5 /* TSubViewController.m */; };
 		43A081F71BA7A61E00AEFCE5 /* ViewTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A081CE1BA7A61E00AEFCE5 /* ViewTransitionAnimator.m */; };
 		43A082011BA7A61E00AEFCE5 /* TFWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A081E91BA7A61E00AEFCE5 /* TFWebViewController.m */; };
-		43A082021BA7A61E00AEFCE5 /* WebViewBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A081EB1BA7A61E00AEFCE5 /* WebViewBridge.m */; };
 		43A082031BA7A61E00AEFCE5 /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43A081ED1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.js.txt */; };
 		43A082041BA7A61E00AEFCE5 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A081EE1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.m */; };
 		43A082231BA7AE5700AEFCE5 /* TFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A0821C1BA7AE5700AEFCE5 /* TFModel.m */; };
@@ -147,8 +146,6 @@
 		43A081CE1BA7A61E00AEFCE5 /* ViewTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTransitionAnimator.m; sourceTree = "<group>"; };
 		43A081E81BA7A61E00AEFCE5 /* TFWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFWebViewController.h; sourceTree = "<group>"; };
 		43A081E91BA7A61E00AEFCE5 /* TFWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFWebViewController.m; sourceTree = "<group>"; };
-		43A081EA1BA7A61E00AEFCE5 /* WebViewBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewBridge.h; sourceTree = "<group>"; };
-		43A081EB1BA7A61E00AEFCE5 /* WebViewBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewBridge.m; sourceTree = "<group>"; };
 		43A081EC1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		43A081ED1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
 		43A081EE1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
@@ -475,8 +472,6 @@
 			children = (
 				43A081E81BA7A61E00AEFCE5 /* TFWebViewController.h */,
 				43A081E91BA7A61E00AEFCE5 /* TFWebViewController.m */,
-				43A081EA1BA7A61E00AEFCE5 /* WebViewBridge.h */,
-				43A081EB1BA7A61E00AEFCE5 /* WebViewBridge.m */,
 				43A081EC1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.h */,
 				43A081ED1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.js.txt */,
 				43A081EE1BA7A61E00AEFCE5 /* WebViewJavascriptBridge.m */,
@@ -1054,7 +1049,6 @@
 				6CC8C1301BA7D552003CF335 /* UIImageView+TFCache.m in Sources */,
 				6CC8C1321BA7D552003CF335 /* UILabel+ContentSize.m in Sources */,
 				6CC8C13C1BA7D552003CF335 /* UIViewController+TopMostViewController.m in Sources */,
-				43A082021BA7A61E00AEFCE5 /* WebViewBridge.m in Sources */,
 				6CC8C16B1BA7D552003CF335 /* Reachability.m in Sources */,
 				6CC8C1351BA7D552003CF335 /* UIToolbar+Additions.m in Sources */,
 			);

@@ -10,7 +10,6 @@
 #import <CoreMotion/CoreMotion.h>
 #import "TFStateView.h"
 #import "TimeFaceFoundationConst.h"
-//#import "TFLogAgent.h"
 
 #import "JMHoledView.h"
 #import "ViewGuideModel.h"
@@ -184,44 +183,38 @@
 
 - (NSString *)stateViewTitle:(NSInteger)viewState {
     NSString *title = @"";
-    switch (viewState) {
-        case kTFViewStateDataError:
-            title = NSLocalizedString(@"网络数据异常", nil);
-            break;
-        case kTFViewStateLoading:
-            title = NSLocalizedString(@"正在加载数据", nil);
-            break;
-        case kTFViewStateNetError:
-            title = NSLocalizedString(@"网络连接错误", nil);
-            break;
-        case kTFViewStateNoData:
-            title = NSLocalizedString(@"网络数据为空", nil);
-            break;
-        case kTFViewStateTimeOut:
-            title = NSLocalizedString(@"网络连接超时", nil);
-            break;
+    if (viewState == kTFViewStateDataError) {
+        title = NSLocalizedString(@"网络数据异常", nil);
+    }
+    if (viewState == kTFViewStateLoading) {
+        title = NSLocalizedString(@"正在加载数据", nil);
+    }
+    if (viewState == kTFViewStateNetError) {
+        title = NSLocalizedString(@"网络连接错误", nil);
+    }
+    if (viewState == kTFViewStateNoData) {
+        title = NSLocalizedString(@"网络数据为空", nil);
+    }
+    if (viewState == kTFViewStateTimeOut) {
+        title = NSLocalizedString(@"网络连接超时", nil);
     }
     return title;
 }
 
 - (NSString *)stateViewButtonTitle:(NSInteger)viewState {
     NSString *title = @"";
-    switch (viewState) {
-        case kTFViewStateDataError:
-            title = NSLocalizedString(@"重新加载", nil);
-            break;
-        case kTFViewStateLoading:
-            
-            break;
-        case kTFViewStateNetError:
-            title = NSLocalizedString(@"设置网络", nil);
-            break;
-        case kTFViewStateNoData:
-            
-            break;
-        case kTFViewStateTimeOut:
-            title = NSLocalizedString(@"重新加载", nil);
-            break;
+    if (viewState == kTFViewStateDataError) {
+        title = NSLocalizedString(@"重新加载", nil);
+    }
+    if (viewState == kTFViewStateLoading) {
+    }
+    if (viewState == kTFViewStateNetError) {
+        title = NSLocalizedString(@"设置网络", nil);
+    }
+    if (viewState == kTFViewStateNoData) {
+    }
+    if (viewState == kTFViewStateTimeOut) {
+        title = NSLocalizedString(@"重新加载", nil);
     }
     return title;
 }
@@ -230,24 +223,20 @@
 
 - (UIImage *)stateViewImage:(NSInteger)viewState {
     UIImage *image = [UIImage new];
-    switch (viewState) {
-        case kTFViewStateDataError:
-            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
-            break;
-        case kTFViewStateLoading:
-            
-            break;
-        case kTFViewStateNetError:
-            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
-            break;
-        case kTFViewStateNoData:
-            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
-            break;
-        case kTFViewStateTimeOut:
-            image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
-            break;
+    if (viewState == kTFViewStateDataError) {
+        image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
     }
-    return image;
+    if (viewState == kTFViewStateLoading) {
+    }
+    if (viewState == kTFViewStateNetError) {
+        image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
+    }
+    if (viewState == kTFViewStateNoData) {
+        image =[UIImage imageNamed:NSLocalizedString(@"ViewDataNetError", nil)];
+    }
+    if (viewState == kTFViewStateTimeOut) {
+        image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
+    }    return image;
 }
 
 #pragma mark - Private
