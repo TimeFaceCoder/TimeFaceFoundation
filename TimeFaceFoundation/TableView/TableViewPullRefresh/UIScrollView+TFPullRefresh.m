@@ -153,7 +153,7 @@ static CGFloat const TFRefreshViewHeight = 62;
         _titleLabel.text = NSLocalizedString(@"下拉刷新...",);
         _titleLabel.font = [UIFont boldSystemFontOfSize:14];
         _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.textColor = TFSTYLEVAR(textColor);
+        _titleLabel.textColor = RGBCOLOR(51, 51, 51);
     }
     return _titleLabel;
 }
