@@ -19,4 +19,3 @@
 #import "TFTableViewItem.h"
 #import "TFTableViewItemCell.h"
 #import "TimeFaceFoundationConst.h"
-#import "TimeFaceFoundationMacro.h"
