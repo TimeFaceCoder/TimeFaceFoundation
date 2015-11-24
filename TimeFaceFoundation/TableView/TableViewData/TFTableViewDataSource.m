@@ -75,7 +75,7 @@
  */
 @property (nonatomic ,copy  ) NSString                       *cacheKey;
 
-@property (nonatomic ,strong) TFTableViewDataManager         *tableViewDataManager;
+
 
 
 @end

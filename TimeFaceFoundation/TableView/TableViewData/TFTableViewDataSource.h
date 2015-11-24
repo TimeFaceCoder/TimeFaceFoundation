@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <RETableViewManager/RETableViewManager.h>
 
+@class TFTableViewDataManager;
+
 typedef NS_ENUM(NSInteger, DataLoadPolicy) {
     /**
      *  正常加载
@@ -86,6 +88,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
  *  tableview 管理器
  */
 @property (nonatomic ,strong) RETableViewManager            *manager;
+/**
+ *  数据管理器
+ */
+@property (nonatomic ,strong) TFTableViewDataManager         *tableViewDataManager;
 
 @property (nonatomic ,copy  ) NSString                      *lastedId;
 
