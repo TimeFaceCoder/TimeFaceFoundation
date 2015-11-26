@@ -6,12 +6,12 @@
 //  Copyright © 2015 timeface. All rights reserved.
 //
 
-#import "TFDataUtility.h"
+#import "TFUserDefaultUtility.h"
 
-@implementation TFDataUtility
+@implementation TFUserDefaultUtility
 
 +(instancetype)shared {
-    static TFDataUtility* utility = nil;
+    static TFUserDefaultUtility* utility = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{

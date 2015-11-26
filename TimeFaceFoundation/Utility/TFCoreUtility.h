@@ -13,7 +13,7 @@
 #import "TFDeviceUtility.h"
 #import "TFViewUtility.h"
 #import "TFSecurityUtility.h"
-#import "TFDataUtility.h"
+#import "TFUserDefaultUtility.h"
 
 
 
@@ -39,19 +39,19 @@ void TFMainRun(TFRun run);
 
 
 
-@property (nonatomic, strong) TFImageUtility *imageUtility;
+@property (nonatomic, strong) TFImageUtility       *imageUtility;
 
-@property (nonatomic, strong) TFStringUtility *stringUtility;
+@property (nonatomic, strong) TFStringUtility      *stringUtility;
 
-@property (nonatomic, strong) TFFileUtility  *fileUtility;
+@property (nonatomic, strong) TFFileUtility        *fileUtility;
 
-@property (nonatomic, strong) TFDeviceUtility  *deviceUtility;
+@property (nonatomic, strong) TFDeviceUtility      *deviceUtility;
 
-@property (nonatomic, strong) TFViewUtility    *viewUtility;
+@property (nonatomic, strong) TFViewUtility        *viewUtility;
 
-@property (nonatomic, strong) TFSecurityUtility  *securityUtility;
+@property (nonatomic, strong) TFSecurityUtility    *securityUtility;
 
-@property (nonatomic, strong) TFDataUtility   *dataUtility;
+@property (nonatomic, strong) TFUserDefaultUtility *dataUtility;
 
 
 

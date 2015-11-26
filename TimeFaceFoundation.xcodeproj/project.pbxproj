@@ -95,7 +95,7 @@
 		B046C15A1BCE545C00D91D92 /* TFDeviceUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1591BCE545C00D91D92 /* TFDeviceUtility.m */; };
 		B046C15D1BCE548600D91D92 /* TFViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C15C1BCE548600D91D92 /* TFViewUtility.m */; };
 		B046C1601BCE54BA00D91D92 /* TFSecurityUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C15F1BCE54BA00D91D92 /* TFSecurityUtility.m */; };
-		B046C1631BCE54E000D91D92 /* TFDataUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1621BCE54E000D91D92 /* TFDataUtility.m */; };
+		B046C1631BCE54E000D91D92 /* TFUserDefaultUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1621BCE54E000D91D92 /* TFUserDefaultUtility.m */; };
 		B046C1691BCE552A00D91D92 /* GuideHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1661BCE552A00D91D92 /* GuideHelpView.m */; };
 		B046C16A1BCE552A00D91D92 /* JMHoledView.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1681BCE552A00D91D92 /* JMHoledView.m */; };
 		B06CC4CA1BE2FDBA003E2E32 /* TimeFaceFoundationConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B06CC4C91BE2FDBA003E2E32 /* TimeFaceFoundationConst.m */; };
@@ -287,8 +287,8 @@
 		B046C15C1BCE548600D91D92 /* TFViewUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFViewUtility.m; sourceTree = "<group>"; };
 		B046C15E1BCE54BA00D91D92 /* TFSecurityUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFSecurityUtility.h; sourceTree = "<group>"; };
 		B046C15F1BCE54BA00D91D92 /* TFSecurityUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFSecurityUtility.m; sourceTree = "<group>"; };
-		B046C1611BCE54E000D91D92 /* TFDataUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDataUtility.h; sourceTree = "<group>"; };
-		B046C1621BCE54E000D91D92 /* TFDataUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDataUtility.m; sourceTree = "<group>"; };
+		B046C1611BCE54E000D91D92 /* TFUserDefaultUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFUserDefaultUtility.h; sourceTree = "<group>"; };
+		B046C1621BCE54E000D91D92 /* TFUserDefaultUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFUserDefaultUtility.m; sourceTree = "<group>"; };
 		B046C1651BCE552A00D91D92 /* GuideHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideHelpView.h; sourceTree = "<group>"; };
 		B046C1661BCE552A00D91D92 /* GuideHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideHelpView.m; sourceTree = "<group>"; };
 		B046C1671BCE552A00D91D92 /* JMHoledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMHoledView.h; sourceTree = "<group>"; };
@@ -787,8 +787,8 @@
 				B046C15C1BCE548600D91D92 /* TFViewUtility.m */,
 				B046C15E1BCE54BA00D91D92 /* TFSecurityUtility.h */,
 				B046C15F1BCE54BA00D91D92 /* TFSecurityUtility.m */,
-				B046C1611BCE54E000D91D92 /* TFDataUtility.h */,
-				B046C1621BCE54E000D91D92 /* TFDataUtility.m */,
+				B046C1611BCE54E000D91D92 /* TFUserDefaultUtility.h */,
+				B046C1621BCE54E000D91D92 /* TFUserDefaultUtility.m */,
 			);
 			path = TFCoreUtility;
 			sourceTree = "<group>";
@@ -994,7 +994,7 @@
 				6CC8C1341BA7D552003CF335 /* UITableView+Frames.m in Sources */,
 				43A082011BA7A61E00AEFCE5 /* TFWebViewController.m in Sources */,
 				B01AF53A1BCE4AAD0098B6AC /* UIScrollView+TFPullRefresh.m in Sources */,
-				B046C1631BCE54E000D91D92 /* TFDataUtility.m in Sources */,
+				B046C1631BCE54E000D91D92 /* TFUserDefaultUtility.m in Sources */,
 				6CC8C16A1BA7D552003CF335 /* Pinyin.c in Sources */,
 				43A0809E1BA7A5BF00AEFCE5 /* TableViewLoadingItemCell.m in Sources */,
 				43A080A31BA7A5BF00AEFCE5 /* TableViewLoadingItem.m in Sources */,

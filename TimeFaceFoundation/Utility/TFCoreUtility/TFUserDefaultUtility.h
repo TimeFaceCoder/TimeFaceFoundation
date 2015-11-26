@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TFDataUtility : NSObject
+@interface TFUserDefaultUtility : NSObject
 
 + (instancetype)shared;
 
