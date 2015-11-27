@@ -57,12 +57,12 @@
     return network;
 }
 
-- (void)getDataByInterFace:(NSString *)url
-                    params:(NSDictionary *)params
-                  fileData:(NSMutableArray *)fileData
-                       hud:(NSString *)hud
-                     start:(void (^)(id cacheResult))startBlock
-                 completed:(void (^)(id result,NSError *error))completedBlock {
+- (void)getDataByURL:(NSString *)url
+              params:(NSDictionary *)params
+            fileData:(NSMutableArray *)fileData
+                 hud:(NSString *)hud
+               start:(void (^)(id cacheResult))startBlock
+           completed:(void (^)(id result,NSError *error))completedBlock {
     
     _netWorkType = NetWorkActionTypeGet;
     [self handleByURL:url
@@ -78,13 +78,13 @@
 
 
 
-- (void)postDataByInterFace:(NSString *)url
-                     params:(NSDictionary *)params
-                   fileData:(NSMutableArray *)fileData
-                        hud:(NSString *)hud
-                      start:(void (^)(id cacheResult))startBlock
-                  completed:(void (^)(id result,NSError *error))completedBlock
-                   progress:(NetWorkProgressBlock)progressBlock {
+- (void)postDataByURL:(NSString *)url
+               params:(NSDictionary *)params
+             fileData:(NSMutableArray *)fileData
+                  hud:(NSString *)hud
+                start:(void (^)(id cacheResult))startBlock
+            completed:(void (^)(id result,NSError *error))completedBlock
+             progress:(NetWorkProgressBlock)progressBlock {
     _netWorkType = NetWorkActionTypePost;
     [self handleByURL:url
                params:params

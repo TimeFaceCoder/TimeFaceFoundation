@@ -235,14 +235,14 @@ const static NSInteger kPageSize = 20;
     };
     
     NSString *url = [[URLHelper sharedHelper] urlByListType:_listType];
-    [[NetworkAssistant sharedAssistant] getDataByInterFace:url
-                                                    params:_params
-                                                  fileData:nil
-                                                       hud:nil
-                                                     start:^(id cacheResult){
-                                                         _loading = YES;
-                                                     }
-                                                 completed:^(id result, NSError *error)
+    [[NetworkAssistant sharedAssistant] getDataByURL:url
+                                              params:_params
+                                            fileData:nil
+                                                 hud:nil
+                                               start:^(id cacheResult){
+                                                   _loading = YES;
+                                               }
+                                           completed:^(id result, NSError *error)
      {
          if (error) {
              //处理出错且没有缓存的情况
