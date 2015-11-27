@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, NetWorkActionType)
 
 typedef void (^NetWorkProgressBlock)(double percentDone,long totalBytesWritten);
 
-typedef NSString* (^NetWorkUrlBlock)(NSString *interface, NSString *urlStr) ;
+typedef NSString* (^NetWorkUrlBlock)(NSString *interface) ;
 
 typedef void (^NetWorkErrorCodeBlock)(NSInteger errorCode);
 
@@ -37,19 +37,19 @@ typedef void (^NetWorkErrorCodeBlock)(NSInteger errorCode);
 @property (nonatomic, strong) NetWorkUrlBlock urlBlock;
 
 - (void)getDataByInterFace:(NSString *)url
-              params:(NSDictionary *)params
-            fileData:(NSMutableArray *)fileData
-                 hud:(NSString *)hud
-               start:(void (^)(id cacheResult))startBlock
-           completed:(void (^)(id result,NSError *error))completedBlock;
+                    params:(NSDictionary *)params
+                  fileData:(NSMutableArray *)fileData
+                       hud:(NSString *)hud
+                     start:(void (^)(id cacheResult))startBlock
+                 completed:(void (^)(id result,NSError *error))completedBlock;
 
 - (void)postDataByInterFace:(NSString *)url
-               params:(NSDictionary *)params
-             fileData:(NSMutableArray *)fileData
-                  hud:(NSString *)hud
-                start:(void (^)(id cacheResult))startBlock
-            completed:(void (^)(id result,NSError *error))completedBlock
-             progress:(NetWorkProgressBlock)progressBlock;
+                     params:(NSDictionary *)params
+                   fileData:(NSMutableArray *)fileData
+                        hud:(NSString *)hud
+                      start:(void (^)(id cacheResult))startBlock
+                  completed:(void (^)(id result,NSError *error))completedBlock
+                   progress:(NetWorkProgressBlock)progressBlock;
 
 
 - (void)putImageData:(UIImage *)image hashID:(NSUInteger)hashID  ;

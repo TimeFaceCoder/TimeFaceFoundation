@@ -241,9 +241,15 @@
 
 #pragma mark - Private
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+#ifdef __IPHONE_9_0
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+#else
+- (NSUInteger)supportedInterfaceOrientations
+#endif
+{
+    return UIInterfaceOrientationMaskAll;
 }
+
 - (BOOL)shouldAutorotate {
     return YES;
 }

@@ -58,11 +58,11 @@
 }
 
 - (void)getDataByInterFace:(NSString *)url
-              params:(NSDictionary *)params
-            fileData:(NSMutableArray *)fileData
-                 hud:(NSString *)hud
-               start:(void (^)(id cacheResult))startBlock
-           completed:(void (^)(id result,NSError *error))completedBlock {
+                    params:(NSDictionary *)params
+                  fileData:(NSMutableArray *)fileData
+                       hud:(NSString *)hud
+                     start:(void (^)(id cacheResult))startBlock
+                 completed:(void (^)(id result,NSError *error))completedBlock {
     
     _netWorkType = NetWorkActionTypeGet;
     [self handleByURL:url
@@ -79,12 +79,12 @@
 
 
 - (void)postDataByInterFace:(NSString *)url
-              params:(NSDictionary *)params
-            fileData:(NSMutableArray *)fileData
-                 hud:(NSString *)hud
-               start:(void (^)(id cacheResult))startBlock
-           completed:(void (^)(id result,NSError *error))completedBlock
-            progress:(NetWorkProgressBlock)progressBlock {
+                     params:(NSDictionary *)params
+                   fileData:(NSMutableArray *)fileData
+                        hud:(NSString *)hud
+                      start:(void (^)(id cacheResult))startBlock
+                  completed:(void (^)(id result,NSError *error))completedBlock
+                   progress:(NetWorkProgressBlock)progressBlock {
     _netWorkType = NetWorkActionTypePost;
     [self handleByURL:url
                params:params
@@ -186,15 +186,15 @@
 
 #pragma mark - 基础公用网络部分
 
-- (void)handleByURL:(NSString *)interface
-                   params:(NSDictionary *)params
-                 fileData:(NSMutableArray *)fileData
-                      hud:(NSString *)hud
-                    start:(void (^)(id cacheResult))startBlock
-                completed:(void (^)(id result,NSError *error))completedBlock
-                 progress:(NetWorkProgressBlock)progressBlock {
+- (void)handleByURL:(NSString *)url
+             params:(NSDictionary *)params
+           fileData:(NSMutableArray *)fileData
+                hud:(NSString *)hud
+              start:(void (^)(id cacheResult))startBlock
+          completed:(void (^)(id result,NSError *error))completedBlock
+           progress:(NetWorkProgressBlock)progressBlock {
     
-    if (!interface) {
+    if (!url) {
         completedBlock(nil,nil);
         return;
     }
@@ -203,12 +203,11 @@
     if (hud.length) {
         [SVProgressHUD showWithStatus:hud];
     }
-    
-    NSString *url = nil;
-    if (_urlBlock) {
-        url = _urlBlock(interface,url);
+    if (![url hasPrefix:@"http"]) {
+        if (_urlBlock) {
+            url = _urlBlock(url);
+        }
     }
-    
     
     
     NSString *cacheKey = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
@@ -262,8 +261,8 @@
     
     [manager.reachabilityManager startMonitoring];
     if (startBlock) {
-//        id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
-        startBlock(nil);
+        id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
+        startBlock(cacheObject);
     }
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
     for (NSString *key in [params keyEnumerator]) {
