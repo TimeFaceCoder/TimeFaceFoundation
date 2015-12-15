@@ -75,9 +75,6 @@
     
 }
 
-
-
-
 - (void)postDataByURL:(NSString *)url
                params:(NSDictionary *)params
              fileData:(NSMutableArray *)fileData
@@ -266,19 +263,19 @@
         id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
         startBlock(cacheObject);
     }
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
-    for (NSString *key in [params keyEnumerator]) {
-        id value = [params objectForKey:key];
-        if ([value isKindOfClass:[NSString class]]) {
-            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        }
-        if (value) {
-            [dic setObject:value forKey:key];
-        }
-    }
+//    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
+//    for (NSString *key in [params keyEnumerator]) {
+//        id value = [params objectForKey:key];
+//        if ([value isKindOfClass:[NSString class]]) {
+//            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        }
+//        if (value) {
+//            [dic setObject:value forKey:key];
+//        }
+//    }
     if (_netWorkType == NetWorkActionTypeGet) {
         [manager GET:url
-          parameters:dic
+          parameters:params
             progress:^(NSProgress * _Nonnull downloadProgress) {
                 if (progressBlock) {
 //                    progressBlock(percentDone,totalBytesWritten);
@@ -302,7 +299,7 @@
              }];
     } else if (_netWorkType == NetWorkActionTypePost){
         [manager POST:url
-           parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+           parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                if (fileData) {
                    for (NSDictionary *entry in fileData) {
                        if ([entry isKindOfClass:[NSDictionary class]]) {
@@ -369,7 +366,6 @@
     // JSON 解析
     NSError *error = nil;
     id rootObject = nil;
-    
     @autoreleasepool {
         rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
                                                      options:NSJSONReadingMutableContainers
@@ -398,7 +394,9 @@
             }
             else {
                 //数据正常,写入cache
-                [[EGOCache globalCache] setObject:rootObject forKey:cacheKey];
+                if (cacheKey) {
+                    [[EGOCache globalCache] setObject:rootObject forKey:cacheKey];
+                }
             }
             if (_errorCodeBlock) {
                 self.errorCodeBlock(error.code);
@@ -411,7 +409,6 @@
     }
 }
 
-//AFHTTPRequestOperation *operation, NSError *error
 - (void)postFailureWithError:(NSError *)error
                    completed:(void (^)(id result,NSError *error))completedBlock
 {
