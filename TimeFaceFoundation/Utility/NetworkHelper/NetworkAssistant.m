@@ -112,11 +112,11 @@
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer = responseSerializer;
-    NSProgress *progress = nil;
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
-                                                                       progress:&progress
-                                                              completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
-    {
+                                                                       progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    }
+                                                              completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (!error) {
             [self saveImageIndex];
         }
@@ -141,14 +141,15 @@
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer = responseSerializer;
-    NSProgress *progress = nil;
     
     //    dispatch_sync(dispatch_get_main_queue(), ^{
     //        [SVProgressHUD showWithStatus:@"正在检索"];
     //    });
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
-                                                                       progress:&progress
+                                                                       progress:^(NSProgress * _Nonnull uploadProgress) {
+                                                                           
+                                                                       }
                                                               completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
                                           {
                                               TFLog(@"responseObject:%@",responseObject);
@@ -168,10 +169,11 @@
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer = responseSerializer;
-    NSProgress *progress = nil;
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
-                                                                       progress:&progress
+                                                                       progress:^(NSProgress * _Nonnull uploadProgress) {
+                                                                           
+                                                                       }
                                                               completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
 //            NSLog(@"Error: %@", error);
@@ -212,7 +214,7 @@
     
     NSString *cacheKey = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
     TFLog(@"cacheKey:%@",cacheKey);
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     
 //    if (IS_RUNNING_IOS9) {
@@ -274,106 +276,89 @@
             [dic setObject:value forKey:key];
         }
     }
-    AFHTTPRequestOperation *operation = nil;
-    if (fileData && [fileData count] > 0) {
-        operation = [manager POST:url
-                       parameters:dic
-        constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                         if (fileData) {
-                             for (NSDictionary *entry in fileData) {
-                                 if ([entry isKindOfClass:[NSDictionary class]]) {
-                                     if ([entry objectForKey:@"path"]) {
-                                         NSError *error = nil;
-                                         NSData *tempData = [NSData dataWithContentsOfFile:[entry objectForKey:@"path"]
-                                                                                   options:NSDataReadingMappedIfSafe
-                                                                                     error:&error];
-                                         [formData appendPartWithFileData:tempData
-                                                                     name:[entry objectForKey:@"name"]
-                                                                 fileName:[entry objectForKey:@"fileName"]
-                                                                 mimeType:[entry objectForKey:@"mimeType"]];
-                                     }
-                                     else {
-                                         //循环添加post文件
-                                         [formData appendPartWithFileData:[entry objectForKey:@"data"]
-                                                                     name:[entry objectForKey:@"name"]
-                                                                 fileName:[entry objectForKey:@"fileName"]
-                                                                 mimeType:[entry objectForKey:@"mimeType"]];
-                                     }
-                                 }
-                             }
-                         }
-                     }
-                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         if (hud.length) {
-                             [SVProgressHUD dismiss];
-                         }
-                         [self postSuccess:operation
-                            responseObject:responseObject
-                                  cacheKey:cacheKey
-                                 completed:completedBlock];
-                         
-                     }
-                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         if (hud.length) {
-                             [SVProgressHUD dismiss];
-                         }
-                         [self postFailure:operation error:error completed:completedBlock];
-                     }];
-        
-    } else {
-        if (_netWorkType == NetWorkActionTypeGet) {
-            operation = [manager GET:url
-                          parameters:dic
-                             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                 if (hud.length) {
-                                     [SVProgressHUD dismiss];
-                                 }
-                                 [self postSuccess:operation
-                                    responseObject:responseObject
-                                          cacheKey:cacheKey
-                                         completed:completedBlock];
-                             }
-                             failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                                 if (hud.length) {
-                                     [SVProgressHUD dismiss];
-                                 }
-                                 [self postFailure:operation error:error completed:completedBlock];
-                             }];
-        } else if (_netWorkType == NetWorkActionTypePost){
-            operation = [manager POST:url
-                           parameters:dic
-                              success:^(AFHTTPRequestOperation *operation, id responseObject)
-                         {
-                             if (hud.length) {
-                                 [SVProgressHUD dismiss];
-                             }
-                             [self postSuccess:operation
-                                responseObject:responseObject
-                                      cacheKey:cacheKey
-                                     completed:completedBlock];
-                             
-                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                             if (hud.length) {
-                                 [SVProgressHUD dismiss];
-                             }
-                             [self postFailure:operation error:error completed:completedBlock];
-                         }];
-        }
-    }
-    if (progressBlock) {
-        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-            double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-            progressBlock(percentDone,totalBytesWritten);
-        }];
+    if (_netWorkType == NetWorkActionTypeGet) {
+        [manager GET:url
+          parameters:dic
+            progress:^(NSProgress * _Nonnull downloadProgress) {
+                if (progressBlock) {
+//                    progressBlock(percentDone,totalBytesWritten);
+                }
+            }
+             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                 if (hud.length) {
+                     [SVProgressHUD dismiss];
+                 }
+                 [self postSuccess:task
+                    responseObject:responseObject
+                          cacheKey:cacheKey
+                         completed:completedBlock];
+             }
+             failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                 
+                 if (hud.length) {
+                     [SVProgressHUD dismiss];
+                 }
+                 [self postFailureWithError:error completed:completedBlock];
+             }];
+    } else if (_netWorkType == NetWorkActionTypePost){
+        [manager POST:url
+           parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+               if (fileData) {
+                   for (NSDictionary *entry in fileData) {
+                       if ([entry isKindOfClass:[NSDictionary class]]) {
+                           if ([entry objectForKey:@"path"]) {
+                               NSError *error = nil;
+                               NSData *tempData = [NSData dataWithContentsOfFile:[entry objectForKey:@"path"]
+                                                                         options:NSDataReadingMappedIfSafe
+                                                                           error:&error];
+                               [formData appendPartWithFileData:tempData
+                                                           name:[entry objectForKey:@"name"]
+                                                       fileName:[entry objectForKey:@"fileName"]
+                                                       mimeType:[entry objectForKey:@"mimeType"]];
+                           }
+                           else {
+                               //循环添加post文件
+                               [formData appendPartWithFileData:[entry objectForKey:@"data"]
+                                                           name:[entry objectForKey:@"name"]
+                                                       fileName:[entry objectForKey:@"fileName"]
+                                                       mimeType:[entry objectForKey:@"mimeType"]];
+                           }
+                       }
+                   }
+               }
+           } progress:^(NSProgress * _Nonnull uploadProgress) {
+               
+           } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+               if (hud.length) {
+                   [SVProgressHUD dismiss];
+               }
+               [self postSuccess:task
+                  responseObject:responseObject
+                        cacheKey:cacheKey
+                       completed:completedBlock];
+           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+               if (hud.length) {
+                   [SVProgressHUD dismiss];
+               }
+               [self postFailureWithError:error completed:completedBlock];
+           }];
     }
     
+//    if (progressBlock) {
+//        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+//            double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+//            progressBlock(percentDone,totalBytesWritten);
+//        }];
+//    }
+    
 }
-//AFHTTPRequestOperation *operation, id responseObject
-- (void)postSuccess:(AFHTTPRequestOperation *)operation
+- (void)postSuccess:(NSURLSessionTask *)task
      responseObject:(id)responseObject
            cacheKey:(NSString *)cacheKey
           completed:(void (^)(id result,NSError *error))completedBlock {
-    NSDictionary *headerData = [[operation response] allHeaderFields];
+    
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+    NSDictionary *headerData = [response allHeaderFields];
     if (!responseObject) {
         return completedBlock(nil,nil);
     }
@@ -427,15 +412,13 @@
 }
 
 //AFHTTPRequestOperation *operation, NSError *error
-- (void)postFailure:(AFHTTPRequestOperation *)operation
-              error:(NSError *)error
-          completed:(void (^)(id result,NSError *error))completedBlock
+- (void)postFailureWithError:(NSError *)error
+                   completed:(void (^)(id result,NSError *error))completedBlock
 {
     if (error.code == -1005) {
-        
         error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
-                                             code:kTFErrorCodeNetwork
-                                         userInfo:error.userInfo];
+                                    code:kTFErrorCodeNetwork
+                                userInfo:error.userInfo];
         completedBlock(nil,error);
     }
     else {

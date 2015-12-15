@@ -58,12 +58,6 @@
 		6CC8C13C1BA7D552003CF335 /* UIViewController+TopMostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0961BA7D552003CF335 /* UIViewController+TopMostViewController.m */; };
 		6CC8C13D1BA7D552003CF335 /* UIWebView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0981BA7D552003CF335 /* UIWebView+Additions.m */; };
 		6CC8C14F1BA7D552003CF335 /* CLClassList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0C71BA7D552003CF335 /* CLClassList.m */; };
-		6CC8C1501BA7D552003CF335 /* IACacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0CA1BA7D552003CF335 /* IACacheManager.m */; };
-		6CC8C1511BA7D552003CF335 /* IADownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0CC1BA7D552003CF335 /* IADownloadHandler.m */; };
-		6CC8C1521BA7D552003CF335 /* IADownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0CE1BA7D552003CF335 /* IADownloadManager.m */; };
-		6CC8C1531BA7D552003CF335 /* IADownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D01BA7D552003CF335 /* IADownloadOperation.m */; };
-		6CC8C1541BA7D552003CF335 /* IASequentialDownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D21BA7D552003CF335 /* IASequentialDownloadHandler.m */; };
-		6CC8C1551BA7D552003CF335 /* IASequentialDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D41BA7D552003CF335 /* IASequentialDownloadManager.m */; };
 		6CC8C1561BA7D552003CF335 /* NetworkAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D61BA7D552003CF335 /* NetworkAssistant.m */; };
 		6CC8C1571BA7D552003CF335 /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0D81BA7D552003CF335 /* URLHelper.m */; };
 		6CC8C15B1BA7D552003CF335 /* SystemServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC8C0E41BA7D552003CF335 /* SystemServices.m */; };
@@ -213,18 +207,6 @@
 		6CC8C0981BA7D552003CF335 /* UIWebView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Additions.m"; sourceTree = "<group>"; };
 		6CC8C0C61BA7D552003CF335 /* CLClassList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLClassList.h; sourceTree = "<group>"; };
 		6CC8C0C71BA7D552003CF335 /* CLClassList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLClassList.m; sourceTree = "<group>"; };
-		6CC8C0C91BA7D552003CF335 /* IACacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IACacheManager.h; sourceTree = "<group>"; };
-		6CC8C0CA1BA7D552003CF335 /* IACacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IACacheManager.m; sourceTree = "<group>"; };
-		6CC8C0CB1BA7D552003CF335 /* IADownloadHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADownloadHandler.h; sourceTree = "<group>"; };
-		6CC8C0CC1BA7D552003CF335 /* IADownloadHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADownloadHandler.m; sourceTree = "<group>"; };
-		6CC8C0CD1BA7D552003CF335 /* IADownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADownloadManager.h; sourceTree = "<group>"; };
-		6CC8C0CE1BA7D552003CF335 /* IADownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADownloadManager.m; sourceTree = "<group>"; };
-		6CC8C0CF1BA7D552003CF335 /* IADownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADownloadOperation.h; sourceTree = "<group>"; };
-		6CC8C0D01BA7D552003CF335 /* IADownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADownloadOperation.m; sourceTree = "<group>"; };
-		6CC8C0D11BA7D552003CF335 /* IASequentialDownloadHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASequentialDownloadHandler.h; sourceTree = "<group>"; };
-		6CC8C0D21BA7D552003CF335 /* IASequentialDownloadHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASequentialDownloadHandler.m; sourceTree = "<group>"; };
-		6CC8C0D31BA7D552003CF335 /* IASequentialDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASequentialDownloadManager.h; sourceTree = "<group>"; };
-		6CC8C0D41BA7D552003CF335 /* IASequentialDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASequentialDownloadManager.m; sourceTree = "<group>"; };
 		6CC8C0D51BA7D552003CF335 /* NetworkAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkAssistant.h; sourceTree = "<group>"; };
 		6CC8C0D61BA7D552003CF335 /* NetworkAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkAssistant.m; sourceTree = "<group>"; };
 		6CC8C0D71BA7D552003CF335 /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
@@ -573,7 +555,6 @@
 			children = (
 				6CC8C0C61BA7D552003CF335 /* CLClassList.h */,
 				6CC8C0C71BA7D552003CF335 /* CLClassList.m */,
-				6CC8C0C81BA7D552003CF335 /* DownloadManager */,
 				6CC8C0D51BA7D552003CF335 /* NetworkAssistant.h */,
 				6CC8C0D61BA7D552003CF335 /* NetworkAssistant.m */,
 				6CC8C0D71BA7D552003CF335 /* URLHelper.h */,
@@ -581,25 +562,6 @@
 			);
 			name = NetworkHelper;
 			path = Utility/NetworkHelper;
-			sourceTree = "<group>";
-		};
-		6CC8C0C81BA7D552003CF335 /* DownloadManager */ = {
-			isa = PBXGroup;
-			children = (
-				6CC8C0C91BA7D552003CF335 /* IACacheManager.h */,
-				6CC8C0CA1BA7D552003CF335 /* IACacheManager.m */,
-				6CC8C0CB1BA7D552003CF335 /* IADownloadHandler.h */,
-				6CC8C0CC1BA7D552003CF335 /* IADownloadHandler.m */,
-				6CC8C0CD1BA7D552003CF335 /* IADownloadManager.h */,
-				6CC8C0CE1BA7D552003CF335 /* IADownloadManager.m */,
-				6CC8C0CF1BA7D552003CF335 /* IADownloadOperation.h */,
-				6CC8C0D01BA7D552003CF335 /* IADownloadOperation.m */,
-				6CC8C0D11BA7D552003CF335 /* IASequentialDownloadHandler.h */,
-				6CC8C0D21BA7D552003CF335 /* IASequentialDownloadHandler.m */,
-				6CC8C0D31BA7D552003CF335 /* IASequentialDownloadManager.h */,
-				6CC8C0D41BA7D552003CF335 /* IASequentialDownloadManager.m */,
-			);
-			path = DownloadManager;
 			sourceTree = "<group>";
 		};
 		6CC8C0E21BA7D552003CF335 /* System Services */ = {
@@ -972,7 +934,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CC8C1571BA7D552003CF335 /* URLHelper.m in Sources */,
-				6CC8C1521BA7D552003CF335 /* IADownloadManager.m in Sources */,
 				43A082231BA7AE5700AEFCE5 /* TFModel.m in Sources */,
 				B06CC4CA1BE2FDBA003E2E32 /* TimeFaceFoundationConst.m in Sources */,
 				6CC8C1661BA7D552003CF335 /* InputLimit.m in Sources */,
@@ -983,7 +944,6 @@
 				B046C1541BCE543000D91D92 /* TFStringUtility.m in Sources */,
 				6CC8C12A1BA7D552003CF335 /* UIImage+ImageEffects.m in Sources */,
 				6CC8C1561BA7D552003CF335 /* NetworkAssistant.m in Sources */,
-				6CC8C1541BA7D552003CF335 /* IASequentialDownloadHandler.m in Sources */,
 				6CC8C1371BA7D552003CF335 /* UIView+Genie.m in Sources */,
 				6CC8C15B1BA7D552003CF335 /* SystemServices.m in Sources */,
 				6CC8C12D1BA7D552003CF335 /* UIImageView+FaceAwareFill.m in Sources */,
@@ -1000,8 +960,6 @@
 				43A080A31BA7A5BF00AEFCE5 /* TableViewLoadingItem.m in Sources */,
 				43FBFA451BB4D6E500493585 /* NetUtility.m in Sources */,
 				6CC8C1681BA7D552003CF335 /* TFJSBridge.m in Sources */,
-				6CC8C1551BA7D552003CF335 /* IASequentialDownloadManager.m in Sources */,
-				6CC8C1501BA7D552003CF335 /* IACacheManager.m in Sources */,
 				B046C1511BCE542400D91D92 /* TFImageUtility.m in Sources */,
 				6CC8C13B1BA7D552003CF335 /* UIViewController+ScrollFullScreen.m in Sources */,
 				43A0809D1BA7A5BF00AEFCE5 /* TFDefaultStyle.m in Sources */,
@@ -1035,11 +993,9 @@
 				6CC8C1261BA7D552003CF335 /* TTGlobalUICommon.m in Sources */,
 				6CC8C16E1BA7D552003CF335 /* ViewPagerController.m in Sources */,
 				6C0145C01BD4BFF6003DDED4 /* main.m in Sources */,
-				6CC8C1531BA7D552003CF335 /* IADownloadOperation.m in Sources */,
 				B046C1601BCE54BA00D91D92 /* TFSecurityUtility.m in Sources */,
 				B046C15A1BCE545C00D91D92 /* TFDeviceUtility.m in Sources */,
 				6C0145BF1BD4BFF6003DDED4 /* AppDelegate.m in Sources */,
-				6CC8C1511BA7D552003CF335 /* IADownloadHandler.m in Sources */,
 				43A080A01BA7A5BF00AEFCE5 /* TFTableViewDataSource.m in Sources */,
 				6CC8C1691BA7D552003CF335 /* MotionOrientation.m in Sources */,
 				6C4F351F1BDE229100AAD4CD /* TestViewController.m in Sources */,

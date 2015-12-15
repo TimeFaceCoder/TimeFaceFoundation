@@ -8,7 +8,6 @@
 
 #import "PINRemoteImageTask.h"
 
-#import "PINRemoteImage.h"
 #import "PINRemoteImageCallbacks.h"
 
 @implementation PINRemoteImageTask
@@ -54,11 +53,17 @@
             PINLog(@"calling completion for UUID: %@ key: %@", UUID, strongSelf.key);
             dispatch_async(queue, ^
             {
+                PINRemoteImageResultType result;
+                if (image || animatedImage) {
+                    result = cached ? PINRemoteImageResultTypeCache : PINRemoteImageResultTypeDownload;
+                } else {
+                    result = PINRemoteImageResultTypeNone;
+                }
                 callback.completionBlock([PINRemoteImageManagerResult imageResultWithImage:image
                                                                             animatedImage:animatedImage
                                                                             requestLength:CACurrentMediaTime() - callback.requestTime
                                                                                     error:error
-                                                                               resultType:cached?PINRemoteImageResultTypeCache:PINRemoteImageResultTypeDownload
+                                                                               resultType:result
                                                                                      UUID:UUID]);
             });
         }

@@ -54,16 +54,16 @@
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer = responseSerializer;
-    NSProgress *progress = nil;
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
-                                                                       progress:&progress
-                                                              completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
-                                          {
-                                              if (!error) {
-                                                  [self saveImageIndex];
-                                              }
-                                          }];
-    
+                                                                       progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    }
+                                                              completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error)
+    {
+        if (!error) {
+            [self saveImageIndex];
+        }
+    }];
     [uploadTask resume];
 }
 
@@ -84,14 +84,12 @@
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer = responseSerializer;
-    NSProgress *progress = nil;
     
-    //    dispatch_sync(dispatch_get_main_queue(), ^{
-    //        [SVProgressHUD showWithStatus:@"正在检索"];
-    //    });
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
-                                                                       progress:&progress
+                                                                       progress:^(NSProgress * _Nonnull uploadProgress) {
+                                                                           
+                                                                       }
                                                               completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
                                           {
                                               TFLog(@"responseObject:%@",responseObject);
@@ -111,10 +109,11 @@
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     manager.responseSerializer = responseSerializer;
-    NSProgress *progress = nil;
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
-                                                                       progress:&progress
+                                                                       progress:^(NSProgress * _Nonnull uploadProgress) {
+                                                                           
+                                                                       }
                                                               completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
                                                                   if (error) {
                                                                       //            NSLog(@"Error: %@", error);
