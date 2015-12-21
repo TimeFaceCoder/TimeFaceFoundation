@@ -61,9 +61,9 @@
         [self setListType:[[self.params objectForKey:@"listType"] intValue]];
     }
     if (_useASKit) {
-        self.dataSource = [[TFTableViewDataSource alloc] initWithTableView:self.asTableView
-                                                                  listType:self.listType
-                                                                  delegate:self];
+        self.dataSource = [[TFTableViewDataSource alloc] initWithASTableView:self.asTableView
+                                                                    listType:self.listType
+                                                                    delegate:self];
     }
     else {
         self.dataSource = [[TFTableViewDataSource alloc] initWithTableView:self.tableView
@@ -77,12 +77,13 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self createDataSource];
     [JDStatusBarNotification addStyleNamed:@"scrollNotice"
-                                   prepare:^JDStatusBarStyle*(JDStatusBarStyle *style) {
-                                       style.barColor = [UIColor darkTextColor];
-                                       style.textColor = [UIColor whiteColor];
-                                       style.animationType = JDStatusBarAnimationTypeMove;
-                                       return style;
-                                   }];
+                                   prepare:^JDStatusBarStyle*(JDStatusBarStyle *style)
+     {
+         style.barColor = [UIColor darkTextColor];
+         style.textColor = [UIColor whiteColor];
+         style.animationType = JDStatusBarAnimationTypeMove;
+         return style;
+     }];
 }
 
 
