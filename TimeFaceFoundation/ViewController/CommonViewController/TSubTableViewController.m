@@ -16,6 +16,7 @@
 }
 
 @property (nonatomic ,strong ,readwrite) UITableView           *tableView;
+@property (nonatomic ,strong ,readwrite) ASTableView           *asTableView;
 @property (nonatomic ,strong ,readwrite) TFTableViewDataSource *dataSource;
 
 @end
@@ -35,23 +36,40 @@
 
 - (void)loadView {
     [super loadView];
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:_tableViewStyle];
+    if (_useASKit) {
+        _asTableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:YES];
         _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
-        _tableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth
-        | UIViewAutoresizingFlexibleHeight;
-        [self.view addSubview:_tableView];
-        
+        _asTableView.separatorStyle = UITableViewCellSeparatorStyleNone; // SocialAppNode has its own separator
+        [self.view addSubview:_asTableView];
+    }
+    else {
+        if (!_tableView) {
+            _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:_tableViewStyle];
+            _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
+            _tableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth
+            | UIViewAutoresizingFlexibleHeight;
+            [self.view addSubview:_tableView];
+            
+        }
     }
 }
-
+- (void)viewWillLayoutSubviews {
+    _asTableView.frame = self.view.bounds;
+}
 - (void)createDataSource {
     if (self.params && [self.params objectForKey:@"listType"]) {
         [self setListType:[[self.params objectForKey:@"listType"] intValue]];
     }
-    self.dataSource = [[TFTableViewDataSource alloc] initWithTableView:self.tableView
-                                                              listType:self.listType
-                                                              delegate:self];
+    if (_useASKit) {
+        self.dataSource = [[TFTableViewDataSource alloc] initWithTableView:self.asTableView
+                                                                  listType:self.listType
+                                                                  delegate:self];
+    }
+    else {
+        self.dataSource = [[TFTableViewDataSource alloc] initWithTableView:self.tableView
+                                                                  listType:self.listType
+                                                                  delegate:self];
+    }
 }
 
 - (void)viewDidLoad {
@@ -270,13 +288,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
