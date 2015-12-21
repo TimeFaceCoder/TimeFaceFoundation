@@ -21,3 +21,4 @@ pod 'GKFadeNavigationController‘
 pod 'Masonry'
 pod 'JSONModel'
 pod 'SVProgressHUD'
+pod 'MYTableViewManager', :git => 'https://github.com/melvin7/MYTableViewManager.git'

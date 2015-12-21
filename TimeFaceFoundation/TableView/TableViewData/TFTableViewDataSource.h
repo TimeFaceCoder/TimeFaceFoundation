@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <RETableViewManager/RETableViewManager.h>
+#import <MYTableViewManager/MYTableViewManager.h>
 
 @class TFTableViewDataManager;
 
@@ -34,9 +35,9 @@ typedef NS_ENUM(NSInteger, DataLoadPolicy) {
 
 @required
 
-- (void)actionOnView:(RETableViewItem *)item actionType:(NSInteger)actionType;
+- (void)actionOnView:(id)item actionType:(NSInteger)actionType;
 
-- (void)actionItemClick:(RETableViewItem*)item;
+- (void)actionItemClick:(id)item;
 
 - (void)didStartLoad;
 
@@ -80,6 +81,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
  *  列表代理
  */
 @property (nonatomic ,weak  ) id<TFTableViewDataSourceDelegate> delegate;
+@property (nonatomic ,weak  ) id<MYTableViewManagerDelegate> mDelegate;
 /**
  *  tableview
  */
@@ -88,6 +90,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
  *  tableview 管理器
  */
 @property (nonatomic ,strong) RETableViewManager            *manager;
+@property (nonatomic ,strong) MYTableViewManager            *mManager;
 /**
  *  数据管理器
  */
@@ -111,6 +114,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
 - (id)initWithTableView:(UITableView *)tableView
                listType:(NSInteger)listType
                delegate:(id /*<TFTableViewDataSourceDelegate>*/)delegate;
+
+- (id)initWithASTableView:(ASTableView *)tableView
+                 listType:(NSInteger)listType
+                 delegate:(id /*<MYTableViewManagerDelegate>*/)delegate;
 /**
  *  刷新列表数据
  *
@@ -139,7 +146,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)refreshCell:(NSInteger)actionType dataId:(NSString *)dataId;
 
 //返回item
-- (RETableViewItem *)tableViewItemByIndexPath:(NSIndexPath *)indexPath;
+- (id)tableViewItemByIndexPath:(NSIndexPath *)indexPath;
+
 
 /**
  *  添加下拉刷新组件，子类或者category可重写

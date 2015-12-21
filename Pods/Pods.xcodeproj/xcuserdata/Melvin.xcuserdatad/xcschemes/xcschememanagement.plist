@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AsyncDisplayKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DateTools.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -65,6 +70,11 @@
 			<false/>
 		</dict>
 		<key>JTCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MYTableViewManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -129,6 +139,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>YYKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -138,6 +153,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>09FA060F1A0492FB25232F489AC4E573</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0FCC330061F112B53C771B2416069A4F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,11 +172,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4307379073A078EC19F51CC5AB6DB77D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4C36B1F5D992ACDFD781AFC537E2D4B2</key>
 		<dict>
 			<key>primary</key>
@@ -167,12 +182,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4FE04202227A160331141D49B46A5EA5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>64BAA7DF6FE49370EA7BDD8C3DA30749</key>
+		<key>5C8FAF11CE0FC69F2CCCCC7823E2C4E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>625CF6BC85BF72A8C6A4279DDFC6CB9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,27 +207,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E38949C9784203BA356B0595F6829FB</key>
+		<key>738E5C80492A2C388F6B0874D153A16B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>749796B39A19518C1349BF088ABF0B00</key>
+		<key>7FFA8AE96D07BC2A7979DA421693B756</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>89D50E2DA047A2BB171840F485267C79</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>91ED064B28623FF7F7368182AA5A9E12</key>
+		<key>8EF16224E66856B017C7399D949A93E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>97762FB03644C80044F079E8EDAB71F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E2A150F634F2CCBB6C10927EFA38FE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -217,17 +247,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2545573B971B046950EBD34C90E7DB3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>AEBD5931A3B239EA65BD7D1DA101000D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B4A3E08D49931371F7247521A50EAF79</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B9D2C83FE7E7698E805B48DA5377E107</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -242,11 +272,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CFEC9D31B6D9EA6FCC48D2DC73B734D4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>E5BD7DB5429C9BFBBE579170D8516936</key>
 		<dict>
 			<key>primary</key>
@@ -257,12 +282,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB393E142888F8D4D170C675E0849C17</key>
+		<key>FDE55DC53BAB5BC9F8F6CB55772C7C39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>FF5CFD6F2B044B2583AE363E38A9D0EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFDBEC1A10AC45F7F4B4AF9DFF101B64</key>
 		<dict>
 			<key>primary</key>
 			<true/>

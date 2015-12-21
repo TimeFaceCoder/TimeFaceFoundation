@@ -25,7 +25,7 @@
 
 
 
-@interface TFTableViewDataSource()<RETableViewManagerDelegate> {
+@interface TFTableViewDataSource()<RETableViewManagerDelegate,MYTableViewManagerDelegate> {
     
 }
 
@@ -74,8 +74,10 @@
  *  当前列表缓存key
  */
 @property (nonatomic ,copy  ) NSString                       *cacheKey;
-
-
+/**
+ *  YES 使用 MYTableViewManager
+ */
+@property (nonatomic ,assign) BOOL managerFlag;
 
 
 @end
@@ -97,7 +99,35 @@ const static NSInteger kPageSize = 20;
     _manager = [[RETableViewManager alloc] initWithTableView:tableView delegate:self];
     //列表模式
     _manager.style.defaultCellSelectionStyle = UITableViewCellSelectionStyleNone;
-    
+    [self setupDataSource];
+    return self;
+}
+
+
+
+- (id)initWithASTableView:(ASTableView *)tableView
+                 listType:(NSInteger)listType
+                 delegate:(id /*<MYTableViewManagerDelegate>*/)delegate {
+    self = [super init];
+    if (!self)
+        return nil;
+    //列表管理器
+    _managerFlag = YES;
+    _mDelegate   = delegate;
+    _listType    = listType;
+    _tableView   = tableView;
+    _mManager = [[MYTableViewManager alloc] initWithTableView:tableView
+                                                     delegate:self];
+    //列表模式
+    [self setupDataSource];
+    return self;
+}
+
+
+/**
+ *  初始化方法
+ */
+- (void)setupDataSource {
     //注册Cell
     [self registerClass];
     
@@ -112,7 +142,7 @@ const static NSInteger kPageSize = 20;
         _tableViewDataManager = [[class alloc] initWithDataSource:self listType:_listType];
         _tableViewDataManager.listType = _listType;
     }
-    return self;
+    
 }
 
 - (void)reloadTableViewData:(BOOL)pullToRefresh {
@@ -262,6 +292,9 @@ const static NSInteger kPageSize = 20;
     _manager.delegate = nil;
     _tableView = nil;
     _manager = nil;
+    
+    _mManager.delegate = nil;
+    _mManager = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -271,12 +304,22 @@ const static NSInteger kPageSize = 20;
     }
 }
 
-- (RETableViewItem *)tableViewItemByIndexPath:(NSIndexPath *)indexPath {
-    RETableViewSection * section = [[self.manager sections] objectAtIndex:indexPath.section];
-    if (section && [[section items] count] > 0) {
-        RETableViewItem *item = (RETableViewItem *)[[section items] objectAtIndex:indexPath.row];
-        if (item) {
-            return item;
+- (id)tableViewItemByIndexPath:(NSIndexPath *)indexPath {
+    if (_managerFlag) {
+        MYTableViewSection *section = [[self.mManager sections] objectAtIndex:indexPath.section];
+        if (section && [[section items] count] > 0) {
+            MYTableViewItem *item = (MYTableViewItem *)[[section items] objectAtIndex:indexPath.row];
+            if (item) {
+                return item;
+            }        }
+    }
+    else {
+        RETableViewSection * section = [[self.manager sections] objectAtIndex:indexPath.section];
+        if (section && [[section items] count] > 0) {
+            RETableViewItem *item = (RETableViewItem *)[[section items] objectAtIndex:indexPath.row];
+            if (item) {
+                return item;
+            }
         }
     }
     return nil;
@@ -288,9 +331,17 @@ const static NSInteger kPageSize = 20;
  */
 - (void)registerClass {
     NSArray *tableViewItemlist = [CLClassList subclassesOfClass:[TFTableViewItem class]];
+    if (_managerFlag) {
+        tableViewItemlist = [CLClassList subclassesOfClass:[MYTableViewItem class]];
+    }
     for (Class itemClass in tableViewItemlist) {
         NSString *itemName = NSStringFromClass(itemClass);
-        self.manager[itemName]   = [itemName stringByAppendingString:@"Cell"];
+        if (_managerFlag) {
+            self.mManager[itemName] = [itemName stringByAppendingString:@"Cell"];
+        }
+        else {
+            self.manager[itemName]   = [itemName stringByAppendingString:@"Cell"];
+        }
     }
 }
 
@@ -377,9 +428,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath; {
-    if (indexPath.row + 5 == [[self.manager sections] count]) {
-        
-    }
     if ([cell isKindOfClass:[TableViewLoadingItemCell class]]) {
         [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3];
     }
@@ -475,7 +523,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
                 [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
             }
         }
-
+        
     }
     else {
         
