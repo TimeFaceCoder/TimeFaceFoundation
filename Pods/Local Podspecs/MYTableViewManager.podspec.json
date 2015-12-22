@@ -1,6 +1,6 @@
 {
   "name": "MYTableViewManager",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "summary": "TableView 管理器",
   "homepage": "https://github.com/melvin7/MYTableViewManager",
   "license": "Copyright (C) 2015 TimeFace, Inc.  All rights reserved.",
@@ -21,9 +21,6 @@
 
     ],
     "AsyncDisplayKit": [
-
-    ],
-    "YYKit": [
 
     ]
   }

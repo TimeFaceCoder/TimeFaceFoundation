@@ -74,7 +74,7 @@
  @param cell A table-view cell object that tableView is going to use when drawing the row.
  @param indexPath An index path locating the row in tableView.
  */
-- (void)tableView:(UITableView *)tableView willLayoutCellSubviews:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)my_tableView:(UITableView *)tableView willLayoutCellSubviews:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 /*
  Tells the delegate the table view is about to create a cell for a particular row and make it reusable.
@@ -83,7 +83,7 @@
  @param cell A table-view cell object that tableView is going to create.
  @param indexPath An index path locating the row in tableView.
  */
-- (void)tableView:(UITableView *)tableView willLoadCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)my_tableView:(UITableView *)tableView willLoadCell:(MYTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 /*
  Tells the delegate the table view has created a cell for a particular row and made it reusable.
@@ -92,6 +92,6 @@
  @param cell A table-view cell object that tableView has created.
  @param indexPath An index path locating the row in tableView.
  */
-- (void)tableView:(UITableView *)tableView didLoadCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)my_tableView:(UITableView *)tableView didLoadCell:(MYTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -117,8 +117,7 @@
 #pragma mark - 
 #pragma mark - ASTableViewDelegate.
 
-- (NSArray *)sectionIndexTitlesForTableView:(ASTableView *)tableView
-{
+- (NSArray *)sectionIndexTitlesForTableView:(ASTableView *)tableView {
     NSMutableArray *titles;
     for (MYTableViewSection *section in self.mutableSections) {
         if (section.indexTitle) {
@@ -224,6 +223,13 @@
         MYTableViewItem *item = [section.items objectAtIndex:indexPath.row];
         if (item.insertionHandler)
             item.insertionHandler(item);
+    }
+}
+
+- (void)tableView:(ASTableView *)tableView willDisplayNodeForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(my_tableView:willLoadCell:forRowAtIndexPath:)]) {
+        MYTableViewCell *cell = (MYTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        [self.delegate my_tableView:tableView willLoadCell:cell forRowAtIndexPath:indexPath];
     }
 }
 
