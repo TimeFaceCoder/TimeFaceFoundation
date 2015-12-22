@@ -81,7 +81,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
  *  列表代理
  */
 @property (nonatomic ,weak  ) id<TFTableViewDataSourceDelegate> delegate;
-@property (nonatomic ,weak  ) id<MYTableViewManagerDelegate> mDelegate;
 /**
  *  tableview
  */
@@ -117,7 +116,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (id)initWithASTableView:(ASTableView *)tableView
                  listType:(NSInteger)listType
-                 delegate:(id /*<MYTableViewManagerDelegate>*/)delegate;
+                 delegate:(id /*<TFTableViewDataSourceDelegate>*/)delegate;
 /**
  *  刷新列表数据
  *

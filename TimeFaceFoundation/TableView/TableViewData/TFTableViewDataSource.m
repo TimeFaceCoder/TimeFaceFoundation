@@ -88,13 +88,13 @@ const static NSInteger kPageSize = 20;
 
 - (id)initWithTableView:(UITableView *)tableView
                listType:(NSInteger)listType
-               delegate:(id /*<NewTableViewDataSourceDelegate>*/)delegate {
+               delegate:(id /*<TFTableViewDataSourceDelegate>*/)delegate {
     self = [super init];
     if (!self)
         return nil;
     //列表管理器
-    _delegate = delegate;
-    _listType = listType;
+    _delegate  = delegate;
+    _listType  = listType;
     _tableView = tableView;
     _manager = [[RETableViewManager alloc] initWithTableView:tableView delegate:self];
     //列表模式
@@ -107,13 +107,13 @@ const static NSInteger kPageSize = 20;
 
 - (id)initWithASTableView:(ASTableView *)tableView
                  listType:(NSInteger)listType
-                 delegate:(id /*<MYTableViewManagerDelegate>*/)delegate {
+                 delegate:(id /*<TFTableViewDataSourceDelegate>*/)delegate {
     self = [super init];
     if (!self)
         return nil;
     //列表管理器
     _managerFlag = YES;
-    _mDelegate   = delegate;
+    _delegate    = delegate;
     _listType    = listType;
     _tableView   = tableView;
     _mManager = [[MYTableViewManager alloc] initWithTableView:tableView
