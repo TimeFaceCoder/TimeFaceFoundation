@@ -23,6 +23,8 @@
 #import "NetworkAssistant.h"
 #import "TimeFaceFoundationConst.h"
 
+#import <MYTableViewManager/MYTableViewLoadingItem.h>
+#import <MYTableViewManager/MYTableViewLoadingItemCell.h>
 
 
 @interface TFTableViewDataSource()<RETableViewManagerDelegate,MYTableViewManagerDelegate> {
@@ -246,7 +248,7 @@ const static NSInteger kPageSize = 20;
                      if (_managerFlag) {
                          MYTableViewSection *section = [MYTableViewSection section];
                          [weakSelf.mManager addSection:section];
-                         [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                         [section addItem:[MYTableViewLoadingItem new]];
                      }
                      else {
                          RETableViewSection *section = [RETableViewSection section];
@@ -394,6 +396,13 @@ const static NSInteger kPageSize = 20;
 }
 
 #pragma mark - Delegate
+
+#pragma mark - MYTableViewManagerDelegate
+- (void)my_tableView:(UITableView *)tableView willLoadCell:(MYTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[MYTableViewLoadingItemCell class]]) {
+        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3];
+    }
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void)stopLoading {
