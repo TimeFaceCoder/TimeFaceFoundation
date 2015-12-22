@@ -212,7 +212,12 @@ const static NSInteger kPageSize = 20;
         if (dataLoadPolicy == DataLoadPolicyReload ||
             dataLoadPolicy == DataLoadPolicyNone) {
             //重新加载
-            [weakSelf.manager removeAllSections];
+            if (_managerFlag) {
+                [weakSelf.mManager removeAllSections];
+            }
+            else {
+                [weakSelf.manager removeAllSections];
+            }
         }
         
         [weakSelf setTotalPage:[[result objectForKey:@"totalPage"] integerValue]];
@@ -222,7 +227,12 @@ const static NSInteger kPageSize = 20;
         }
         if (dataLoadPolicy == DataLoadPolicyMore) {
             //来自加载下一页,移除loading item
-            [weakSelf.manager removeLastSection];
+            if (_managerFlag) {
+                [weakSelf.mManager removeLastSection];
+            }
+            else {
+                [weakSelf.manager removeLastSection];
+            }
         }
         
         
@@ -233,10 +243,16 @@ const static NSInteger kPageSize = 20;
              if (finished) {
                  //加载列
                  if (_currentPage < _totalPage) {
-                     TFListHeaderView *headerView = [TFListHeaderView headerView];
-                     RETableViewSection *section = [RETableViewSection sectionWithHeaderView:headerView];
-                     [weakSelf.manager addSection:section];
-                     [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                     if (_managerFlag) {
+                         MYTableViewSection *section = [MYTableViewSection section];
+                         [weakSelf.mManager addSection:section];
+                         [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                     }
+                     else {
+                         RETableViewSection *section = [RETableViewSection section];
+                         [weakSelf.manager addSection:section];
+                         [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                     }
                  }
                  
                  _loading = NO;
