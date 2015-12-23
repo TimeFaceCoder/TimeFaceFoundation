@@ -12,6 +12,6 @@
 
 @property (nonatomic ,copy) NSString *title;
 
-+ (MYTableViewLoadingItem*)itemWithTtile:(NSString *)title;
++ (MYTableViewLoadingItem*)itemWithTitle:(NSString *)title;
 
 @end

@@ -33,7 +33,7 @@ PODS:
   - JSONModel (1.1.2)
   - JTCalendar (2.1.4)
   - Masonry (0.6.3)
-  - MYTableViewManager (0.0.7):
+  - MYTableViewManager (0.1.0):
     - AsyncDisplayKit
     - pop
   - NJKWebViewProgress (0.2.3):
@@ -89,7 +89,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MYTableViewManager:
-    :commit: 10d74fca9ead93bc48d725641be5636540c152c7
+    :commit: 289bb2adc521945bcbe1d4ced982b36c2eb13ece
     :git: "/Item/Project/OpenSourceCode/MYTableViewManager"
 
 SPEC CHECKSUMS:
@@ -107,7 +107,7 @@ SPEC CHECKSUMS:
   JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
   JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
-  MYTableViewManager: 87c38329e3a46c151ad9ce2ad006a11a84481a70
+  MYTableViewManager: 6d994261aedc5c6f81b4c649be5a4bee771cf275
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
   PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81

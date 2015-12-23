@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSMutableArray *mutableSections;
 @property (nonatomic, assign) CGFloat defaultTableViewSectionHeight;
+@property (atomic, assign) BOOL dataSourceLocked;
 
 @end
 
@@ -114,8 +115,39 @@
     return cell;
 }
 
+- (void)tableViewLockDataSource:(ASTableView *)tableView
+{
+    self.dataSourceLocked = YES;
+}
+
+- (void)tableViewUnlockDataSource:(ASTableView *)tableView
+{
+    self.dataSourceLocked = NO;
+}
+
 #pragma mark - 
 #pragma mark - ASTableViewDelegate.
+
+- (BOOL)shouldBatchFetchForTableView:(ASTableView *)tableView {
+    if ([self.delegate respondsToSelector:@selector(shouldBatchFetchForTableView:)]) {
+        return [self.delegate shouldBatchFetchForTableView:tableView];
+    }
+    return NO;
+}
+- (void)tableView:(ASTableView *)tableView willBeginBatchFetchWithContext:(ASBatchContext *)context {
+    if ([self.delegate respondsToSelector:@selector(tableView:willBeginBatchFetchWithContext:)]) {
+        [self.delegate tableView:tableView willBeginBatchFetchWithContext:context];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [_tableView beginUpdates];
+    // Assume only kitten nodes are selectable (see -tableView:shouldHighlightRowAtIndexPath:).
+    
+    [_tableView endUpdates];
+}
 
 - (NSArray *)sectionIndexTitlesForTableView:(ASTableView *)tableView {
     NSMutableArray *titles;
@@ -228,7 +260,7 @@
 
 - (void)tableView:(ASTableView *)tableView willDisplayNodeForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(my_tableView:willLoadCell:forRowAtIndexPath:)]) {
-        MYTableViewCell *cell = (MYTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        MYTableViewCell *cell = (MYTableViewCell *)[tableView nodeForRowAtIndexPath:indexPath];
         [self.delegate my_tableView:tableView willLoadCell:cell forRowAtIndexPath:indexPath];
     }
 }

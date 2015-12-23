@@ -30,4 +30,15 @@
     
     _titleNode.frame = CGRectMake((self.calculatedSize.width - _titleNode.calculatedSize.width)/2, (self.calculatedSize.height - _titleNode.calculatedSize.height)/2, _titleNode.calculatedSize.width, _titleNode.calculatedSize.height);
 }
+
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    ASStackLayoutSpec *contentSpec = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
+                                                                             spacing:8.0
+                                                                      justifyContent:ASStackLayoutJustifyContentCenter
+                                                                          alignItems:ASStackLayoutAlignItemsStart
+                                                                            children:@[_titleNode]];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+                                                  child:contentSpec];
+}
+
 @end

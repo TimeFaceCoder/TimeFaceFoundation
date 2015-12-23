@@ -172,13 +172,16 @@ const static NSInteger kPageSize = 20;
     }
 }
 
+- (void)load:(DataLoadPolicy)loadPolicy params:(NSDictionary *)params {
+    [self load:loadPolicy params:params context:nil];
+}
 /**
  *  加载列表数据
  *
  *  @param loadPolicy
  *  @param params
  */
-- (void)load:(DataLoadPolicy)loadPolicy params:(NSDictionary *)params {
+- (void)load:(DataLoadPolicy)loadPolicy params:(NSDictionary *)params context:(ASBatchContext *)context {
     if (_loading) {
         return;
     }
@@ -240,7 +243,7 @@ const static NSInteger kPageSize = 20;
         
         //read data use network
         [weakSelf.tableViewDataManager reloadView:result
-                                            block:^(BOOL finished, id object,NSError *error)
+                                            block:^(BOOL finished, id object,NSError *error,NSInteger currentItemCount)
          {
              if (finished) {
                  //加载列
@@ -249,7 +252,6 @@ const static NSInteger kPageSize = 20;
                          MYTableViewSection *section = [MYTableViewSection section];
                          [section addItem:[MYTableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
                          [weakSelf.mManager addSection:section];
-                         
                      }
                      else {
                          RETableViewSection *section = [RETableViewSection section];
@@ -263,21 +265,33 @@ const static NSInteger kPageSize = 20;
                      //数据加载完成
                      if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
                          [weakSelf.delegate didFinishLoad:dataLoadPolicy error:error];
-                         [self stopPullRefresh];
+                         [weakSelf stopPullRefresh];
                      }
-                     if (dataLoadPolicy == DataLoadPolicyCache) {
-                         //开始下拉刷新
-                         [weakSelf.tableView triggerPullToRefresh];
-                     }
-                     if (dataLoadPolicy == DataLoadPolicyReload) {
-                         //结束下拉刷新动画
-                         if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
-                             [weakSelf.delegate stopPullRefresh];
+                     switch (dataLoadPolicy) {
+                         case DataLoadPolicyNone:
+                             break;
+                         case DataLoadPolicyCache:
+                             //开始下拉刷新
+                             [weakSelf.tableView triggerPullToRefresh];
+                             break;
+                         case DataLoadPolicyMore:{
+                             if (_managerFlag) {
+                                 if (context) {
+                                     [context completeBatchFetching:YES];
+                                 }
+                             }
                          }
-                         [self stopPullRefresh];
+                             break;
+                         case DataLoadPolicyReload:
+                             //结束下拉刷新动画
+                             if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
+                                 [weakSelf.delegate stopPullRefresh];
+                             }
+                             [weakSelf stopPullRefresh];
+                             break;
+                         default:
+                             break;
                      }
-                     [weakSelf.tableView reloadData];
-                     
                  });
              }
          }];
@@ -392,13 +406,34 @@ const static NSInteger kPageSize = 20;
 
 - (void)loadMore {
     if (_currentPage < _totalPage) {
-        [self load:DataLoadPolicyMore params:nil];
+        [self load:DataLoadPolicyMore params:_params];
     }
 }
 
 #pragma mark - Delegate
 
 #pragma mark - MYTableViewManagerDelegate
+/**
+ *  列表是否需要加载更多数据
+ *
+ *  @param tableView
+ *
+ *  @return
+ */
+- (BOOL)shouldBatchFetchForTableView:(ASTableView *)tableView {
+    return _currentPage < _totalPage;
+}
+/**
+ *  列表开始加载更多数据
+ *
+ *  @param tableView
+ *  @param context
+ */
+- (void)tableView:(ASTableView *)tableView willBeginBatchFetchWithContext:(ASBatchContext *)context {
+    TFLog(@"willBeginBatchFetchWithContext");
+    [self load:DataLoadPolicyMore params:_params context:context];
+}
+
 - (void)my_tableView:(UITableView *)tableView willLoadCell:(MYTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[MYTableViewLoadingItemCell class]]) {
         [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3];

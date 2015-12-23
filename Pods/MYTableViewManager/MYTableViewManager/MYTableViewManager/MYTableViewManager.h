@@ -65,6 +65,22 @@
 
 @protocol MYTableViewManagerDelegate <ASTableViewDelegate>
 
+/**
+ *  列表是否需要加载更多数据
+ *
+ *  @param tableView
+ *
+ *  @return
+ */
+- (BOOL)shouldBatchFetchForTableView:(ASTableView *)tableView;
+/**
+ *  列表开始加载更多数据
+ *
+ *  @param tableView
+ *  @param context
+ */
+- (void)tableView:(ASTableView *)tableView willBeginBatchFetchWithContext:(ASBatchContext *)context;
+
 @optional
 
 /*
@@ -74,7 +90,9 @@
  @param cell A table-view cell object that tableView is going to use when drawing the row.
  @param indexPath An index path locating the row in tableView.
  */
-- (void)my_tableView:(UITableView *)tableView willLayoutCellSubviews:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)my_tableView:(ASTableView *)tableView willDisplayNodeForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+
 
 /*
  Tells the delegate the table view is about to create a cell for a particular row and make it reusable.
