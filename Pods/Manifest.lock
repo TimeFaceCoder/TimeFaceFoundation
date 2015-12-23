@@ -33,7 +33,7 @@ PODS:
   - JSONModel (1.1.2)
   - JTCalendar (2.1.4)
   - Masonry (0.6.3)
-  - MYTableViewManager (0.0.2):
+  - MYTableViewManager (0.0.7):
     - AsyncDisplayKit
     - pop
   - NJKWebViewProgress (0.2.3):
@@ -74,7 +74,7 @@ DEPENDENCIES:
   - JSONModel
   - JTCalendar
   - Masonry
-  - MYTableViewManager (from `https://github.com/melvin7/MYTableViewManager.git`)
+  - MYTableViewManager (from `/Item/Project/OpenSourceCode/MYTableViewManager/MYTableViewManager.podspec`)
   - NJKWebViewProgress
   - PINRemoteImage
   - pop
@@ -85,12 +85,12 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   MYTableViewManager:
-    :git: https://github.com/melvin7/MYTableViewManager.git
+    :podspec: "/Item/Project/OpenSourceCode/MYTableViewManager/MYTableViewManager.podspec"
 
 CHECKOUT OPTIONS:
   MYTableViewManager:
-    :commit: ddf5d2344379152060d7542f547b78ca8c07ab2a
-    :git: https://github.com/melvin7/MYTableViewManager.git
+    :commit: 10d74fca9ead93bc48d725641be5636540c152c7
+    :git: "/Item/Project/OpenSourceCode/MYTableViewManager"
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 860466cb4a66854e6acb590071ecee404b48f49d
@@ -107,7 +107,7 @@ SPEC CHECKSUMS:
   JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
   JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
-  MYTableViewManager: 0f1de1794936cbaef24eedd21d6999e757c971e6
+  MYTableViewManager: 87c38329e3a46c151ad9ce2ad006a11a84481a70
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
   PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81

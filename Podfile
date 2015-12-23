@@ -21,4 +21,4 @@ pod 'GKFadeNavigationController‘
 pod 'Masonry'
 pod 'JSONModel'
 pod 'SVProgressHUD'
-pod 'MYTableViewManager', :git => 'https://github.com/melvin7/MYTableViewManager.git'
+pod 'MYTableViewManager', :podspec => '/Item/Project/OpenSourceCode/MYTableViewManager/MYTableViewManager.podspec'  # 指定podspec文件

@@ -247,8 +247,9 @@ const static NSInteger kPageSize = 20;
                  if (_currentPage < _totalPage) {
                      if (_managerFlag) {
                          MYTableViewSection *section = [MYTableViewSection section];
+                         [section addItem:[MYTableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
                          [weakSelf.mManager addSection:section];
-                         [section addItem:[MYTableViewLoadingItem new]];
+                         
                      }
                      else {
                          RETableViewSection *section = [RETableViewSection section];

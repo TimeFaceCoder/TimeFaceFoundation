@@ -7,7 +7,10 @@
 //
 
 #import "MYTableViewCell.h"
+#import "MYTableViewLoadingItem.h"
 
 @interface MYTableViewLoadingItemCell : MYTableViewCell
+
+@property (strong, readwrite, nonatomic) MYTableViewLoadingItem *tableViewItem;
 
 @end
