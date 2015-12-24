@@ -140,7 +140,7 @@ static CGFloat const TFRefreshViewHeight = 62;
                                 waitUntilDone:NO];
         }
     });
-
+    
 }
 
 #pragma mark Views
@@ -403,7 +403,7 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)stopPullToRefresh {
     //中断操作
-//    [self.pullToRefreshView stopAnimating];
+    [self.pullToRefreshView stopAnimating];
 }
 
 - (void)setPullToRefreshView:(TFTableRefreshView *)pullToRefreshView {

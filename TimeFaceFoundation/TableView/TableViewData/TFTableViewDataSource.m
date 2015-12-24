@@ -611,11 +611,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
 }
 
 - (void)addPullRefresh {
-    
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [self load:DataLoadPolicyReload params:_params];
+    }];
 }
 
 - (void)stopPullRefresh {
-    
+    [self.tableView stopPullToRefresh];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
