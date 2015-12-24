@@ -93,8 +93,8 @@
 		B046C1691BCE552A00D91D92 /* GuideHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1661BCE552A00D91D92 /* GuideHelpView.m */; };
 		B046C16A1BCE552A00D91D92 /* JMHoledView.m in Sources */ = {isa = PBXBuildFile; fileRef = B046C1681BCE552A00D91D92 /* JMHoledView.m */; };
 		B06CC4CA1BE2FDBA003E2E32 /* TimeFaceFoundationConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B06CC4C91BE2FDBA003E2E32 /* TimeFaceFoundationConst.m */; };
-		B0DB090C1C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB09081C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */; };
-		B0DB090D1C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB090A1C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.m */; };
+		B0DB0A0F1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB0A0B1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */; };
+		B0DB0A101C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB0A0D1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,11 +279,11 @@
 		B046C1681BCE552A00D91D92 /* JMHoledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMHoledView.m; sourceTree = "<group>"; };
 		B06CC4C81BE2FDBA003E2E32 /* TimeFaceFoundationConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFaceFoundationConst.h; sourceTree = "<group>"; };
 		B06CC4C91BE2FDBA003E2E32 /* TimeFaceFoundationConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFaceFoundationConst.m; sourceTree = "<group>"; };
-		B0DB09071C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysAnimatedGifPullToRefresh.h"; sourceTree = "<group>"; };
-		B0DB09081C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysAnimatedGifPullToRefresh.m"; sourceTree = "<group>"; };
-		B0DB09091C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAnimatedGifActivityIndicator.h; sourceTree = "<group>"; };
-		B0DB090A1C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAnimatedGifActivityIndicator.m; sourceTree = "<group>"; };
-		B0DB090B1C2BD40F00516AEC /* UzysAnimatedGifPullToRefreshConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAnimatedGifPullToRefreshConfiguration.h; sourceTree = "<group>"; };
+		B0DB0A0A1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysAnimatedGifPullToRefresh.h"; sourceTree = "<group>"; };
+		B0DB0A0B1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysAnimatedGifPullToRefresh.m"; sourceTree = "<group>"; };
+		B0DB0A0C1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAnimatedGifActivityIndicator.h; sourceTree = "<group>"; };
+		B0DB0A0D1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAnimatedGifActivityIndicator.m; sourceTree = "<group>"; };
+		B0DB0A0E1C2C0F0300516AEC /* UzysAnimatedGifPullToRefreshConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAnimatedGifPullToRefreshConfiguration.h; sourceTree = "<group>"; };
 		DB05BEFD8FC60321E377DB5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -398,7 +398,7 @@
 		43A080891BA7A5BE00AEFCE5 /* TableViewPullRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				B0DB09061C2BD40F00516AEC /* UZY */,
+				B0DB0A091C2C0F0300516AEC /* UZY */,
 				B01AF52D1BCE4AAD0098B6AC /* DashboardView.h */,
 				B01AF52E1BCE4AAD0098B6AC /* DashboardView.m */,
 				B01AF52F1BCE4AAD0098B6AC /* TableViewRefreshBg@2x.png */,
@@ -774,14 +774,14 @@
 			path = JMHoledView;
 			sourceTree = "<group>";
 		};
-		B0DB09061C2BD40F00516AEC /* UZY */ = {
+		B0DB0A091C2C0F0300516AEC /* UZY */ = {
 			isa = PBXGroup;
 			children = (
-				B0DB09071C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.h */,
-				B0DB09081C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */,
-				B0DB09091C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.h */,
-				B0DB090A1C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.m */,
-				B0DB090B1C2BD40F00516AEC /* UzysAnimatedGifPullToRefreshConfiguration.h */,
+				B0DB0A0A1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.h */,
+				B0DB0A0B1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */,
+				B0DB0A0C1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.h */,
+				B0DB0A0D1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m */,
+				B0DB0A0E1C2C0F0300516AEC /* UzysAnimatedGifPullToRefreshConfiguration.h */,
 			);
 			path = UZY;
 			sourceTree = "<group>";
@@ -964,7 +964,7 @@
 				B046C1541BCE543000D91D92 /* TFStringUtility.m in Sources */,
 				6CC8C12A1BA7D552003CF335 /* UIImage+ImageEffects.m in Sources */,
 				6CC8C1561BA7D552003CF335 /* NetworkAssistant.m in Sources */,
-				B0DB090D1C2BD40F00516AEC /* UzysAnimatedGifActivityIndicator.m in Sources */,
+				B0DB0A101C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m in Sources */,
 				6CC8C1371BA7D552003CF335 /* UIView+Genie.m in Sources */,
 				6CC8C15B1BA7D552003CF335 /* SystemServices.m in Sources */,
 				6CC8C12D1BA7D552003CF335 /* UIImageView+FaceAwareFill.m in Sources */,
@@ -1017,7 +1017,7 @@
 				B046C1601BCE54BA00D91D92 /* TFSecurityUtility.m in Sources */,
 				B046C15A1BCE545C00D91D92 /* TFDeviceUtility.m in Sources */,
 				6C0145BF1BD4BFF6003DDED4 /* AppDelegate.m in Sources */,
-				B0DB090C1C2BD40F00516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */,
+				B0DB0A0F1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */,
 				43A080A01BA7A5BF00AEFCE5 /* TFTableViewDataSource.m in Sources */,
 				6CC8C1691BA7D552003CF335 /* MotionOrientation.m in Sources */,
 				6C4F351F1BDE229100AAD4CD /* TestViewController.m in Sources */,
