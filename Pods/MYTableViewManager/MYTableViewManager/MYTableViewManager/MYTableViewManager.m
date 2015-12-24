@@ -140,14 +140,6 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [_tableView beginUpdates];
-    // Assume only kitten nodes are selectable (see -tableView:shouldHighlightRowAtIndexPath:).
-    
-    [_tableView endUpdates];
-}
 
 - (NSArray *)sectionIndexTitlesForTableView:(ASTableView *)tableView {
     NSMutableArray *titles;

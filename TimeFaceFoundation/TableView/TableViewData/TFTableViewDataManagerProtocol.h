@@ -10,11 +10,11 @@
 //事件完成block
 typedef void (^Completion)(void);
 //列表内View事件
-typedef void (^CellViewClickHandler)(RETableViewItem *item ,NSInteger actionType);
+typedef void (^CellViewClickHandler)(id item ,NSInteger actionType);
 //列表点击事件
-typedef void (^SelectionHandler)(RETableViewItem *item);
+typedef void (^SelectionHandler)(id item);
 //删除block
-typedef void (^DeleteHanlder)(RETableViewItem *item,Completion completion);
+typedef void (^DeleteHanlder)(id item,Completion completion);
 //列表Cell load 完成block
 typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object,NSError *error,NSInteger currentItemCount);
 
@@ -45,19 +45,19 @@ typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object,NSError *e
  *  @param item
  *  @param actionType
  */
-- (void)cellViewClickHandler:(RETableViewItem *)item actionType:(NSInteger)actionType;
+- (void)cellViewClickHandler:(id)item actionType:(NSInteger)actionType;
 /**
  *  列表点击事件处理
  *
  *  @param item
  */
-- (void)selectionHandler:(RETableViewItem *)item;
+- (void)selectionHandler:(id)item;
 /**
  *  列表删除事件处理
  *
  *  @param item 
  */
-- (void)deleteHanlder:(RETableViewItem *)item completion:(void (^)(void))completion;
+- (void)deleteHanlder:(id)item completion:(void (^)(void))completion;
 
 /**
  *  刷新指定Cell
@@ -67,7 +67,10 @@ typedef void(^TableViewReloadCompletionBlock)(BOOL finished,id object,NSError *e
  */
 - (void)refreshCell:(NSInteger)actionType dataId:(NSString *)dataId;
 
-
+/**
+ *  刷新列表数据
+ */
+- (void)updateTableViewData:(id)section;
 
 @optional
 

@@ -39,15 +39,13 @@
     if (_useASKit) {
         _asTableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:YES];
         _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
-        _asTableView.separatorStyle = UITableViewCellSeparatorStyleNone; // SocialAppNode has its own separator
+        _asTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_asTableView];
     }
     else {
         if (!_tableView) {
             _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:_tableViewStyle];
             _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
-            _tableView.autoresizingMask =  UIViewAutoresizingFlexibleWidth
-            | UIViewAutoresizingFlexibleHeight;
             [self.view addSubview:_tableView];
             
         }
@@ -165,11 +163,11 @@
 
 #pragma mark - TableViewDataSourceDelegate
 
-- (void)actionOnView:(RETableViewItem *)item actionType:(NSInteger)actionType {
+- (void)actionOnView:(id)item actionType:(NSInteger)actionType {
     
 }
 
-- (void)actionItemClick:(RETableViewItem *)item {
+- (void)actionItemClick:(id)item {
     
 }
 

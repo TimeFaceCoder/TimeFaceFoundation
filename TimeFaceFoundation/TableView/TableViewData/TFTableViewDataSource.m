@@ -232,12 +232,20 @@ const static NSInteger kPageSize = 20;
         }
         if (dataLoadPolicy == DataLoadPolicyMore) {
             //来自加载下一页,移除loading item
+            NSInteger lastSectionIndex = 0;
             if (_managerFlag) {
+                lastSectionIndex = [[weakSelf.mManager sections] count] - 1;
                 [weakSelf.mManager removeLastSection];
             }
             else {
+                lastSectionIndex = [[weakSelf.manager sections] count] - 1;
                 [weakSelf.manager removeLastSection];
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:lastSectionIndex]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            });
         }
         
         
@@ -247,21 +255,32 @@ const static NSInteger kPageSize = 20;
          {
              if (finished) {
                  //加载列
-                 if (_currentPage < _totalPage) {
-                     if (_managerFlag) {
-                         MYTableViewSection *section = [MYTableViewSection section];
-                         [section addItem:[MYTableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
-                         [weakSelf.mManager addSection:section];
-                     }
-                     else {
-                         RETableViewSection *section = [RETableViewSection section];
-                         [weakSelf.manager addSection:section];
-                         [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
-                     }
-                 }
                  
-                 _loading = NO;
                  dispatch_async(dispatch_get_main_queue(), ^{
+                     _loading = NO;
+                     if (_currentPage < _totalPage) {
+                         NSInteger sectionCount = 0;
+                         if (_managerFlag) {
+                             sectionCount = [weakSelf.mManager.sections count];
+                         }
+                         else {
+                             sectionCount = [weakSelf.manager.sections count];
+                         }
+                         
+                         if (_managerFlag) {
+                             MYTableViewSection *section = [MYTableViewSection section];
+                             [section addItem:[MYTableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                             [weakSelf.mManager addSection:section];
+                         }
+                         else {
+                             RETableViewSection *section = [RETableViewSection section];
+                             [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
+                             [weakSelf.manager addSection:section];
+                         }
+                         [weakSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionCount]
+                                           withRowAnimation:UITableViewRowAnimationFade];
+                     }
+                     
                      //数据加载完成
                      if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
                          [weakSelf.delegate didFinishLoad:dataLoadPolicy error:error];
@@ -436,7 +455,7 @@ const static NSInteger kPageSize = 20;
 
 - (void)my_tableView:(UITableView *)tableView willLoadCell:(MYTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[MYTableViewLoadingItemCell class]]) {
-        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3];
+        //        [self performSelector:@selector(loadMore) withObject:nil afterDelay:0.3];
     }
 }
 #pragma mark - UIScrollViewDelegate
