@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0844D16F086579E43B140CF5'
+               BlueprintIdentifier = 'FA5C1E734AB5221381415BC9'
                BlueprintName = 'GKFadeNavigationController-GKFadeNavigationController'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'GKFadeNavigationController.bundle'>

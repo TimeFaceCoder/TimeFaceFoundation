@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TimeFaceFoundation"
-  s.version      = "0.3.9"
+  s.version      = "0.4.0"
   s.summary      = "时光流影iOS开发框架"
   s.homepage     = "https://github.com/TimeFaceCoder/TimeFaceFoundation"
   s.license      = "Copyright (C) 2015 TimeFace, Inc.  All rights reserved."
@@ -29,4 +29,5 @@ Pod::Spec.new do |s|
   s.dependency 'Masonry'
   s.dependency 'SVProgressHUD'
   s.dependency 'FMDB'
+  s.dependency 'AnimatedGIFImageSerialization'
 end

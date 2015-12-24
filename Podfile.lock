@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
+  - AnimatedGIFImageSerialization (0.2.0)
   - AsyncDisplayKit (1.9.3):
     - AsyncDisplayKit/ASDealloc2MainObject (= 1.9.3)
   - AsyncDisplayKit/ASDealloc2MainObject (1.9.3)
@@ -33,7 +34,7 @@ PODS:
   - JSONModel (1.1.2)
   - JTCalendar (2.1.4)
   - Masonry (0.6.3)
-  - MYTableViewManager (0.1.0):
+  - MYTableViewManager (0.1.2):
     - AsyncDisplayKit
     - pop
   - NJKWebViewProgress (0.2.3):
@@ -64,6 +65,7 @@ PODS:
 DEPENDENCIES:
   - ActionSheetPicker-3.0
   - AFNetworking
+  - AnimatedGIFImageSerialization
   - DateTools
   - EGOCache
   - FMDB
@@ -74,7 +76,7 @@ DEPENDENCIES:
   - JSONModel
   - JTCalendar
   - Masonry
-  - MYTableViewManager (from `/Item/Project/OpenSourceCode/MYTableViewManager/MYTableViewManager.podspec`)
+  - MYTableViewManager (from `https://github.com/melvin7/MYTableViewManager.git`)
   - NJKWebViewProgress
   - PINRemoteImage
   - pop
@@ -85,16 +87,17 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   MYTableViewManager:
-    :podspec: "/Item/Project/OpenSourceCode/MYTableViewManager/MYTableViewManager.podspec"
+    :git: https://github.com/melvin7/MYTableViewManager.git
 
 CHECKOUT OPTIONS:
   MYTableViewManager:
-    :commit: 289bb2adc521945bcbe1d4ced982b36c2eb13ece
-    :git: "/Item/Project/OpenSourceCode/MYTableViewManager"
+    :commit: a8d7d8334e1f5dc4063ea97adda32cb8d90becc5
+    :git: https://github.com/melvin7/MYTableViewManager.git
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 860466cb4a66854e6acb590071ecee404b48f49d
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   AsyncDisplayKit: 87d340329280dba0363da3587a43f9d1bbe62aac
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
@@ -107,7 +110,7 @@ SPEC CHECKSUMS:
   JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
   JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
-  MYTableViewManager: 6d994261aedc5c6f81b4c649be5a4bee771cf275
+  MYTableViewManager: d86bc3fee8f99491422a343f38a470a69c9d17da
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
   PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81

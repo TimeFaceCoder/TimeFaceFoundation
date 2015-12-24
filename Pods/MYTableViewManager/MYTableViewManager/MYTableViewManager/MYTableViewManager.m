@@ -140,7 +140,6 @@
     }
 }
 
-
 - (NSArray *)sectionIndexTitlesForTableView:(ASTableView *)tableView {
     NSMutableArray *titles;
     for (MYTableViewSection *section in self.mutableSections) {
@@ -477,6 +476,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [_tableView beginUpdates];
     MYTableViewSection *section = [self.mutableSections objectAtIndex:indexPath.section];
     id item = [section.items objectAtIndex:indexPath.row];
     if ([item respondsToSelector:@selector(setSelectionHandler:)]) {
@@ -489,6 +490,8 @@
     //
     if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
         [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+    
+    [_tableView endUpdates];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath

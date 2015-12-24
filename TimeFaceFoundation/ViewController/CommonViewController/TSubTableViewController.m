@@ -47,7 +47,6 @@
             _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:_tableViewStyle];
             _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
             [self.view addSubview:_tableView];
-            
         }
     }
 }

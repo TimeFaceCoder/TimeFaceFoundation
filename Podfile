@@ -23,4 +23,4 @@ pod 'JSONModel'
 pod 'SVProgressHUD'
 #pod 'MYTableViewManager', :podspec => '/Item/Project/OpenSourceCode/MYTableViewManager/MYTableViewManager.podspec'
 pod 'MYTableViewManager', :git => 'https://github.com/melvin7/MYTableViewManager.git'
-
+pod 'AnimatedGIFImageSerialization'

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '52C5B8C741235149B9FB5B3E'
+               BlueprintIdentifier = '640BEFAF93FC446ABE659F1A'
                BlueprintName = 'MYTableViewManager'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libMYTableViewManager.a'>

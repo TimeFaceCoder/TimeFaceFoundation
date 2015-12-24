@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIColor *dividerColor;
 @property (nonatomic, weak) MYTableViewSection *section;
 @property (assign, readwrite, nonatomic) UITableViewCellStyle style;
+@property (assign, readwrite, nonatomic) UITableViewCellSeparatorStyle separatorStyle;
 @property (assign, readwrite, nonatomic) UITableViewCellSelectionStyle selectionStyle;
 @property (assign, readwrite, nonatomic) UITableViewCellAccessoryType accessoryType;
 @property (assign, readwrite, nonatomic) UITableViewCellEditingStyle editingStyle;

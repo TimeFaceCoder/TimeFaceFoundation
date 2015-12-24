@@ -30,6 +30,10 @@ typedef NS_ENUM(NSUInteger, TFPullRefreshPosition) {
  */
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler position:(TFPullRefreshPosition)position;
 /**
+ *  移除事件
+ */
+- (void)removePullToRefreshActionHandler;
+/**
  *  触发
  */
 - (void)triggerPullToRefresh;

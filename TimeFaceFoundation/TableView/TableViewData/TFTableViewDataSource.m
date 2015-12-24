@@ -12,6 +12,7 @@
 #import "CLClassList.h"
 #import "URLHelper.h"
 #import "UIScrollView+TFPullRefresh.h"
+#import "UIScrollView+UzysAnimatedGifPullToRefresh.h"
 #import "TFTableViewItem.h"
 #import "TFTableViewItemCell.h"
 

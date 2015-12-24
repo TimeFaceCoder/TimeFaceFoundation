@@ -24,9 +24,11 @@
         self.tableViewItem = tableViewItem;
         
         // hairline cell separator
-        _dividerNode = [[ASDisplayNode alloc] init];
-        _dividerNode.backgroundColor = self.tableViewItem.dividerColor;
-        [self addSubnode:_dividerNode];
+        if (self.tableViewItem.separatorStyle != UITableViewCellSeparatorStyleNone) {
+            _dividerNode = [[ASDisplayNode alloc] init];
+            _dividerNode.backgroundColor = self.tableViewItem.dividerColor;
+            [self addSubnode:_dividerNode];
+        }
         [self initCell];
     }
     return self;

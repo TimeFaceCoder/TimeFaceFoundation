@@ -382,6 +382,7 @@ static char UIScrollViewPullToRefreshView;
         view.scrollView = self;
         view.pullToRefreshActionHandler = actionHandler;
         [self addSubview:view];
+        [self sendSubviewToBack:view];
         
         view.originalTopInset    = self.contentInset.top;
         view.originalBottomInset = self.contentInset.bottom;
@@ -389,6 +390,9 @@ static char UIScrollViewPullToRefreshView;
         self.pullToRefreshView   = view;
         self.showsPullToRefresh  = YES;
     }
+    
+}
+- (void)removePullToRefreshActionHandler {
     
 }
 

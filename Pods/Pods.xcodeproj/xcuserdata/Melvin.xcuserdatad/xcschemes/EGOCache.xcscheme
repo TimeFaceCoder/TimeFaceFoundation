@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1B7E5D50D246FB95D77C5709'
+               BlueprintIdentifier = '8DBDD69888E6E0931F0AAB7F'
                BlueprintName = 'EGOCache'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libEGOCache.a'>
