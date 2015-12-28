@@ -149,6 +149,41 @@ const static NSInteger kPageSize = 20;
     
 }
 
+- (void)addPullRefresh {
+    __weak typeof(self) weakSelf =self;
+    //    [self.tableView addPullToRefreshWithActionHandler:^{
+    //        typeof(self) strongSelf = weakSelf;
+    //        [strongSelf load:DataLoadPolicyReload params:_params];
+    //    }];
+    NSMutableArray *progress =[NSMutableArray array];
+    for (int i=0;i<63;i++)
+    {
+        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
+        [progress addObject:[UIImage imageNamed:fname]];
+    }
+    NSMutableArray *loadings =[NSMutableArray array];
+    for (int i=60;i<80;i++)
+    {
+        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
+        [loadings addObject:[UIImage imageNamed:fname]];
+    }
+    
+    [self.tableView addPullToRefreshActionHandler:^{
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf load:DataLoadPolicyReload params:_params];
+        
+    }
+                                   ProgressImages:progress
+                                    LoadingImages:loadings
+                          ProgressScrollThreshold:60
+                           LoadingImagesFrameRate:60];
+}
+
+- (void)stopPullRefresh {
+    [self.tableView stopPullToRefreshAnimation];
+}
+
+
 - (void)reloadTableViewData:(BOOL)pullToRefresh {
     if (pullToRefresh) {
         pullToRefresh = [self.delegate showPullRefresh];
@@ -170,7 +205,8 @@ const static NSInteger kPageSize = 20;
         [self.tableView triggerPullToRefresh];
     }
     else {
-        [self load:DataLoadPolicyNone params:params];
+        //第一次从缓存中加载
+        [self load:DataLoadPolicyCache params:params];
     }
 }
 
@@ -227,6 +263,12 @@ const static NSInteger kPageSize = 20;
             else {
                 [strongSelf.manager removeAllSections];
             }
+        }
+        
+        if (!result && dataLoadPolicy == DataLoadPolicyCache) {
+            //缓存数据为空，触发下拉刷新操作
+            [strongSelf.tableView triggerPullToRefresh];
+            return;
         }
         
         [strongSelf setTotalPage:[[result objectForKey:@"totalPage"] integerValue]];
@@ -328,25 +370,26 @@ const static NSInteger kPageSize = 20;
                                                start:^(id cacheResult){
                                                    _loading = YES;
                                                    if (!_buildingView) {
-                                                       if (cacheResult) {
-                                                           TFLog(@"show cache data===============");
+                                                       TFLog(@"show cache data===============");
+                                                       if (loadPolicy == DataLoadPolicyCache) {
                                                            handleTableViewData(cacheResult,DataLoadPolicyCache);
                                                        }
+                                                       [self stopPullRefresh];
+                                                       _loading = NO;
+                                                       [weakSelf.delegate didFinishLoad:loadPolicy error:nil];
                                                    }
                                                }
                                            completed:^(id result, NSError *error)
      {
-         if (error) {
-             //处理出错且没有缓存的情况
-             handleTableViewData(nil,loadPolicy);
-             //检查是否存在cache
+         if (loadPolicy != DataLoadPolicyCache) {
+             if (!error) {
+                 handleTableViewData(result,loadPolicy);
+             }
+             [self stopPullRefresh];
+             _loading = NO;
+             [weakSelf.delegate didFinishLoad:loadPolicy error:error];
          }
-         else {
-             handleTableViewData(result,loadPolicy);
-         }
-         [self stopPullRefresh];
-         _loading = NO;
-         [weakSelf.delegate didFinishLoad:loadPolicy error:error];
+         
      }];
 }
 
@@ -621,39 +664,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     }
 }
 
-- (void)addPullRefresh {
-    __weak typeof(self) weakSelf =self;
-    //    [self.tableView addPullToRefreshWithActionHandler:^{
-    //        typeof(self) strongSelf = weakSelf;
-    //        [strongSelf load:DataLoadPolicyReload params:_params];
-    //    }];
-    NSMutableArray *progress =[NSMutableArray array];
-    for (int i=0;i<63;i++)
-    {
-        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
-        [progress addObject:[UIImage imageNamed:fname]];
-    }
-    NSMutableArray *loadings =[NSMutableArray array];
-    for (int i=60;i<80;i++)
-    {
-        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
-        [loadings addObject:[UIImage imageNamed:fname]];
-    }
-    
-    [self.tableView addPullToRefreshActionHandler:^{
-        typeof(self) strongSelf = weakSelf;
-        [strongSelf load:DataLoadPolicyReload params:_params];
-        
-    }
-                                   ProgressImages:progress
-                                    LoadingImages:loadings
-                          ProgressScrollThreshold:60
-                           LoadingImagesFrameRate:60];
-}
-
-- (void)stopPullRefresh {
-    [self.tableView stopPullToRefreshAnimation];
-}
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     BOOL ret = YES;

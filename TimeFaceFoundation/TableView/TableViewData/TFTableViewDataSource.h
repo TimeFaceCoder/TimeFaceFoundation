@@ -14,6 +14,10 @@
 
 typedef NS_ENUM(NSInteger, DataLoadPolicy) {
     /**
+     *  第一次加载
+     */
+    DataLoadPolicyFirstLoad = -1,
+    /**
      *  正常加载
      */
     DataLoadPolicyNone      = 0,
