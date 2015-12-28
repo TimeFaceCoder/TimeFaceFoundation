@@ -11,7 +11,6 @@
 #import <EGOCache/EGOCache.h>
 #import "CLClassList.h"
 #import "URLHelper.h"
-#import "UIScrollView+TFPullRefresh.h"
 #import "UIScrollView+UzysAnimatedGifPullToRefresh.h"
 #import "TFTableViewItem.h"
 #import "TFTableViewItemCell.h"
@@ -81,6 +80,8 @@
  *  YES 使用 MYTableViewManager
  */
 @property (nonatomic ,assign) BOOL managerFlag;
+
+@property (nonatomic ,assign) BOOL buildingView;
 
 
 @end
@@ -215,18 +216,20 @@ const static NSInteger kPageSize = 20;
     
     __weak __typeof(self)weakSelf = self;
     void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy) = ^(id result,DataLoadPolicy dataLoadPolicy) {
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.buildingView = YES;
         if (dataLoadPolicy == DataLoadPolicyReload ||
             dataLoadPolicy == DataLoadPolicyNone) {
             //重新加载
             if (_managerFlag) {
-                [weakSelf.mManager removeAllSections];
+                [strongSelf.mManager removeAllSections];
             }
             else {
-                [weakSelf.manager removeAllSections];
+                [strongSelf.manager removeAllSections];
             }
         }
         
-        [weakSelf setTotalPage:[[result objectForKey:@"totalPage"] integerValue]];
+        [strongSelf setTotalPage:[[result objectForKey:@"totalPage"] integerValue]];
         if (_totalPage == 0) {
             _totalPage = 1;
             _currentPage = 1;
@@ -235,64 +238,64 @@ const static NSInteger kPageSize = 20;
             //来自加载下一页,移除loading item
             NSInteger lastSectionIndex = 0;
             if (_managerFlag) {
-                lastSectionIndex = [[weakSelf.mManager sections] count] - 1;
-                [weakSelf.mManager removeLastSection];
+                lastSectionIndex = [[strongSelf.mManager sections] count] - 1;
+                [strongSelf.mManager removeLastSection];
             }
             else {
-                lastSectionIndex = [[weakSelf.manager sections] count] - 1;
-                [weakSelf.manager removeLastSection];
+                lastSectionIndex = [[strongSelf.manager sections] count] - 1;
+                [strongSelf.manager removeLastSection];
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:lastSectionIndex]
-                                  withRowAnimation:UITableViewRowAnimationFade];
+                [strongSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:lastSectionIndex]
+                                    withRowAnimation:UITableViewRowAnimationFade];
             });
         }
         
         
         //read data use network
-        [weakSelf.tableViewDataManager reloadView:result
-                                            block:^(BOOL finished, id object,NSError *error,NSInteger currentItemCount)
+        [strongSelf.tableViewDataManager reloadView:result
+                                              block:^(BOOL finished, id object,NSError *error,NSInteger currentItemCount)
          {
              if (finished) {
                  //加载列
-                 
+                 strongSelf.buildingView = NO;
                  dispatch_async(dispatch_get_main_queue(), ^{
                      _loading = NO;
                      if (_currentPage < _totalPage) {
                          NSInteger sectionCount = 0;
                          if (_managerFlag) {
-                             sectionCount = [weakSelf.mManager.sections count];
+                             sectionCount = [strongSelf.mManager.sections count];
                          }
                          else {
-                             sectionCount = [weakSelf.manager.sections count];
+                             sectionCount = [strongSelf.manager.sections count];
                          }
                          
                          if (_managerFlag) {
                              MYTableViewSection *section = [MYTableViewSection section];
                              [section addItem:[MYTableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
-                             [weakSelf.mManager addSection:section];
+                             [strongSelf.mManager addSection:section];
                          }
                          else {
                              RETableViewSection *section = [RETableViewSection section];
                              [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
-                             [weakSelf.manager addSection:section];
+                             [strongSelf.manager addSection:section];
                          }
-                         [weakSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionCount]
-                                           withRowAnimation:UITableViewRowAnimationFade];
+                         [strongSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionCount]
+                                             withRowAnimation:UITableViewRowAnimationFade];
                      }
                      
                      //数据加载完成
-                     if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
-                         [weakSelf.delegate didFinishLoad:dataLoadPolicy error:error];
-                         [weakSelf stopPullRefresh];
+                     if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
+                         [strongSelf.delegate didFinishLoad:dataLoadPolicy error:error];
+                         [strongSelf stopPullRefresh];
                      }
                      switch (dataLoadPolicy) {
                          case DataLoadPolicyNone:
                              break;
                          case DataLoadPolicyCache:
                              //开始下拉刷新
-                             [weakSelf.tableView triggerPullToRefresh];
+                             [strongSelf.tableView triggerPullToRefresh];
                              break;
                          case DataLoadPolicyMore:{
                              if (_managerFlag) {
@@ -304,10 +307,10 @@ const static NSInteger kPageSize = 20;
                              break;
                          case DataLoadPolicyReload:
                              //结束下拉刷新动画
-                             if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
-                                 [weakSelf.delegate stopPullRefresh];
+                             if(strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
+                                 [strongSelf.delegate stopPullRefresh];
                              }
-                             [weakSelf stopPullRefresh];
+                             [strongSelf stopPullRefresh];
                              break;
                          default:
                              break;
@@ -324,20 +327,26 @@ const static NSInteger kPageSize = 20;
                                                  hud:nil
                                                start:^(id cacheResult){
                                                    _loading = YES;
+                                                   if (!_buildingView) {
+                                                       if (cacheResult) {
+                                                           TFLog(@"show cache data===============");
+                                                           handleTableViewData(cacheResult,DataLoadPolicyCache);
+                                                       }
+                                                   }
                                                }
                                            completed:^(id result, NSError *error)
      {
          if (error) {
              //处理出错且没有缓存的情况
              handleTableViewData(nil,loadPolicy);
-             _loading = NO;
-             [weakSelf.delegate didFinishLoad:loadPolicy error:error];
-             [self stopPullRefresh];
-             
+             //检查是否存在cache
          }
          else {
              handleTableViewData(result,loadPolicy);
          }
+         [self stopPullRefresh];
+         _loading = NO;
+         [weakSelf.delegate didFinishLoad:loadPolicy error:error];
      }];
 }
 
@@ -441,6 +450,7 @@ const static NSInteger kPageSize = 20;
  *  @return
  */
 - (BOOL)shouldBatchFetchForTableView:(ASTableView *)tableView {
+    TFLog(@"shouldBatchFetchForTableView");
     return _currentPage < _totalPage;
 }
 /**
@@ -463,7 +473,7 @@ const static NSInteger kPageSize = 20;
 
 - (void)stopLoading {
     if (_listType || [self.delegate showPullRefresh]) {
-        [self.tableView stopPullToRefresh];
+        [self.tableView stopPullToRefreshAnimation];
     }
 }
 
@@ -612,13 +622,37 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
 }
 
 - (void)addPullRefresh {
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        [self load:DataLoadPolicyReload params:_params];
-    }];
+    __weak typeof(self) weakSelf =self;
+    //    [self.tableView addPullToRefreshWithActionHandler:^{
+    //        typeof(self) strongSelf = weakSelf;
+    //        [strongSelf load:DataLoadPolicyReload params:_params];
+    //    }];
+    NSMutableArray *progress =[NSMutableArray array];
+    for (int i=0;i<63;i++)
+    {
+        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
+        [progress addObject:[UIImage imageNamed:fname]];
+    }
+    NSMutableArray *loadings =[NSMutableArray array];
+    for (int i=60;i<80;i++)
+    {
+        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
+        [loadings addObject:[UIImage imageNamed:fname]];
+    }
+    
+    [self.tableView addPullToRefreshActionHandler:^{
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf load:DataLoadPolicyReload params:_params];
+        
+    }
+                                   ProgressImages:progress
+                                    LoadingImages:loadings
+                          ProgressScrollThreshold:60
+                           LoadingImagesFrameRate:60];
 }
 
 - (void)stopPullRefresh {
-    [self.tableView stopPullToRefresh];
+    [self.tableView stopPullToRefreshAnimation];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
