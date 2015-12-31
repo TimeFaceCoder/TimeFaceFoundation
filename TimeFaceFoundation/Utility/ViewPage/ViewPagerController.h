@@ -69,6 +69,8 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
 
 @property (nonatomic, assign) BOOL flag;
 
+@property UIView *contentView;
+
 #pragma mark Methods
 /**
  * Reloads all tabs and contents
@@ -121,6 +123,8 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
  * @return A UIColor for the given component
  */
 - (UIColor *)colorForComponent:(ViewPagerComponent)component;
+
+- (void)layoutSubviews;
 
 @end
 

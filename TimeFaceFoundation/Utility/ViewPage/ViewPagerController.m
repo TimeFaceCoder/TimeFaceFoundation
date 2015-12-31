@@ -132,7 +132,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
 
 // Tab and content stuff
 @property UIScrollView *tabsView;
-@property UIView *contentView;
+
 
 @property UIPageViewController *pageViewController;
 @property (assign) id<UIScrollViewDelegate> actualDelegate;
