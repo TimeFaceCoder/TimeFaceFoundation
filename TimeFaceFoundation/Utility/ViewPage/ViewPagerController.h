@@ -31,7 +31,8 @@ typedef NS_ENUM(NSUInteger, ViewPagerOption) {
     ViewPagerOptionFixFormerTabsPositions,
     ViewPagerOptionFixLatterTabsPositions,
     ViewPagerOptionHiddenTab,
-    ViewPagerOptionContentHeight
+    ViewPagerOptionContentHeight,
+    ViewPagerOptionAutoTabWidth,
 };
 
 /**
@@ -65,6 +66,8 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
 @property (weak) id <ViewPagerDelegate> delegate;
 
 @property (nonatomic, assign) BOOL tabLeft;
+
+@property (nonatomic, assign) BOOL flag;
 
 #pragma mark Methods
 /**

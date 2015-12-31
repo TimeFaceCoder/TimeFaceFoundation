@@ -154,6 +154,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
 @property (nonatomic) NSNumber *hiddenTab;
 @property (nonatomic) CGFloat  screenWidth;
 @property (nonatomic) CGFloat  previousOffsetX;
+@property (nonatomic) NSNumber *autoTabWidth;
 
 @property (nonatomic) NSUInteger tabCount;
 @property (nonatomic) NSUInteger activeTabIndex;
@@ -289,7 +290,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     //if Tap is not selected Tab(new Tab)
     if (self.activeTabIndex != index) {
         // Select the tab
-        [self selectTabAtIndex:index];
+        [self selectTabAtIndex:index flag:NO];
     }
 }
 
@@ -585,6 +586,16 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     return _hiddenTab;
 }
 
+- (NSNumber *)autoTabWidth {
+    if (!_autoTabWidth) {
+        BOOL value = NO;
+        if ([self.delegate respondsToSelector:@selector(viewPager:valueForOption:withDefault:)])
+            value = [self.delegate viewPager:self valueForOption:ViewPagerOptionAutoTabWidth withDefault:value];
+        self.autoTabWidth = [NSNumber numberWithFloat:value];
+    }
+    return _autoTabWidth;
+}
+
 - (UIColor *)indicatorColor {
     
     if (!_indicatorColor) {
@@ -642,6 +653,12 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     // Call to setup again with the updated data
     [self defaultSetup];
 }
+
+- (void)selectTabAtIndex:(NSUInteger)index flag:(BOOL)flag {
+    _flag = flag;
+    [self selectTabAtIndex:index];
+}
+
 - (void)selectTabAtIndex:(NSUInteger)index {
     
     if (index >= self.tabCount) {
@@ -792,6 +809,8 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
             return [[self centerCurrentTab] floatValue];
         case ViewPagerOptionHiddenTab:
             return [[self hiddenTab] floatValue];
+        case ViewPagerOptionAutoTabWidth:
+            return [[self autoTabWidth] boolValue];
         default:
             return NAN;
     }
@@ -864,6 +883,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     
     // Add tabsView
     self.tabsView = (UIScrollView *)[self.view viewWithTag:kTabViewTag];
+    self.tabsView.scrollsToTop = NO;
     
     if (!self.tabsView) {
         
@@ -943,7 +963,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     
     // Select starting tab
     NSUInteger index = [self.startFromSecondTab boolValue] ? 1 : 0;
-    [self selectTabAtIndex:index];
+    [self selectTabAtIndex:index flag:NO];
     
     // Set setup done
     self.defaultSetupDone = YES;
@@ -963,6 +983,12 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
         // Get view from dataSource
         UIView *tabViewContent = [self.dataSource viewPager:self viewForTabAtIndex:index];
         tabViewContent.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
+        if ([self.autoTabWidth boolValue] && [tabViewContent isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)tabViewContent;
+            CGSize size = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
+            self.tabWidth = @(size.width + 24.f);
+        }
         
         // Create TabView and subview the content
         TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0.0, 0.0, [self.tabWidth floatValue], [self.tabHeight floatValue])];
@@ -1038,7 +1064,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     
     // Select tab
     NSUInteger index = [self indexForViewController:viewController];
-    [self selectTabAtIndex:index];
+    [self selectTabAtIndex:index flag:NO];
 }
 
 #pragma mark - UIScrollViewDelegate, Responding to Scrolling and Dragging
