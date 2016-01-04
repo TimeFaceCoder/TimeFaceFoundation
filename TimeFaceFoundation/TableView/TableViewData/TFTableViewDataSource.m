@@ -156,16 +156,10 @@ const static NSInteger kPageSize = 20;
     //        [strongSelf load:DataLoadPolicyReload params:_params];
     //    }];
     NSMutableArray *progress =[NSMutableArray array];
-    for (int i=0;i<63;i++)
+    for (int i=1;i<=20;i++)
     {
-        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
+        NSString *fname = [NSString stringWithFormat:@"Loading%02d",i];
         [progress addObject:[UIImage imageNamed:fname]];
-    }
-    NSMutableArray *loadings =[NSMutableArray array];
-    for (int i=60;i<80;i++)
-    {
-        NSString *fname = [NSString stringWithFormat:@"Loading_%05d",i];
-        [loadings addObject:[UIImage imageNamed:fname]];
     }
     
     [self.tableView addPullToRefreshActionHandler:^{
@@ -174,7 +168,7 @@ const static NSInteger kPageSize = 20;
         
     }
                                    ProgressImages:progress
-                                    LoadingImages:loadings
+                                    LoadingImages:progress
                           ProgressScrollThreshold:60
                            LoadingImagesFrameRate:60];
 }
@@ -370,13 +364,12 @@ const static NSInteger kPageSize = 20;
                                                start:^(id cacheResult){
                                                    _loading = YES;
                                                    if (!_buildingView) {
-                                                       TFLog(@"show cache data===============");
-                                                       if (loadPolicy == DataLoadPolicyCache) {
+                                                       if (loadPolicy == DataLoadPolicyCache) {                                                       TFLog(@"show cache data===============");
                                                            handleTableViewData(cacheResult,DataLoadPolicyCache);
+                                                           [self stopPullRefresh];
+                                                           _loading = NO;
+                                                           [weakSelf.delegate didFinishLoad:loadPolicy error:nil];
                                                        }
-                                                       [self stopPullRefresh];
-                                                       _loading = NO;
-                                                       [weakSelf.delegate didFinishLoad:loadPolicy error:nil];
                                                    }
                                                }
                                            completed:^(id result, NSError *error)
