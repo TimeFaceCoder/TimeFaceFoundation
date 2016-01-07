@@ -113,6 +113,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
  *  列表类型
  */
 @property (nonatomic ,assign) NSInteger                     listType;
+@property (nonatomic ,assign) BOOL                          useCacheData;
 
 - (id)initWithTableView:(UITableView *)tableView
                listType:(NSInteger)listType

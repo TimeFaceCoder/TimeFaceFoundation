@@ -364,7 +364,7 @@ const static NSInteger kPageSize = 20;
                                                start:^(id cacheResult){
                                                    _loading = YES;
                                                    if (!_buildingView) {
-                                                       if (loadPolicy == DataLoadPolicyCache) {                                                       TFLog(@"show cache data===============");
+                                                       if (loadPolicy == DataLoadPolicyCache && _useCacheData) {                                                       TFLog(@"show cache data===============");
                                                            handleTableViewData(cacheResult,DataLoadPolicyCache);
                                                            [self stopPullRefresh];
                                                            _loading = NO;

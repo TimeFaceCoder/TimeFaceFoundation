@@ -13,14 +13,14 @@
 @interface TSubTableViewController : TSubViewController <TFTableViewDataSourceDelegate>
 
 
-@property (nonatomic ,strong ,readonly) UITableView         *tableView;
-@property (nonatomic ,strong ,readonly) ASTableView         *asTableView;
-@property (nonatomic ,assign          ) UITableViewStyle    tableViewStyle;
+@property (nonatomic ,strong ,readonly) UITableView           *tableView;
+@property (nonatomic ,strong ,readonly) ASTableView           *asTableView;
+@property (nonatomic ,assign          ) UITableViewStyle      tableViewStyle;
 @property (nonatomic ,strong ,readonly) TFTableViewDataSource *dataSource;
-@property (nonatomic ,assign          ) NSInteger            listType;
-@property (nonatomic ,assign          ) BOOL                loaded;
-@property (nonatomic ,assign          ) BOOL                usePullReload;
-@property (nonatomic ,assign          ) BOOL                useASKit;
+@property (nonatomic ,assign          ) NSInteger             listType;
+@property (nonatomic ,assign          ) BOOL                  loaded;
+@property (nonatomic ,assign          ) BOOL                  usePullReload;
+@property (nonatomic ,assign          ) BOOL                  useASKit;
 
 
 @end
