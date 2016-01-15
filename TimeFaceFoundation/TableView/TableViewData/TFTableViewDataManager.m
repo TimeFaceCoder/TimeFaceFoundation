@@ -25,17 +25,24 @@
     }
     _tableViewDataSource = tableViewDataSource;
     __weak __typeof(self)weakSelf = self;
-    _cellViewClickHandler = ^ (RETableViewItem *item ,NSInteger actionType) {
-        weakSelf.currentIndexPath = item.indexPath;
-        [item deselectRowAnimated:YES];
+    _cellViewClickHandler = ^ (id item ,NSInteger actionType) {
+        if ([item isKindOfClass:[RETableViewItem class]]) {
+            weakSelf.currentIndexPath = ((RETableViewItem*)item).indexPath;
+            [((RETableViewItem*)item) deselectRowAnimated:YES];
+        }
+        
+        
         if ([weakSelf.tableViewDataSource.delegate respondsToSelector:@selector(actionOnView:actionType:)]) {
             [weakSelf.tableViewDataSource.delegate actionOnView:item actionType:actionType];
         }
         [weakSelf cellViewClickHandler:item actionType:actionType];
     };
-    _selectionHandler = ^(RETableViewItem *item) {
-        weakSelf.currentIndexPath = item.indexPath;
-        [item deselectRowAnimated:YES];
+    _selectionHandler = ^(id item) {
+        if ([item isKindOfClass:[RETableViewItem class]]) {
+            weakSelf.currentIndexPath = ((RETableViewItem*)item).indexPath;
+            [((RETableViewItem*)item) deselectRowAnimated:YES];
+        }
+        
         
         if ([weakSelf.tableViewDataSource.delegate respondsToSelector:@selector(actionItemClick:)]) {
             [weakSelf.tableViewDataSource.delegate actionItemClick:item];
