@@ -366,7 +366,17 @@
     }
     NSError *error = nil;
     id rootObject = nil;
-    if ([[headerData objectForKey:@"OUTFLAG"] isEqualToString:@"JSON"]) {
+    if ([[headerData objectForKey:@"OUTFLAG"] isEqualToString:@"MSGPACK"]) {
+        //使用MSGPACK进行解析
+        rootObject = [responseObject messagePackParse];
+        if (!rootObject) {
+            //尝试GZIP
+            responseObject = [responseObject gunzippedData];
+            error = nil;
+            rootObject = [responseObject messagePackParse];
+        }
+    }
+    else {
         //使用JSON进行解析
         rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
                                                      options:NSJSONReadingMutableContainers
@@ -379,16 +389,7 @@
                                                          options:NSJSONReadingMutableContainers
                                                            error:&error];
         }
-    }
-    if ([[headerData objectForKey:@"OUTFLAG"] isEqualToString:@"MSGPACK"]) {
-        //使用MSGPACK进行解析
-        rootObject = [responseObject messagePackParse];
-        if (!rootObject) {
-            //尝试GZIP
-            responseObject = [responseObject gunzippedData];
-            error = nil;
-            rootObject = [responseObject messagePackParse];
-        }
+        
     }
     @autoreleasepool {
         if (!rootObject) {
