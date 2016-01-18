@@ -15,6 +15,7 @@
 #import "GZIP.h"
 #import <EGOCache/EGOCache.h>
 #import "TimeFaceFoundationConst.h"
+#import "MessagePack.h"
 
 
 #define NSNullObjects               @[@"",@0,@{},@[]]
@@ -111,13 +112,13 @@
     manager.responseSerializer = responseSerializer;
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request
                                                                        progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    }
+                                                                           
+                                                                       }
                                                               completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        if (!error) {
-            [self saveImageIndex];
-        }
-    }];
+                                                                  if (!error) {
+                                                                      [self saveImageIndex];
+                                                                  }
+                                                              }];
     
     [uploadTask resume];
 }
@@ -172,12 +173,12 @@
                                                                            
                                                                        }
                                                               completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-//            NSLog(@"Error: %@", error);
-        } else {
-            NSLog(@"responseObject %@", responseObject);
-        }
-    }];
+                                                                  if (error) {
+                                                                      //            NSLog(@"Error: %@", error);
+                                                                  } else {
+                                                                      NSLog(@"responseObject %@", responseObject);
+                                                                  }
+                                                              }];
     
     [uploadTask resume];
 }
@@ -214,13 +215,13 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     
-//    if (IS_RUNNING_IOS9) {
-//        //忽略证书校验
-//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-//        policy.allowInvalidCertificates  = YES;
-//        policy.validatesDomainName       = NO;
-//        manager.securityPolicy           = policy;
-//    }
+    //    if (IS_RUNNING_IOS9) {
+    //        //忽略证书校验
+    //        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    //        policy.allowInvalidCertificates  = YES;
+    //        policy.validatesDomainName       = NO;
+    //        manager.securityPolicy           = policy;
+    //    }
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
@@ -247,7 +248,7 @@
                 break;
         }
     }];
-
+    
     //检测网络是否正常
     if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] == NotReachable) {
         //网络异常
@@ -263,22 +264,22 @@
         id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
         startBlock(cacheObject);
     }
-//    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
-//    for (NSString *key in [params keyEnumerator]) {
-//        id value = [params objectForKey:key];
-//        if ([value isKindOfClass:[NSString class]]) {
-//            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        }
-//        if (value) {
-//            [dic setObject:value forKey:key];
-//        }
-//    }
+    //    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
+    //    for (NSString *key in [params keyEnumerator]) {
+    //        id value = [params objectForKey:key];
+    //        if ([value isKindOfClass:[NSString class]]) {
+    //            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //        }
+    //        if (value) {
+    //            [dic setObject:value forKey:key];
+    //        }
+    //    }
     if (_netWorkType == NetWorkActionTypeGet) {
         [manager GET:url
           parameters:params
             progress:^(NSProgress * _Nonnull downloadProgress) {
                 if (progressBlock) {
-//                    progressBlock(percentDone,totalBytesWritten);
+                    //                    progressBlock(percentDone,totalBytesWritten);
                 }
             }
              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -341,12 +342,12 @@
            }];
     }
     
-//    if (progressBlock) {
-//        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-//            double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-//            progressBlock(percentDone,totalBytesWritten);
-//        }];
-//    }
+    //    if (progressBlock) {
+    //        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    //            double percentDone = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+    //            progressBlock(percentDone,totalBytesWritten);
+    //        }];
+    //    }
     
 }
 - (void)postSuccess:(NSURLSessionTask *)task
@@ -363,14 +364,14 @@
         //gzip 压缩 执行解压
         responseObject = [responseObject gunzippedData];
     }
-    // JSON 解析
     NSError *error = nil;
     id rootObject = nil;
-    @autoreleasepool {
+    if ([[headerData objectForKey:@"OUTFLAG"] isEqualToString:@"JSON"]) {
+        //使用JSON进行解析
         rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
                                                      options:NSJSONReadingMutableContainers
                                                        error:&error];
-        if (!responseObject) {
+        if (!rootObject) {
             //尝试GZIP
             responseObject = [responseObject gunzippedData];
             error = nil;
@@ -378,7 +379,18 @@
                                                          options:NSJSONReadingMutableContainers
                                                            error:&error];
         }
-        
+    }
+    if ([[headerData objectForKey:@"OUTFLAG"] isEqualToString:@"MSGPACK"]) {
+        //使用MSGPACK进行解析
+        rootObject = [responseObject messagePackParse];
+        if (!rootObject) {
+            //尝试GZIP
+            responseObject = [responseObject gunzippedData];
+            error = nil;
+            rootObject = [responseObject messagePackParse];
+        }
+    }
+    @autoreleasepool {
         if (!rootObject) {
             error = [NSError errorWithDomain:TF_APP_ERROR_DOMAIN
                                         code:kTFErrorCodeAPI

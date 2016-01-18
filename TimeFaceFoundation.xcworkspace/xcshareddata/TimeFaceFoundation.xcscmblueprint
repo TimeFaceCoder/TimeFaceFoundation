@@ -1,25 +1,30 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "60e7d9e7-5f8b-0c44-bc26-a6f40f684877",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "2A71A00354FFF5E51CF942C5D5308887BD375C47",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
-    "60e7d9e7-5f8b-0c44-bc26-a6f40f684877" : {
 
-    }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "60e7d9e7-5f8b-0c44-bc26-a6f40f684877" : 0
+    "2A71A00354FFF5E51CF942C5D5308887BD375C47" : 0,
+    "04446D0907D972D22B547153E50BABA9DD3C1A71" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B0E67222-87D0-4466-BADF-98C9D32356B8",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "60e7d9e7-5f8b-0c44-bc26-a6f40f684877" : "timeface_v2\/"
+    "2A71A00354FFF5E51CF942C5D5308887BD375C47" : "TimeFaceFoundation\/",
+    "04446D0907D972D22B547153E50BABA9DD3C1A71" : "TimeFaceFoundation\/TimeFaceFoundation\/Utility\/NetworkHelper\/msgpack-objectivec\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "TimeFaceFoundation",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/TimeFaceFoundation\/TimeFaceFoundation.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TimeFaceFoundation.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/220.178.51.185:8080\/svn\/timeface_v2",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "60e7d9e7-5f8b-0c44-bc26-a6f40f684877"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/msgpack\/msgpack-objectivec.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "04446D0907D972D22B547153E50BABA9DD3C1A71"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/TimeFaceCoder\/TimeFaceFoundation.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2A71A00354FFF5E51CF942C5D5308887BD375C47"
     }
   ]
 }
