@@ -258,11 +258,11 @@
     
     NSNumber *imgWidth = @(roundf(_imageView.image.size.width));
     NSNumber *imgHeight = @(roundf(_imageView.image.size.height));
-//    if (_imageView.animatedImage) {
-//        //gif
-//        imgWidth = @(roundf(_imageView.animatedImage.size.width/2));
-//        imgHeight = @(roundf(_imageView.animatedImage.size.height/2));
-//    }
+    if (_imageView.animatedImage) {
+        //gif
+        imgWidth = @(roundf(_imageView.animatedImage.size.width/2));
+        imgHeight = @(roundf(_imageView.animatedImage.size.height/2));
+    }
     if (_imageView.animationImages) {
         //png array
         imgWidth = @(roundf(_imageView.animationImages[0].size.width));

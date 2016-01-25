@@ -55,7 +55,8 @@
 @property (nonatomic ,readonly) UIColor *alertTitleColor;
 @property (nonatomic ,readonly) UIColor *alertContentColor;
 
-
-
+//下载
+@property (nonatomic ,readonly) UIColor* downloadProgressColor;
+@property (nonatomic ,readonly) UIColor* downloadBgColor;
 
 @end

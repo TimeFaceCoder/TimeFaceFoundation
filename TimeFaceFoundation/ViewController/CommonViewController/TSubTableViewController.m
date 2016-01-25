@@ -38,7 +38,7 @@
     [super loadView];
     if (_useASKit) {
         _asTableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:YES];
-        _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
+        _asTableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
         _asTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_asTableView];
     }
@@ -229,6 +229,9 @@
     }
 }
 
+- (void)didFinishLoad:(DataLoadPolicy)loadPolicy object:(id)object error:(NSError *)error {
+    [self didFinishLoad:loadPolicy error:error];
+}
 
 - (void)scrollViewDidScroll:(UITableView *)tableView {
     

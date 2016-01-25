@@ -111,16 +111,14 @@
 /////////////////////////////////////////////HUD提示-END////////////////////////////////////////////
 
 
-- (NSArray*)searchNotResultColors {
-    NSArray *array = @[[self getColorByHex:@"41b7f0"],
-                       [self getColorByHex:@"a282f3"],
-                       [self getColorByHex:@"41ceb2"],
-                       [self getColorByHex:@"82c4f3"],
-                       [self getColorByHex:@"f4ac30"]];
-    return array;
+
+
+- (UIColor *)downloadProgressColor {
+    return [self getColorByHex:@"7cb42b" alpha:.8];
 }
-
-
+- (UIColor *)downloadBgColor {
+    return [self getColorByHex:@"7cb42b" alpha:.3];
+}
 
 
 @end

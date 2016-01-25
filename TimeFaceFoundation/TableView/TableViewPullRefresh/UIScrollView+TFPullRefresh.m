@@ -58,6 +58,8 @@ static CGFloat const TFRefreshViewHeight = 62;
         [self addSubview:self.titleLabel];
         _titleLabel.text = NSLocalizedString(@"下拉刷新...",);
         [_titleLabel sizeToFit];
+        _titleLabel.tfCenterX = CGRectGetWidth(TTScreenBounds())/2;
+        _titleLabel.tfTop = 15.f;
     }
     
     return self;

@@ -52,8 +52,11 @@
         case 2:     //混合
         
             break;
-        case 3:     //展示全部
+        case 3:     //全屏显示单个
         [self doShowAllHelp:guideModel];
+            break;
+        case 4:   //显示所有
+            [self doShowAllGuide:guideModel];
             break;
         
         default:
@@ -67,6 +70,9 @@
  */
 -(void) doManualHelp:(GuideModel *)guide {
     UIView *guideView = [_viewController.view viewWithTag:guide.tag];
+    if (!guideView) {
+        guideView = [[[UIApplication sharedApplication] keyWindow] viewWithTag:guide.tag];
+    }
 
     if (!guideView || guideView.hidden) {
         [self removeFromSuperview];
@@ -82,10 +88,20 @@
     if (guide.point) {
         [self drawGuidePathSummary:guide.show point:point size:size];
     }
+    
+}
+
+- (void)doShowAllGuide:(ViewGuideModel*)guideModel {
+    for (int i = 0; i < guideModel.guides.count; i++) {
+        GuideModel *guide = [guideModel.guides objectAtIndex:i];
+        [self doManualHelp:guide];
+        _guideModel.index++;
+        [[TFDataHelper shared] save:_guideModel objId:_guideModel.viewId];
+    }
 }
 
 /**
- *  展示全部
+ *
  *
  *  @param guideModel
  */
@@ -118,6 +134,7 @@
     point.x = self.tfWidth / 2;
     [self.holedView addHCustomView:viewHelp onCenter:point];
 }
+
 
 
 -(CGSize) drawGuidePoint:(GuideModel *)model withPoint:(CGPoint)point byView:(UIView *)guideView {
@@ -169,6 +186,15 @@
             break;
         }
     }
+    
+    
+    if (model.remarkImage.length) {
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:model.remarkImage]];
+        CGSize size = [[UIApplication sharedApplication] keyWindow].frame.size;
+        CGPoint point = CGPointMake(model.remarkPointX * size.width, model.remarkPointY * size.height);
+        [self.holedView addHCustomView:imageView onCenter:point];
+    }
+    
     return size;
 }
 
@@ -184,7 +210,7 @@
     CGPoint pointShow = CGPointMake(w, h);
     
     if (center.x <= w && center.y <= h) {
-        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.0.1.%@.png",@(random() % 4 + 1)]]];
+        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.0.1.%@.png",@(1)]]];
         point.y = center.y + size.height/2 + 3.f;
         pointTemp.x = point.x + imagePoint.tfWidth;
         pointTemp.y = point.y + imagePoint.tfHeight;
@@ -192,14 +218,14 @@
         pointShow.y = pointTemp.y;
         
     } else if (center.x <= w && center.y > h) {
-        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.1.1.%@.png",@(random() % 4 + 1)]]];
+        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.1.1.%@.png",@(1)]]];
         point.y = center.y - size.height / 2 - 3.f - imagePoint.tfHeight;
         pointTemp.x = point.x + imagePoint.tfWidth;
         pointTemp.y = point.y;
         
         pointShow.y = pointTemp.y - imageSummary.tfHeight;
     } else if (center.x > w && center.y <= h) {
-        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.0.0.%@.png",@(random() % 4 + 1)]]];
+        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.0.0.%@.png",@(1)]]];
         point.x = center.x - imagePoint.tfWidth;
         point.y = center.y + size.height/2 + 3.f;
         pointTemp.x = point.x;
@@ -207,7 +233,7 @@
         
         pointShow.y = pointTemp.y;
     } else if (center.x > w && center.y > h) {
-        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.1.0.%@.png",@(random() % 4 + 1)]]];
+        imagePoint = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"GuidePoint.1.0.%@.png",@(1)]]];
         point.x = center.x - imagePoint.tfWidth;
         point.y = center.y - size.height / 2 - 3.f - imagePoint.tfHeight;
         pointTemp = point;
@@ -232,6 +258,7 @@
     if(!_holedView) {
         _holedView = [[JMHoledView alloc] initWithFrame:self.frame];
         _holedView.holeViewDelegate = self;
+        _holedView.layer.borderWidth = 1;
     }
     return _holedView;
 }

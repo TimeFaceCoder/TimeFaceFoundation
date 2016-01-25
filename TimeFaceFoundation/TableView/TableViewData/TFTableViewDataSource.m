@@ -31,22 +31,7 @@
     
 }
 
-/**
- *  正在加载
- */
-@property (nonatomic ,assign) BOOL                           loading;
-/**
- *  网络数据加载完成
- */
-@property (nonatomic ,assign) BOOL                           finished;
-/**
- *  总页数
- */
-@property (nonatomic ,assign) NSUInteger                     totalPage;
-/**
- *  当前页码
- */
-@property (nonatomic ,assign) NSUInteger                     currentPage;
+
 /**
  *  向上滚动阈值
  */
@@ -199,8 +184,18 @@ const static NSInteger kPageSize = 20;
         [self.tableView triggerPullToRefresh];
     }
     else {
+        //        //第一次从缓存中加载
+        //        [self load:DataLoadPolicyCache params:params];
+        
         //第一次从缓存中加载
-        [self load:DataLoadPolicyCache params:params];
+        if (_useCacheData) {
+            [self load:DataLoadPolicyCache params:params];
+            
+        }//不缓存
+        else{
+            [self load:DataLoadPolicyNone params:params];
+            
+        }
     }
 }
 
@@ -324,6 +319,10 @@ const static NSInteger kPageSize = 20;
                      //数据加载完成
                      if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
                          [strongSelf.delegate didFinishLoad:dataLoadPolicy error:error];
+                         [strongSelf stopPullRefresh];
+                     }
+                     if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(didFinishLoad:object:error:)]) {
+                         [strongSelf.delegate didFinishLoad:dataLoadPolicy object:object error:error];
                          [strongSelf stopPullRefresh];
                      }
                      switch (dataLoadPolicy) {

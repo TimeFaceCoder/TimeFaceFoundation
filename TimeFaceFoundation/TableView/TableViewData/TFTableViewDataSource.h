@@ -47,6 +47,8 @@ typedef NS_ENUM(NSInteger, DataLoadPolicy) {
 
 - (void)didFinishLoad:(DataLoadPolicy)loadPolicy error:(NSError *)error;
 
+- (void)didFinishLoad:(DataLoadPolicy)loadPolicy object:(id)object error:(NSError *)error;
+
 @optional
 - (BOOL)showPullRefresh;
 
@@ -114,6 +116,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath;
  */
 @property (nonatomic ,assign) NSInteger                     listType;
 @property (nonatomic ,assign) BOOL                          useCacheData;
+/**
+ *  正在加载
+ */
+@property (nonatomic ,assign) BOOL                           loading;
+/**
+ *  网络数据加载完成
+ */
+@property (nonatomic ,assign) BOOL                           finished;
+/**
+ *  总页数
+ */
+@property (nonatomic ,assign) NSUInteger                     totalPage;
+/**
+ *  当前页码
+ */
+@property (nonatomic ,assign) NSUInteger                     currentPage;
 
 - (id)initWithTableView:(UITableView *)tableView
                listType:(NSInteger)listType

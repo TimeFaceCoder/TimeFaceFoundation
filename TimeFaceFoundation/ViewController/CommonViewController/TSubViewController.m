@@ -158,21 +158,31 @@
 
 - (void)showToastMessage:(NSString *)message messageType:(MessageType)messageType {
     TFMainRun(^{
-        switch (messageType) {
-            case MessageTypeDefault:
-                [SVProgressHUD showWithStatus:message];
-                break;
-            case MessageTypeSuccess:
-                [SVProgressHUD showSuccessWithStatus:message];
-                break;
-            case MessageTypeFaild:
-                [SVProgressHUD showErrorWithStatus:message];
-                break;
-            default:
-                [SVProgressHUD showInfoWithStatus:message];
-                break;
-        }
+        NSDictionary *dic = @{
+                              @"message"     :   message,
+                              @"type"        :   @(messageType)
+                              };
+        [self performSelector:@selector(showMessage:) withObject:dic afterDelay:.5f];
     });
+}
+
+- (void)showMessage:(NSDictionary*)params {
+    NSString *message = [params objectForKey:@"message"];
+    MessageType messageType  = [[params objectForKey:@"type"] integerValue];
+    switch (messageType) {
+        case MessageTypeDefault:
+            [SVProgressHUD showWithStatus:message];
+            break;
+        case MessageTypeSuccess:
+            [SVProgressHUD showSuccessWithStatus:message];
+            break;
+        case MessageTypeFaild:
+            [SVProgressHUD showErrorWithStatus:message];
+            break;
+        default:
+            [SVProgressHUD showInfoWithStatus:message];
+            break;
+    }
 }
 
 - (void)dismissToastView {
@@ -212,6 +222,7 @@
         title = NSLocalizedString(@"设置网络", nil);
     }
     if (viewState == kTFViewStateNoData) {
+        title = NSLocalizedString(@"暂无内容", nil);
     }
     if (viewState == kTFViewStateTimeOut) {
         title = NSLocalizedString(@"重新加载", nil);

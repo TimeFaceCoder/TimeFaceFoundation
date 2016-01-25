@@ -32,6 +32,22 @@
  *  停留时间，0 手动点击
  */
 @property (nonatomic, assign) NSInteger time;
+/**
+ *  附加图片
+ */
+@property (nonatomic, strong) NSString  *remarkImage;
+/**
+ *  附加图片中心点X
+ */
+@property (nonatomic, assign) CGFloat   remarkPointX;
+/**
+ *  附加图中心点Y
+ */
+@property (nonatomic, assign) CGFloat   remarkPointY;
+/**
+ *  是否单个全屏
+ */
+@property (nonatomic, assign) BOOL      isSingle;
 
 @end
 
@@ -47,7 +63,7 @@
  */
 @property  NSString *viewId;
 /**
- *  分类，0 手动，1 全自动 2 混合，3 显示所有
+ *  分类，0 手动，1 全自动 2 混合，3 单个全屏显示 4 显示所有
  */
 @property (nonatomic, assign) NSInteger category;
 
