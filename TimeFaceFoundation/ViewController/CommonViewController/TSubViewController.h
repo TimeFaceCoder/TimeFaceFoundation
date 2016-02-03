@@ -15,6 +15,7 @@
 #import "ViewControllerDelegate.h"
 #import "TFAlertView.h"
 #import "TimeFaceFoundationConst.h"
+#import "TFStateView.h"
 
 
 typedef id (^TFViewControllerBlock)(id object);
@@ -54,6 +55,8 @@ typedef NS_ENUM (NSInteger, MessageType) {
 @property (nonatomic ,assign) NSInteger   viewState;
 
 @property (nonatomic ,weak) TFViewControllerBlock   ViewControllerBlock;
+
+@property (nonatomic ,strong           ) TFStateView              *stateView;
 
 
 #pragma mark - Public

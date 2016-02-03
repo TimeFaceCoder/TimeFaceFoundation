@@ -68,6 +68,51 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)addPullToRefreshActionHandler:(actionHandler)handler
                        ProgressImages:(NSArray *)progressImages
+                        LoadingImages:(NSArray *)loadingImages
+              ProgressScrollThreshold:(NSInteger)threshold
+               LoadingImagesFrameRate:(NSInteger)lframe
+                            topLayout:(CGFloat)topLayout {
+    if(self.pullToRefreshView == nil)
+    {
+        UzysAnimatedGifActivityIndicator *view = [[UzysAnimatedGifActivityIndicator alloc] initWithProgressImages:progressImages LoadingImages:loadingImages ProgressScrollThreshold:threshold LoadingImagesFrameRate:lframe];
+        view.pullToRefreshHandler = handler;
+        view.scrollView = self;
+        view.frame = CGRectMake((self.bounds.size.width - view.bounds.size.width)/2,
+                                -view.bounds.size.height, view.bounds.size.width, view.bounds.size.height);
+        view.originalTopInset = self.contentInset.top;
+        
+        if(IS_IOS7)
+        {
+            if(cEqualFloats(self.contentInset.top, topLayout, cDefaultFloatComparisonEpsilon) && cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+            {
+                view.portraitTopInset = topLayout;
+                view.landscapeTopInset = 52.0;
+            }
+        }
+        else if(IS_IOS8)
+        {
+            if(cEqualFloats(self.contentInset.top, 0.00, cDefaultFloatComparisonEpsilon) &&cEqualFloats(self.frame.origin.y, 0.0, cDefaultFloatComparisonEpsilon))
+            {
+                view.portraitTopInset = topLayout;
+                view.originalTopInset = topLayout;
+                
+                if(IS_IPHONE6PLUS)
+                    view.landscapeTopInset = 44.0;
+                else
+                    view.landscapeTopInset = 32.0;
+                
+            }
+        }
+        [self addSubview:view];
+        [self sendSubviewToBack:view];
+        self.pullToRefreshView = view;
+        self.showPullToRefresh = YES;
+    }
+    
+}
+
+- (void)addPullToRefreshActionHandler:(actionHandler)handler
+                       ProgressImages:(NSArray *)progressImages
               ProgressScrollThreshold:(NSInteger)threshold
 {
     [self addPullToRefreshActionHandler:handler

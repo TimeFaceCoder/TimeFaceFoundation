@@ -229,9 +229,6 @@
     }
 }
 
-- (void)didFinishLoad:(DataLoadPolicy)loadPolicy object:(id)object error:(NSError *)error {
-    [self didFinishLoad:loadPolicy error:error];
-}
 
 - (void)scrollViewDidScroll:(UITableView *)tableView {
     

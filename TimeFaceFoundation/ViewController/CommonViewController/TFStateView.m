@@ -136,6 +136,7 @@
         _button.layer.borderColor = TFSTYLEVAR(loadingLineColor).CGColor;
         _button.tfSize = CGSizeMake(236/2, 30);
         _button.layer.cornerRadius = 8;
+        _button.layer.masksToBounds = YES;
         _button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         
@@ -692,7 +693,10 @@ static char const * const kStateView            = "stateView";
     // Configure Offset
     view.offset = [self state_offset];
     // Configure frame
-    view.frame = [self state_frame];
+    self.frame = [self state_frame];
+    view.frame = self.frame;
+    view.tfTop = 0;
+//    self.tfTop += 30.0f;
     
     // Configure the empty dataset view
     view.backgroundColor = [self state_dataSetBackgroundColor];

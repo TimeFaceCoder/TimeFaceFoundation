@@ -69,7 +69,7 @@
             NSFontAttributeName: TFSTYLEVAR(navBarTitleFont)}];
 
         [[TNavigationBar appearance] setBarBgColor:TFSTYLEVAR(navBarBackgroundColor)];
-
+        [[TNavigationBar appearance] setTintColor:TFSTYLEVAR(navBarBackgroundColor)];
     }
     
     return self;

@@ -104,7 +104,6 @@
 		B0AED9891C4C868E0080AAE0 /* NSArray+MessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AED97B1C4C868E0080AAE0 /* NSArray+MessagePack.m */; };
 		B0AED98A1C4C868E0080AAE0 /* NSData+MessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AED97D1C4C868E0080AAE0 /* NSData+MessagePack.m */; };
 		B0AED98B1C4C868E0080AAE0 /* NSDictionary+MessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AED97F1C4C868E0080AAE0 /* NSDictionary+MessagePack.m */; };
-		B0AED98C1C4C868E0080AAE0 /* readme.md in Sources */ = {isa = PBXBuildFile; fileRef = B0AED9801C4C868E0080AAE0 /* readme.md */; };
 		B0DB0A0F1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB0A0B1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */; };
 		B0DB0A101C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB0A0D1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m */; };
 /* End PBXBuildFile section */
@@ -323,7 +322,6 @@
 		B0AED97D1C4C868E0080AAE0 /* NSData+MessagePack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MessagePack.m"; sourceTree = "<group>"; };
 		B0AED97E1C4C868E0080AAE0 /* NSDictionary+MessagePack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MessagePack.h"; sourceTree = "<group>"; };
 		B0AED97F1C4C868E0080AAE0 /* NSDictionary+MessagePack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MessagePack.m"; sourceTree = "<group>"; };
-		B0AED9801C4C868E0080AAE0 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		B0DB0A0A1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UzysAnimatedGifPullToRefresh.h"; sourceTree = "<group>"; };
 		B0DB0A0B1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+UzysAnimatedGifPullToRefresh.m"; sourceTree = "<group>"; };
 		B0DB0A0C1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAnimatedGifActivityIndicator.h; sourceTree = "<group>"; };
@@ -837,7 +835,6 @@
 				B0AED97D1C4C868E0080AAE0 /* NSData+MessagePack.m */,
 				B0AED97E1C4C868E0080AAE0 /* NSDictionary+MessagePack.h */,
 				B0AED97F1C4C868E0080AAE0 /* NSDictionary+MessagePack.m */,
-				B0AED9801C4C868E0080AAE0 /* readme.md */,
 			);
 			path = "msgpack-objectivec";
 			sourceTree = "<group>";
@@ -1077,7 +1074,6 @@
 				6CC8C14F1BA7D552003CF335 /* CLClassList.m in Sources */,
 				6CC8C1341BA7D552003CF335 /* UITableView+Frames.m in Sources */,
 				43A082011BA7A61E00AEFCE5 /* TFWebViewController.m in Sources */,
-				B0AED98C1C4C868E0080AAE0 /* readme.md in Sources */,
 				B01AF53A1BCE4AAD0098B6AC /* UIScrollView+TFPullRefresh.m in Sources */,
 				B046C1631BCE54E000D91D92 /* TFUserDefaultUtility.m in Sources */,
 				6CC8C16A1BA7D552003CF335 /* Pinyin.c in Sources */,

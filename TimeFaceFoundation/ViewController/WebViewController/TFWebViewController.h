@@ -14,12 +14,14 @@ typedef NS_ENUM(NSInteger, LocalViewType) {
     LocalViewTypeTopicDetail = 2,
     LocalViewTypeUserDetail  = 3,
     LocalViewTypeEventDetail  = 4,
+    LocalViewTypeCalenderEvent = 5,
 };
 
 @interface TFWebViewController : TSubViewController<UIWebViewDelegate>
 
 @property (nonatomic ,strong) UIWebView     *webView;
 @property (nonatomic ,copy)   NSString      *url;
+@property (nonatomic ,assign) LocalViewType shareType;
 
 
 - (id)initWithUrl:(NSString *)url;

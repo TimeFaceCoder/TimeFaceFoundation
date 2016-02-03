@@ -8,7 +8,7 @@
 
 #import "TSubViewController.h"
 #import <CoreMotion/CoreMotion.h>
-#import "TFStateView.h"
+
 #import "TimeFaceFoundationConst.h"
 
 #import "JMHoledView.h"
@@ -17,6 +17,8 @@
 
 #import "TFDataHelper.h"
 #import "GuideHelpView.h"
+
+#import "TFCoreUtility.h"
 
 @interface TSubViewController ()<ViewStateDataSource,ViewStateDelegate> {
 }
@@ -31,7 +33,6 @@
 
 @property (nonatomic ,strong           ) CMMotionManager          *manager;
 
-@property (nonatomic ,strong           ) TFStateView              *stateView;
 
 @property (nonatomic ,strong           ) GuideHelpView              *guideHelpView;
 
@@ -130,9 +131,10 @@
 
 - (TFStateView *)stateView {
     if (!_stateView) {
-        _stateView = [[TFStateView alloc] init];
+        _stateView = [[TFStateView alloc] initWithFrame:self.view.bounds];
         _stateView.stateDataSource = self;
         _stateView.stateDelegate = self;
+        _stateView.userInteractionEnabled = YES;
     }
     return _stateView;
 }
@@ -248,6 +250,12 @@
     if (viewState == kTFViewStateTimeOut) {
         image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
     }    return image;
+}
+- (UIImage*)buttonBackgroundImageForStateView:(UIView *)view forState:(UIControlState)state {
+    UIImage *image = nil;
+    image = [[TFCoreUtility sharedUtility] createImageWithColor:[UIColor whiteColor] width:236 / 2 height:30];
+    
+    return image;
 }
 
 #pragma mark - Private

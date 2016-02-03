@@ -23,6 +23,13 @@
 
 - (void)addPullToRefreshActionHandler:(actionHandler)handler
                        ProgressImages:(NSArray *)progressImages
+                        LoadingImages:(NSArray *)loadingImages
+              ProgressScrollThreshold:(NSInteger)threshold
+               LoadingImagesFrameRate:(NSInteger)lframe
+                            topLayout:(CGFloat)topLayout;
+
+- (void)addPullToRefreshActionHandler:(actionHandler)handler
+                       ProgressImages:(NSArray *)progressImages
               ProgressScrollThreshold:(NSInteger)threshold;
 
 - (void)addPullToRefreshActionHandler:(actionHandler)handler

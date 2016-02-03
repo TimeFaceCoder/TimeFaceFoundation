@@ -47,9 +47,9 @@ typedef NS_ENUM(NSInteger, DataLoadPolicy) {
 
 - (void)didFinishLoad:(DataLoadPolicy)loadPolicy error:(NSError *)error;
 
+@optional
 - (void)didFinishLoad:(DataLoadPolicy)loadPolicy object:(id)object error:(NSError *)error;
 
-@optional
 - (BOOL)showPullRefresh;
 
 - (void)stopPullRefresh;

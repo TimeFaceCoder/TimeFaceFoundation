@@ -20,7 +20,6 @@
     NSDictionary    *shareContent;
 }
 
-@property (nonatomic ,assign) LocalViewType shareType;
 @property (nonatomic ,strong) WebViewJavascriptBridge *jsBridge;
 @property (nonatomic ,strong) NJKWebViewProgress      *progressProxy;
 @property (nonatomic ,strong) NJKWebViewProgressView  *progressView;
