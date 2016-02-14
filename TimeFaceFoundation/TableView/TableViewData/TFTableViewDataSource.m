@@ -237,7 +237,7 @@ const static NSInteger kPageSize = 20;
     }
     
     __weak __typeof(self)weakSelf = self;
-    void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy) = ^(id result,DataLoadPolicy dataLoadPolicy) {
+    void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy,NSError *error) = ^(id result,DataLoadPolicy dataLoadPolicy,NSError *error) {
         TFLog(@"----------------------------------handleTableViewData  loadPolicy = %@",@(dataLoadPolicy));
         typeof(self) strongSelf = weakSelf;
         strongSelf.buildingView = YES;
@@ -290,7 +290,7 @@ const static NSInteger kPageSize = 20;
                  //加载列
                  strongSelf.buildingView = NO;
                  dispatch_async(dispatch_get_main_queue(), ^{
-//                     _loading = NO;
+                     //                     _loading = NO;
                      if (_currentPage < _totalPage) {
                          NSInteger sectionCount = 0;
                          if (_managerFlag) {
@@ -310,6 +310,7 @@ const static NSInteger kPageSize = 20;
                              [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
                              [strongSelf.manager addSection:section];
                          }
+                         NSLog(@"insertSections----------------------------");
                          [strongSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionCount]
                                              withRowAnimation:UITableViewRowAnimationFade];
                      }
@@ -340,10 +341,10 @@ const static NSInteger kPageSize = 20;
                              break;
                          case DataLoadPolicyReload:
                              //结束下拉刷新动画
-//                             if(strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
-//                                 [strongSelf.delegate stopPullRefresh];
-//                             }
-//                             [strongSelf stopPullRefresh];
+                             //                             if(strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(stopPullRefresh)]){
+                             //                                 [strongSelf.delegate stopPullRefresh];
+                             //                             }
+                             //                             [strongSelf stopPullRefresh];
                              break;
                          default:
                              break;
@@ -362,7 +363,7 @@ const static NSInteger kPageSize = 20;
                                                    _loading = YES;
                                                    if (!_buildingView) {
                                                        if (loadPolicy == DataLoadPolicyCache && _useCacheData) {                                                       TFLog(@"show cache data===============");
-                                                           handleTableViewData(cacheResult,DataLoadPolicyCache);
+                                                           handleTableViewData(cacheResult,DataLoadPolicyCache,nil);
                                                            [self stopPullRefresh];
                                                            _loading = NO;
                                                            [weakSelf.delegate didFinishLoad:loadPolicy error:nil];
@@ -372,14 +373,9 @@ const static NSInteger kPageSize = 20;
                                            completed:^(id result, NSError *error)
      {
          if (loadPolicy != DataLoadPolicyCache) {
-             if (!error) {
-                 handleTableViewData(result,loadPolicy);
-             }
-//             [self stopPullRefresh];
+             handleTableViewData(result,loadPolicy,error);
              _loading = NO;
-//             [weakSelf.delegate didFinishLoad:loadPolicy error:error];
          }
-         
      }];
 }
 

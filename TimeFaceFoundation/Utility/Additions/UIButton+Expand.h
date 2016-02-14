@@ -30,6 +30,8 @@
 - (void)centerImageAndTitle:(float)spacing;
 - (void)centerImageAndTitle;
 
+- (void)centerImageAndButton:(CGFloat)gap imageOnTop:(BOOL)imageOnTop;
+
 - (void)showDeleteView:(void (^)(id expand))deleteBlock;
 
 @end

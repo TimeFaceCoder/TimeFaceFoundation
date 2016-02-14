@@ -25,7 +25,7 @@ static void * ExpandBlockPropertyKey = &ExpandBlockPropertyKey;
 
 - (void(^)(__strong id))DeleteBlock {
     return objc_getAssociatedObject(self, ExpandBlockPropertyKey);
-
+    
 }
 
 - (void)setDeleteBlock:(void (^)(id))deleteBlock {
@@ -117,6 +117,16 @@ static void * ExpandBlockPropertyKey = &ExpandBlockPropertyKey;
     
     // lower the text and push it left to center it
     self.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width, - (totalHeight - titleSize.height),0.0);
+}
+
+- (void)centerImageAndButton:(CGFloat)gap imageOnTop:(BOOL)imageOnTop {
+    NSInteger sign = imageOnTop ? 1 : -1;
+    
+    CGSize imageSize = self.imageView.frame.size;
+    self.titleEdgeInsets = UIEdgeInsetsMake((imageSize.height+gap)*sign, -imageSize.width, 0, 0);
+    
+    CGSize titleSize = self.titleLabel.bounds.size;
+    self.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height+gap)*sign, 0, 0, -titleSize.width);
 }
 
 - (void)centerImageAndTitle {

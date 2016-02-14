@@ -141,6 +141,8 @@
 
 
 - (void)reloadData {
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    [self removeStateView];
     [self.dataSource reloadTableViewData:YES];
 }
 
