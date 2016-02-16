@@ -8,6 +8,8 @@
 
 #import "TimeFaceFoundationConst.h"
 
+NSString *  TF_APP_ERROR_DOMAIN        =      @"cn.timeface.foundation";
+
 /////////////////////////////////////////////Common Error Code//////////////////////////////////////
 
 NSInteger const kTFErrorCodeUnknown         = 0;

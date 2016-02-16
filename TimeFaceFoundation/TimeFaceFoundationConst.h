@@ -40,7 +40,7 @@ styleWithSelector:@#_SELECTOR forState:_STATE]
 #endif
 
 
-#define TF_APP_ERROR_DOMAIN         @"cn.timeface.foundation"
+extern NSString*  TF_APP_ERROR_DOMAIN    ;
 
 /////////////////////////////////////////////Common Error Code//////////////////////////////////////
 
