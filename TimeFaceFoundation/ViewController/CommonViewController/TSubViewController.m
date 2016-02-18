@@ -161,7 +161,7 @@
 - (void)showToastMessage:(NSString *)message messageType:(MessageType)messageType {
     TFMainRun(^{
         NSDictionary *dic = @{
-                              @"message"     :   message,
+                              @"message"     :   message ? message : @"",
                               @"type"        :   @(messageType)
                               };
         [self performSelector:@selector(showMessage:) withObject:dic afterDelay:.5f];
