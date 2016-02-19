@@ -264,16 +264,16 @@
         id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
         startBlock(cacheObject);
     }
-    //    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
-    //    for (NSString *key in [params keyEnumerator]) {
-    //        id value = [params objectForKey:key];
-    //        if ([value isKindOfClass:[NSString class]]) {
-    //            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //        }
-    //        if (value) {
-    //            [dic setObject:value forKey:key];
-    //        }
-    //    }
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithDictionary:params];
+    for (NSString *key in [params keyEnumerator]) {
+        id value = [params objectForKey:key];
+        if ([value isKindOfClass:[NSString class]]) {
+            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
+        if (value) {
+            [dic setObject:value forKey:key];
+        }
+    }
     if (_netWorkType == NetWorkActionTypeGet) {
         [manager GET:url
           parameters:params

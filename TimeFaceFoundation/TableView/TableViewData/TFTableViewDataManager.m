@@ -30,11 +30,11 @@
             weakSelf.currentIndexPath = ((RETableViewItem*)item).indexPath;
             [((RETableViewItem*)item) deselectRowAnimated:YES];
         }
-        
         if ([item isKindOfClass:[MYTableViewItem class]]) {
             weakSelf.currentIndexPath = ((MYTableViewItem*)item).indexPath;
             [((MYTableViewItem*)item) deselectRowAnimated:YES];
         }
+        
         
         if ([weakSelf.tableViewDataSource.delegate respondsToSelector:@selector(actionOnView:actionType:)]) {
             [weakSelf.tableViewDataSource.delegate actionOnView:item actionType:actionType];
@@ -46,12 +46,10 @@
             weakSelf.currentIndexPath = ((RETableViewItem*)item).indexPath;
             [((RETableViewItem*)item) deselectRowAnimated:YES];
         }
-        
         if ([item isKindOfClass:[MYTableViewItem class]]) {
             weakSelf.currentIndexPath = ((MYTableViewItem*)item).indexPath;
             [((MYTableViewItem*)item) deselectRowAnimated:YES];
         }
-        
         
         if ([weakSelf.tableViewDataSource.delegate respondsToSelector:@selector(actionItemClick:)]) {
             [weakSelf.tableViewDataSource.delegate actionItemClick:item];
