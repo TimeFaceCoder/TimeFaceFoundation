@@ -68,10 +68,12 @@
 
 @property (nonatomic ,assign) BOOL buildingView;
 
+@property (nonatomic ,assign) BOOL loadCacheData;
+
 
 @end
 
-const static NSInteger kPageSize = 20;
+const static NSInteger kPageSize = 60;
 
 @implementation TFTableViewDataSource
 
@@ -237,7 +239,7 @@ const static NSInteger kPageSize = 20;
     }
     
     __weak __typeof(self)weakSelf = self;
-    void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy,NSError *error) = ^(id result,DataLoadPolicy dataLoadPolicy,NSError *error) {
+    void(^handleTableViewData)(id result,DataLoadPolicy dataLoadPolicy,NSError *hanldeError) = ^(id result,DataLoadPolicy dataLoadPolicy,NSError *hanldeError) {
         TFLog(@"----------------------------------handleTableViewData  loadPolicy = %@",@(dataLoadPolicy));
         typeof(self) strongSelf = weakSelf;
         strongSelf.buildingView = YES;
@@ -310,18 +312,17 @@ const static NSInteger kPageSize = 20;
                              [section addItem:[TableViewLoadingItem itemWithTitle:NSLocalizedString(@"正在加载...", nil)]];
                              [strongSelf.manager addSection:section];
                          }
-                         NSLog(@"insertSections----------------------------");
                          [strongSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionCount]
                                              withRowAnimation:UITableViewRowAnimationFade];
                      }
                      
                      //数据加载完成
                      if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(didFinishLoad:error:)]) {
-                         [strongSelf.delegate didFinishLoad:dataLoadPolicy error:error];
+                         [strongSelf.delegate didFinishLoad:dataLoadPolicy error:error?error:hanldeError];
                          [strongSelf stopPullRefresh];
                      }
                      if (strongSelf.delegate && [strongSelf.delegate respondsToSelector:@selector(didFinishLoad:object:error:)]) {
-                         [strongSelf.delegate didFinishLoad:dataLoadPolicy object:object error:error];
+                         [strongSelf.delegate didFinishLoad:dataLoadPolicy object:object error:error?error:hanldeError];
                          [strongSelf stopPullRefresh];
                      }
                      switch (dataLoadPolicy) {
@@ -366,6 +367,7 @@ const static NSInteger kPageSize = 20;
                                                            handleTableViewData(cacheResult,DataLoadPolicyCache,nil);
                                                            [self stopPullRefresh];
                                                            _loading = NO;
+                                                           _loadCacheData = YES;
                                                            [weakSelf.delegate didFinishLoad:loadPolicy error:nil];
                                                        }
                                                    }

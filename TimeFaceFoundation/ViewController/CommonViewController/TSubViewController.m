@@ -161,6 +161,7 @@
 
 - (void)showToastMessage:(NSString *)message messageType:(MessageType)messageType {
     TFMainRun(^{
+        
         NSDictionary *dic = @{
                               @"message"     :   message ? message : @"",
                               @"type"        :   @(messageType)
