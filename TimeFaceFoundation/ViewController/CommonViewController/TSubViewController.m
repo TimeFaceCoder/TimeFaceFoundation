@@ -114,6 +114,7 @@
     }
    
     [self showStateView:kTFViewStateLoading];
+    self.navigationController.view.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
 }
 
 - (void)didReceiveMemoryWarning
