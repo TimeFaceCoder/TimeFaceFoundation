@@ -135,7 +135,7 @@
         _button.layer.borderWidth = 1;
         _button.layer.borderColor = TFSTYLEVAR(loadingLineColor).CGColor;
         _button.tfSize = CGSizeMake(236/2, 30);
-        _button.layer.cornerRadius = 8;
+        _button.layer.cornerRadius = _button.tfHeight / 2;
         _button.layer.masksToBounds = YES;
         _button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         _button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

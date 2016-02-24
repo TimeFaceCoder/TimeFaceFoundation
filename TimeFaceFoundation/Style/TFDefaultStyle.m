@@ -78,19 +78,19 @@
     return [self getColorByHex:@"a9a9a9"];
 }
 - (UIColor *)alertOKColor {
-    return [self getColorByHex:@"ffa800"];
+    return [self getColorByHex:@"069bf2"];
 }
 - (UIColor *)alertOKHColor {
-    return [self getColorByHex:@"e69800"];
+    return [self getColorByHex:@"058ccd"];
 }
 - (UIColor *)alertLineColor {
     return [self getColorByHex:@"9b9b9b"];
 }
 - (UIColor *)alertTitleColor {
-    return [self getColorByHex:@"ffa800"];
+    return [self getColorByHex:@"069bf2"];
 }
 - (UIColor *)alertContentColor {
-    return [self getColorByHex:@"b5b5b5"];
+    return [self getColorByHex:@"333333"];
 }
 
 
