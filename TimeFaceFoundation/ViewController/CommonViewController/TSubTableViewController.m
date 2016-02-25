@@ -86,6 +86,10 @@
 
 - (void)dealloc {
     [self.dataSource stopLoading];
+    if (self.asTableView) {
+        self.asTableView.asyncDataSource = nil;
+        self.asTableView.asyncDelegate = nil;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,10 +119,7 @@
                                              selector:@selector(reloadCell:)
                                                  name:kTFReloadCellNotification
                                                object:nil];
-    if (self.asTableView) {
-        self.asTableView.asyncDataSource = nil;
-        self.asTableView.asyncDelegate = nil;
-    }
+    
     
 }
 
