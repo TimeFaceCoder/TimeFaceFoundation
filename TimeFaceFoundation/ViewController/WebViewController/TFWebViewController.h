@@ -7,6 +7,7 @@
 //
 
 #import "TSubViewController.h"
+#import "WebViewJavascriptBridge.h"
 
 typedef NS_ENUM(NSInteger, LocalViewType) {
     LocalViewTypeNone        = 0,
@@ -17,17 +18,21 @@ typedef NS_ENUM(NSInteger, LocalViewType) {
     LocalViewTypeCalenderEvent = 5,
 };
 
+
 @interface TFWebViewController : TSubViewController<UIWebViewDelegate>
 
 @property (nonatomic ,strong) UIWebView     *webView;
 @property (nonatomic ,copy)   NSString      *url;
 @property (nonatomic ,assign) LocalViewType shareType;
+@property (nonatomic ,strong) WebViewJavascriptBridge *jsBridge;
 
 
 - (id)initWithUrl:(NSString *)url;
 - (id)initWithUrl:(NSString *)url share:(LocalViewType)shareType;
 
 - (void)openURL:(NSURL*)URL;
+
+- (void)regestBridge;
 
 
 @end

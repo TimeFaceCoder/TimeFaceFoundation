@@ -9,7 +9,7 @@
 #import "TFWebViewController.h"
 #import "TFDefaultStyle.h"
 #import "TFCoreUtility.h"
-#import "WebViewJavascriptBridge.h"
+
 #import <NJKWebViewProgress/NJKWebViewProgress.h>
 #import <NJKWebViewProgressView.h>
 #import "TFDataHelper.h"
@@ -20,7 +20,6 @@
     NSDictionary    *shareContent;
 }
 
-@property (nonatomic ,strong) WebViewJavascriptBridge *jsBridge;
 @property (nonatomic ,strong) NJKWebViewProgress      *progressProxy;
 @property (nonatomic ,strong) NJKWebViewProgressView  *progressView;
 
@@ -172,6 +171,9 @@
             responseCallback(@{@"status":@"1",@"info":@"success" });
         }];
         
+        
+        
+        [self regestBridge];
         
         //关闭当前页面
         [_jsBridge registerHandler:@"closeWebView" handler:^(id data, WVJBResponseCallback responseCallback)
