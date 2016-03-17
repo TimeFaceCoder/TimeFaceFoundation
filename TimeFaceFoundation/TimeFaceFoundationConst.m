@@ -52,4 +52,5 @@ NSInteger const kTFScrollDirectionHorizontal = 6;
 NSString * const kTFOpenLocalNotification    = @"kTFOpenLocalNotification";
 NSString * const kTFCloseWebViewNotification = @"kTFCloseWebViewNotification";
 NSString * const kTFAutoLoadNotification     = @"kTFAutoLoadNotification";
+NSString * const kTFDeleteTweetsNotification = @"kTFDeleteTweetsNotification";
 NSString * const kTFReloadCellNotification   = @"kTFReloadCellNotification";

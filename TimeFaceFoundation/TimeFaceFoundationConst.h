@@ -85,6 +85,7 @@ extern NSInteger const kTFScrollDirectionHorizontal;
 extern NSString * const kTFOpenLocalNotification;
 extern NSString * const kTFCloseWebViewNotification;
 extern NSString * const kTFAutoLoadNotification;
+extern NSString * const kTFDeleteTweetsNotification;
 extern NSString * const kTFReloadCellNotification;
 
 
