@@ -12,7 +12,7 @@
 #import "TimeFaceFoundationConst.h"
 
 #import "JMHoledView.h"
-#import "ViewGuideModel.h"
+
 
 
 #import "TFDataHelper.h"

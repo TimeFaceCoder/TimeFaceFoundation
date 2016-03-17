@@ -16,6 +16,7 @@
 #import "TFAlertView.h"
 #import "TimeFaceFoundationConst.h"
 #import "TFStateView.h"
+#import "ViewGuideModel.h"
 
 
 typedef id (^TFViewControllerBlock)(id object);
@@ -63,6 +64,8 @@ typedef NS_ENUM (NSInteger, MessageType) {
 - (void)showBackButton;
 - (void)showStateView:(NSInteger)viewState;
 - (void)removeStateView;
+
+-(void)startGuide:(ViewGuideModel *)model;
 
 - (void)showToastMessage:(NSString *)message messageType:(MessageType)messageType;
 - (void)dismissToastView;
