@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ASDataController.h"
+#import <AsyncDisplayKit/ASInternalHelpers.h>
+
+typedef NSUInteger ASDataControllerAnimationOptions;
 
 typedef NS_ENUM(NSInteger, _ASHierarchyChangeType) {
   _ASHierarchyChangeTypeReload,
@@ -29,7 +31,10 @@ typedef NS_ENUM(NSInteger, _ASHierarchyChangeType) {
 
 /// Index paths are sorted descending for changeType .Delete, ascending otherwise
 @property (nonatomic, strong, readonly) NSArray *indexPaths;
+
 @property (nonatomic, readonly) _ASHierarchyChangeType changeType;
+
++ (NSDictionary *)sectionToIndexSetMapFromChanges:(NSArray *)changes ofType:(_ASHierarchyChangeType)changeType;
 @end
 
 @interface _ASHierarchyChangeSet : NSObject

@@ -11,6 +11,7 @@
 
 #import <AsyncDisplayKit/ASBaseDefines.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 ASDISPLAYNODE_EXTERN_C_BEGIN
 /**
@@ -75,9 +76,11 @@ ASDISPLAYNODE_EXTERN_C_END
         - kCTParagraphStyleSpecifierMinimumLineSpacing
         - kCTParagraphStyleSpecifierLineSpacingAdjustment
         - kCTParagraphStyleSpecifierLineBoundsOptions
-  @result An NSParagraphStyle initializd with as many of the paragraph specifiers from `coreTextParagraphStyle` as possible.
+  @result An NSParagraphStyle initialized with as many of the paragraph specifiers from `coreTextParagraphStyle` as possible.
 
  */
 + (instancetype)paragraphStyleWithCTParagraphStyle:(CTParagraphStyleRef)coreTextParagraphStyle;
 
 @end
+
+NS_ASSUME_NONNULL_END

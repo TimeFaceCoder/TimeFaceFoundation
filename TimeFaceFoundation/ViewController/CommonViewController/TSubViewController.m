@@ -173,6 +173,7 @@
 - (void)showMessage:(NSDictionary*)params {
     NSString *message = [params objectForKey:@"message"];
     MessageType messageType  = [[params objectForKey:@"type"] integerValue];
+    [SVProgressHUD setMinimumDismissTimeInterval:0.8];
     switch (messageType) {
         case MessageTypeDefault:
             [SVProgressHUD showWithStatus:message];

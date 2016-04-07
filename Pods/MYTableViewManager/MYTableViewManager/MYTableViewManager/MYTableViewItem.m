@@ -26,8 +26,8 @@
 }
 
 - (NSIndexPath *)indexPath {
-    return nil;
-    //    return [NSIndexPath indexPathForRow:[self.section.items indexOfObject:self] inSection:self.section.index];
+//    return nil;
+        return [NSIndexPath indexPathForRow:[self.section.items indexOfObject:self] inSection:self.section.index];
 }
 
 #pragma mark -

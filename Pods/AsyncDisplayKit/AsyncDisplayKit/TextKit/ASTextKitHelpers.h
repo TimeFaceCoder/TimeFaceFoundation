@@ -12,6 +12,8 @@
 #import <UIKit/UIKit.h>
 #import "ASBaseDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ASDISPLAYNODE_INLINE CGFloat ceilPixelValueForScale(CGFloat f, CGFloat scale)
 {
   // Round up to device pixel (.5 on retina)
@@ -35,12 +37,11 @@ ASDISPLAYNODE_INLINE CGSize ceilSizeValue(CGSize s)
  @return An `ASTextKitComponents` containing the created components. The text view component will be nil.
  @discussion The returned components will be hooked up together, so they are ready for use as a system upon return.
  */
-+ (ASTextKitComponents *)componentsWithAttributedSeedString:(NSAttributedString *)attributedSeedString
++ (ASTextKitComponents *)componentsWithAttributedSeedString:(nullable NSAttributedString *)attributedSeedString
                                           textContainerSize:(CGSize)textContainerSize;
 
 /**
  @abstract Returns the bounding size for the text view's text.
- @param components The TextKit components to calculate the constrained size of the text for.
  @param constrainedWidth The constraining width to be used during text-sizing. Usually, this value should be the receiver's calculated size.
  @result A CGSize representing the bounding size for the receiver's text.
  */
@@ -49,6 +50,8 @@ ASDISPLAYNODE_INLINE CGSize ceilSizeValue(CGSize s)
 @property (nonatomic, strong, readonly) NSTextStorage *textStorage;
 @property (nonatomic, strong, readonly) NSTextContainer *textContainer;
 @property (nonatomic, strong, readonly) NSLayoutManager *layoutManager;
-@property (nonatomic, strong) UITextView *textView;
+@property (nullable, nonatomic, strong) UITextView *textView;
 
 @end
+
+NS_ASSUME_NONNULL_END

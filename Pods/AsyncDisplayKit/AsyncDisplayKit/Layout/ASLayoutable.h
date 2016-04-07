@@ -19,6 +19,8 @@
 @class ASLayout;
 @class ASLayoutSpec;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** 
  * The ASLayoutable protocol declares a method for measuring the layout of an object. A layout
  * is defined by an ASLayout return value, and must specify 1) the size (but not position) of the
@@ -33,7 +35,7 @@
  * These layout options are all stored in an ASLayoutOptions class (that is defined in ASLayoutablePrivate).
  * Generally you needn't worry about the layout options class, as the layoutable protocols allow all direct
  * access to the options via convenience properties. If you are creating custom layout spec, then you can
- * extend the backing layout options class to accomodate any new layout options.
+ * extend the backing layout options class to accommodate any new layout options.
  */
 @protocol ASLayoutable <ASStackLayoutable, ASStaticLayoutable, ASLayoutablePrivate>
 
@@ -107,3 +109,5 @@
 @property (nonatomic, assign) CGPoint layoutPosition;
 
 @end
+
+NS_ASSUME_NONNULL_END

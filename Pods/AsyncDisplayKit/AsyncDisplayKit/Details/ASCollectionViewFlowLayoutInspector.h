@@ -6,12 +6,13 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <Foundation/Foundation.h>
+#pragma once
 
+#import <Foundation/Foundation.h>
 #import <AsyncDisplayKit/ASDimension.h>
 
 @class ASCollectionView;
-@protocol ASCollectionViewDelegate;
+@protocol ASCollectionDelegate;
 
 @protocol ASCollectionViewLayoutInspecting <NSObject>
 
@@ -42,7 +43,7 @@
  *
  * @discussion A great time to update perform selector caches!
  */
-- (void)didChangeCollectionViewDelegate:(id<ASCollectionViewDelegate>)delegate;
+- (void)didChangeCollectionViewDelegate:(id<ASCollectionDelegate>)delegate;
 
 @end
 

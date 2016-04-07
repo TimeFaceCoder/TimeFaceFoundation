@@ -18,7 +18,6 @@
   __weak ASTextKitContext *_context;
   NSAttributedString *_truncationAttributedString;
   NSCharacterSet *_avoidTailTruncationSet;
-  CGSize _constrainedSize;
 }
 @synthesize visibleRanges = _visibleRanges;
 @synthesize truncationStringRect = _truncationStringRect;
@@ -26,13 +25,11 @@
 - (instancetype)initWithContext:(ASTextKitContext *)context
      truncationAttributedString:(NSAttributedString *)truncationAttributedString
          avoidTailTruncationSet:(NSCharacterSet *)avoidTailTruncationSet
-                constrainedSize:(CGSize)constrainedSize
 {
   if (self = [super init]) {
     _context = context;
     _truncationAttributedString = truncationAttributedString;
     _avoidTailTruncationSet = avoidTailTruncationSet;
-    _constrainedSize = constrainedSize;
 
     [self _truncate];
   }
@@ -62,9 +59,10 @@
                                                                 effectiveRange:NULL];
   NSParagraphStyle *paragraphStyle = [textStorage attributesAtIndex:[layoutManager characterIndexForGlyphAtIndex:lastVisibleGlyphIndex]
                                                      effectiveRange:NULL][NSParagraphStyleAttributeName];
+  
   // We assume LTR so long as the writing direction is not
   BOOL rtlWritingDirection = paragraphStyle ? paragraphStyle.baseWritingDirection == NSWritingDirectionRightToLeft : NO;
-  // We only want to treat the trunction rect as left-aligned in the case that we are right-aligned and our writing
+  // We only want to treat the truncation rect as left-aligned in the case that we are right-aligned and our writing
   // direction is RTL.
   BOOL leftAligned = CGRectGetMinX(lastLineRect) == CGRectGetMinX(lastLineUsedRect) || !rtlWritingDirection;
 
@@ -74,8 +72,9 @@
                                                                       maximumNumberOfLines:1
                                                                             exclusionPaths:nil
                                                                            constrainedSize:constrainedRect.size
-                                                                      layoutManagerFactory:nil];
-
+                                                                      layoutManagerCreationBlock:nil
+                                                                     layoutManagerDelegate:nil
+                                                                  textStorageCreationBlock:nil];
   __block CGRect truncationUsedRect;
 
   [truncationContext performBlockWithLockedTextKitComponents:^(NSLayoutManager *truncationLayoutManager, NSTextStorage *truncationTextStorage, NSTextContainer *truncationTextContainer) {

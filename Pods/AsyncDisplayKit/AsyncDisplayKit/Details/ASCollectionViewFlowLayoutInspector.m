@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "ASCollectionViewFlowLayoutInspector.h"
-
 #import "ASCollectionView.h"
 #import "ASAssert.h"
 #import "ASEqualityHelpers.h"
@@ -36,7 +35,7 @@
   return self;
 }
 
-- (void)didChangeCollectionViewDelegate:(id<ASCollectionViewDelegate>)delegate;
+- (void)didChangeCollectionViewDelegate:(id<ASCollectionDelegate>)delegate;
 {
   if (delegate == nil) {
     _delegateImplementsReferenceSizeForHeader = NO;
@@ -105,11 +104,7 @@
 - (BOOL)layoutHasSupplementaryViewOfKind:(NSString *)kind inSection:(NSUInteger)section collectionView:(ASCollectionView *)collectionView
 {
   CGSize size = [self sizeForSupplementaryViewOfKind:kind inSection:section collectionView:collectionView];
-  if ([self usedLayoutValueForSize:size] > 0) {
-    return YES;
-  } else {
-    return NO;
-  }
+  return [self usedLayoutValueForSize:size] > 0;
 }
 
 - (CGFloat)usedLayoutValueForSize:(CGSize)size

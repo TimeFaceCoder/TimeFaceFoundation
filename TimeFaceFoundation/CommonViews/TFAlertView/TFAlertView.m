@@ -178,6 +178,7 @@ const static NSInteger kSecondButtonTag = 101;
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.firstLineHeadIndent = 0;
             paragraphStyle.lineSpacing         = 10;
+            paragraphStyle.alignment = NSTextAlignmentCenter;
             NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:TFSTYLEVAR(font16),NSFontAttributeName,
                                         paragraphStyle,NSParagraphStyleAttributeName,nil];
             

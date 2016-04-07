@@ -26,19 +26,31 @@
 /// @name HHRouter
 ///---------------
 
+typedef NS_ENUM (NSInteger, HHRouteType) {
+    HHRouteTypeNone = 0,
+    HHRouteTypeViewController = 1,
+    HHRouteTypeBlock = 2
+};
+
 typedef id (^HHRouterBlock)(NSDictionary *params);
+
+extern NSString *const TFParameterUserInfo;
 
 @interface HHRouter : NSObject
 
 + (instancetype)shared;
 
 - (void)map:(NSString *)route toControllerClass:(Class)controllerClass;
+- (void)mapWith:(NSDictionary *)param toControllerClass:(Class)controllerClass;
 - (UIViewController *)match:(NSString *)route __attribute__((deprecated));
 - (UIViewController *)matchController:(NSString *)route;
+- (UIViewController *)matchController:(NSString *)route userInfo:(NSDictionary *)userInfo;
 
 - (void)map:(NSString *)route toBlock:(HHRouterBlock)block;
 - (HHRouterBlock)matchBlock:(NSString *)route;
 - (id)callBlock:(NSString *)route;
+
+- (HHRouteType)canRoute:(NSString *)route;
 
 @end
 

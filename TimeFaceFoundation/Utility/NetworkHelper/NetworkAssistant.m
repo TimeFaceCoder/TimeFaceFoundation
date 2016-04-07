@@ -201,7 +201,8 @@
     NSAssert(completedBlock,@"completedBlock is nil");
     
     if (hud.length) {
-        [SVProgressHUD showWithStatus:hud maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:hud];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     }
     if (![url hasPrefix:@"http"]) {
         if (_urlBlock) {

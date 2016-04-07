@@ -1,40 +1,41 @@
 PODS:
-  - ActionSheetPicker-3.0 (2.0.4)
-  - AFNetworking (3.0.4):
-    - AFNetworking/NSURLSession (= 3.0.4)
-    - AFNetworking/Reachability (= 3.0.4)
-    - AFNetworking/Security (= 3.0.4)
-    - AFNetworking/Serialization (= 3.0.4)
-    - AFNetworking/UIKit (= 3.0.4)
-  - AFNetworking/NSURLSession (3.0.4):
+  - ActionSheetPicker-3.0 (2.0.5)
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.0.4)
-  - AFNetworking/Security (3.0.4)
-  - AFNetworking/Serialization (3.0.4)
-  - AFNetworking/UIKit (3.0.4):
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AnimatedGIFImageSerialization (0.2.0)
-  - AsyncDisplayKit (1.9.3):
-    - AsyncDisplayKit/ASDealloc2MainObject (= 1.9.3)
-  - AsyncDisplayKit/ASDealloc2MainObject (1.9.3)
+  - AsyncDisplayKit (1.9.7.1):
+    - AsyncDisplayKit/PINRemoteImage (= 1.9.7.1)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.9.7.1)
+  - AsyncDisplayKit/PINRemoteImage (1.9.7.1):
+    - AsyncDisplayKit/ASDealloc2MainObject
+    - PINRemoteImage/iOS (>= 2.1.2)
   - DateTools (1.7.0)
   - EGOCache (2.1.3)
-  - FLAnimatedImage (1.0.10)
-  - FMDB (2.5):
-    - FMDB/standard (= 2.5)
-  - FMDB/common (2.5)
-  - FMDB/standard (2.5):
-    - FMDB/common
+  - FLAnimatedImage (1.0.12)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - GKFadeNavigationController (0.5.2)
   - GPUImage (0.1.7)
-  - HHRouter (0.1.5)
+  - HHRouter (0.1.6)
   - JDStatusBarNotification (1.5.3)
-  - JSONModel (1.1.2)
-  - JTCalendar (2.1.4)
-  - Masonry (0.6.3)
-  - MYTableViewManager (0.1.2):
+  - JSONModel (1.2.0)
+  - JTCalendar (2.1.5)
+  - Masonry (1.0.0)
+  - MYTableViewManager (0.1.4):
     - AsyncDisplayKit
     - pop
   - NJKWebViewProgress (0.2.3):
@@ -42,25 +43,27 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
-  - PINCache (2.1.2)
-  - PINRemoteImage (1.2.2):
-    - PINRemoteImage/FLAnimatedImage (= 1.2.2)
-  - PINRemoteImage/Core (1.2.2):
+  - PINCache (2.2.2)
+  - PINRemoteImage (2.1.2):
+    - PINRemoteImage/FLAnimatedImage (= 2.1.2)
+  - PINRemoteImage/Core (2.1.2):
     - PINCache (>= 2.1)
-  - PINRemoteImage/FLAnimatedImage (1.2.2):
+  - PINRemoteImage/FLAnimatedImage (2.1.2):
     - FLAnimatedImage (>= 1.0)
     - PINRemoteImage/Core
-  - pop (1.0.8)
-  - REFormattedNumberField (1.1.5)
+  - PINRemoteImage/iOS (2.1.2):
+    - PINRemoteImage/Core
+  - pop (1.0.9)
+  - REFormattedNumberField (1.1.6)
   - RETableViewManager (1.6):
     - REFormattedNumberField (~> 1.1.5)
     - REValidation (~> 0.1.4)
   - REValidation (0.1.4)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
-  - SSKeychain (1.3.1)
-  - SVProgressHUD (1.1.3)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
+  - SSKeychain (1.4.0)
+  - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0
@@ -71,12 +74,12 @@ DEPENDENCIES:
   - FMDB
   - GKFadeNavigationController
   - GPUImage
-  - HHRouter
-  - JDStatusBarNotification
+  - HHRouter (from `https://github.com/TimeFaceCoder/HHRouter.git`)
+  - JDStatusBarNotification (from `https://github.com/TimeFaceCoder/JDStatusBarNotification.git`)
   - JSONModel
   - JTCalendar
   - Masonry
-  - MYTableViewManager (from `https://github.com/melvin7/MYTableViewManager.git`)
+  - MYTableViewManager (from `https://github.com/TimeFaceCoder/MYTableViewManager`)
   - NJKWebViewProgress
   - PINRemoteImage
   - pop
@@ -86,40 +89,50 @@ DEPENDENCIES:
   - SVProgressHUD
 
 EXTERNAL SOURCES:
+  HHRouter:
+    :git: https://github.com/TimeFaceCoder/HHRouter.git
+  JDStatusBarNotification:
+    :git: https://github.com/TimeFaceCoder/JDStatusBarNotification.git
   MYTableViewManager:
-    :git: https://github.com/melvin7/MYTableViewManager.git
+    :git: https://github.com/TimeFaceCoder/MYTableViewManager
 
 CHECKOUT OPTIONS:
+  HHRouter:
+    :commit: 601f927aeb043545f7d19aa0861de03b0ddd67cd
+    :git: https://github.com/TimeFaceCoder/HHRouter.git
+  JDStatusBarNotification:
+    :commit: 6d8a748a67ba2b8b8d6a13e1ad0279bc377edd3e
+    :git: https://github.com/TimeFaceCoder/JDStatusBarNotification.git
   MYTableViewManager:
-    :commit: a8d7d8334e1f5dc4063ea97adda32cb8d90becc5
-    :git: https://github.com/melvin7/MYTableViewManager.git
+    :commit: c2a92abc27799e8564d04c48b88373eb8d1d06d9
+    :git: https://github.com/TimeFaceCoder/MYTableViewManager
 
 SPEC CHECKSUMS:
-  ActionSheetPicker-3.0: 860466cb4a66854e6acb590071ecee404b48f49d
-  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
-  AsyncDisplayKit: 87d340329280dba0363da3587a43f9d1bbe62aac
+  AsyncDisplayKit: 2b52f841e384e7326d4f59323b1bf35d00696e17
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
-  FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
-  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GKFadeNavigationController: 87dec5159db580ee1f2ba263720045bec50404ee
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  HHRouter: c82ce169fea838ea85a819133df40d19605f5c95
+  HHRouter: 42ea16fc59e216ba62bbfbaeaf32f2b671040d3b
   JDStatusBarNotification: 29413865af11c862c17180610b0f46a21118b412
-  JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
-  JTCalendar: 9b1352c7ec41cc26b19c189d6608ba48060a53d9
-  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
-  MYTableViewManager: d86bc3fee8f99491422a343f38a470a69c9d17da
+  JSONModel: 12523685c4b623553ccf844bbbf7007624317b2c
+  JTCalendar: 57a4420f12d10c93c3b28da96803e7043d1c9281
+  Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
+  MYTableViewManager: 3ac24430bf17cfa59b825507dfc7cc7b73fb1ed6
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
-  PINCache: 9e70271f1bdd60c0465b7208adcc4b6acc1fc376
-  PINRemoteImage: 9f6f484bbceee15e2df5aee0beeac2e261e4ac81
-  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
-  REFormattedNumberField: be3d55dd709f65541fb26b7e1709da07903147f8
+  PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
+  PINRemoteImage: 2ce3f1fcc52f0360a3821f91f1a1bc653c5d2338
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  REFormattedNumberField: 70fc5fb1218ebd5ee9983820defd12806d5c6ec6
   RETableViewManager: 9667ecb29c005c32df40a1dd1828224840a351a2
   REValidation: 38c4de1be58455f8b00aab208ac80db316a66b7f
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  SSKeychain: 04c4ec40f4c3deda524e269bc76e5f30e638a174
-  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
 COCOAPODS: 0.39.0

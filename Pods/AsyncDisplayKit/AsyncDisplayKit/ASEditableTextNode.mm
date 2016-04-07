@@ -16,16 +16,42 @@
 #import "ASTextNodeWordKerner.h"
 #import "ASThread.h"
 
-//! @abstract This subclass exists solely to ensure the text view's panGestureRecognizer never begins, because it's sporadically enabled by UITextView. It will be removed pending rdar://14729288.
-@interface _ASDisabledPanUITextView : UITextView
+/**
+ @abstract As originally reported in rdar://14729288, when scrollEnabled = NO,
+   UITextView does not calculate its contentSize. This makes it difficult 
+   for a client to embed a UITextView inside a different scroll view with 
+   other content (setting scrollEnabled = NO on the UITextView itself,
+   because the containing scroll view will handle the gesture)...
+   because accessing contentSize is typically necessary to perform layout.
+   Apple later closed the issue as expected behavior. This works around
+   the issue by ensuring that contentSize is always calculated, while
+   still providing control over the UITextView's scrolling.
+
+ See issue: https://github.com/facebook/AsyncDisplayKit/issues/1063
+ */
+@interface ASPanningOverriddenUITextView : UITextView
+{
+  BOOL _shouldBlockPanGesture;
+}
 @end
 
-@implementation _ASDisabledPanUITextView
+@implementation ASPanningOverriddenUITextView
+
+- (BOOL)scrollEnabled
+{
+  return _shouldBlockPanGesture;
+}
+
+- (void)setScrollEnabled:(BOOL)scrollEnabled
+{
+  _shouldBlockPanGesture = !scrollEnabled;
+  [super setScrollEnabled:YES];
+}
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-  // Never allow our pans to begin.
-  if (gestureRecognizer == self.panGestureRecognizer)
+  // Never allow our pans to begin when _shouldBlockPanGesture is true.
+  if (_shouldBlockPanGesture && gestureRecognizer == self.panGestureRecognizer)
     return NO;
 
   // Otherwise, proceed as usual.
@@ -72,6 +98,7 @@
     return nil;
 
   _displayingPlaceholder = YES;
+  _scrollEnabled = YES;
 
   // Create the scaffolding for the text view.
   _textKitComponents = [ASTextKitComponents componentsWithAttributedSeedString:nil textContainerSize:CGSizeZero];
@@ -124,7 +151,6 @@
       textView.opaque = NO;
     }
     textView.textContainerInset = self.textContainerInset;
-    textView.clipsToBounds = NO; // We don't want selection handles cut off.
   };
 
   // Create and configure the placeholder text view.
@@ -136,9 +162,11 @@
 
   // Create and configure our text view.
   _textKitComponents.textView = self.textView;
-  //_textKitComponents.textView = NO; // Unfortunately there's a bug here with iOS 7 DP5 that causes the text-view to only be one line high when scrollEnabled is NO. rdar://14729288
+  _textKitComponents.textView.scrollEnabled = _scrollEnabled;
   _textKitComponents.textView.delegate = self;
+  #if TARGET_OS_IOS
   _textKitComponents.textView.editable = YES;
+  #endif
   _textKitComponents.textView.typingAttributes = _typingAttributes;
   _textKitComponents.textView.returnKeyType = _returnKeyType;
   _textKitComponents.textView.accessibilityHint = _placeholderTextKitComponents.textStorage.string;
@@ -159,6 +187,7 @@
 {
   ASDisplayNodeAssertMainThread();
 
+  [super layout];
   [self _layoutTextView];
 }
 
@@ -208,11 +237,18 @@
 #pragma mark - Configuration
 @synthesize delegate = _delegate;
 
+- (void)setScrollEnabled:(BOOL)scrollEnabled
+{
+  ASDN::MutexLocker l(_textKitLock);
+  _scrollEnabled = scrollEnabled;
+  [_textKitComponents.textView setScrollEnabled:_scrollEnabled];
+}
+
 - (UITextView *)textView
 {
   ASDisplayNodeAssertMainThread();
   if (!_textKitComponents.textView) {
-    _textKitComponents.textView = [[_ASDisabledPanUITextView alloc] initWithFrame:CGRectZero textContainer:_textKitComponents.textContainer];
+    _textKitComponents.textView = [[ASPanningOverriddenUITextView alloc] initWithFrame:CGRectZero textContainer:_textKitComponents.textContainer];
   }
   return _textKitComponents.textView;
 }
@@ -274,7 +310,7 @@
   if (ASObjectIsEqual(_placeholderTextKitComponents.textStorage, attributedPlaceholderText))
     return;
 
-  [_placeholderTextKitComponents.textStorage setAttributedString:attributedPlaceholderText ?: [[NSAttributedString alloc] initWithString:@""]];
+  [_placeholderTextKitComponents.textStorage setAttributedString:attributedPlaceholderText ? : [[NSAttributedString alloc] initWithString:@""]];
   _textKitComponents.textView.accessibilityHint = attributedPlaceholderText.string;
 }
 
@@ -297,7 +333,7 @@
 
   // If we (_cmd) are called while the text view itself is updating (-textViewDidUpdate:), you cannot update the text storage and expect perfect propagation to the text view.
   // Thus, we always update the textview directly if it's been created already.
-  if (ASObjectIsEqual((_textKitComponents.textView.attributedText ?: _textKitComponents.textStorage), attributedText))
+  if (ASObjectIsEqual((_textKitComponents.textView.attributedText ? : _textKitComponents.textStorage), attributedText))
     return;
 
   // If the cursor isn't at the end of the text, we need to preserve the selected range to avoid moving the cursor.

@@ -7,6 +7,7 @@
  */
 
 #import "ASTextNode.h"
+#import "ASTextNode+Beta.h"
 
 #import <AsyncDisplayKit/_ASDisplayLayer.h>
 #import <AsyncDisplayKit/ASAssert.h>
@@ -17,12 +18,14 @@
 
 #import "ASTextKitCoreTextAdditions.h"
 #import "ASTextKitHelpers.h"
+#import "ASTextKitFontSizeAdjuster.h"
 #import "ASTextKitRenderer.h"
 #import "ASTextKitRenderer+Positioning.h"
 #import "ASTextKitShadower.h"
 
 #import "ASInternalHelpers.h"
 #import "ASEqualityHelpers.h"
+#import "ASLayout.h"
 
 static const NSTimeInterval ASTextNodeHighlightFadeOutDuration = 0.15;
 static const NSTimeInterval ASTextNodeHighlightFadeInDuration = 0.1;
@@ -32,40 +35,27 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
 @interface ASTextNodeDrawParameters : NSObject
 
-- (instancetype)initWithRenderer:(ASTextKitRenderer *)renderer
-                      textOrigin:(CGPoint)textOrigin
-                 backgroundColor:(CGColorRef)backgroundColor;
+@property (nonatomic, assign, readonly) CGRect bounds;
 
-@property (nonatomic, strong, readonly) ASTextKitRenderer *renderer;
-
-@property (nonatomic, assign, readonly) CGPoint textOrigin;
-
-@property (nonatomic, assign, readonly) CGColorRef backgroundColor;
+@property (nonatomic, strong, readonly) UIColor *backgroundColor;
 
 @end
 
 @implementation ASTextNodeDrawParameters
 
-- (instancetype)initWithRenderer:(ASTextKitRenderer *)renderer
-                      textOrigin:(CGPoint)textOrigin
-                 backgroundColor:(CGColorRef)backgroundColor
+- (instancetype)initWithBounds:(CGRect)bounds
+               backgroundColor:(UIColor *)backgroundColor
 {
   if (self = [super init]) {
-    _renderer = renderer;
-    _textOrigin = textOrigin;
-    _backgroundColor = CGColorRetain(backgroundColor);
+    _bounds = bounds;
+    _backgroundColor = backgroundColor;
   }
   return self;
 }
 
-- (void)dealloc
-{
-  CGColorRelease(_backgroundColor);
-}
-
 @end
 
-@interface ASTextNode () <UIGestureRecognizerDelegate>
+@interface ASTextNode () <UIGestureRecognizerDelegate, NSLayoutManagerDelegate>
 
 @end
 
@@ -96,6 +86,8 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
 #pragma mark - NSObject
 
+static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName ];
+
 - (instancetype)init
 {
   if (self = [super init]) {
@@ -119,7 +111,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
     self.opaque = NO;
     self.backgroundColor = [UIColor clearColor];
 
-    self.linkAttributeNames = @[ NSLinkAttributeName ];
+    self.linkAttributeNames = DefaultLinkAttributeNames;
 
     // Accessibility
     self.isAccessibilityElement = YES;
@@ -154,6 +146,8 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   if (_shadowColor != NULL) {
     CGColorRelease(_shadowColor);
   }
+  
+  [self _invalidateRenderer];
 
   if (_longPressGestureRecognizer) {
     _longPressGestureRecognizer.delegate = nil;
@@ -168,24 +162,13 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   NSString *truncationString = [_composedTruncationString string];
   if (plainString.length > 50)
     plainString = [[plainString substringToIndex:50] stringByAppendingString:@"\u2026"];
-  return [NSString stringWithFormat:@"<%@: %p; text = \"%@\"; truncation string = \"%@\"; frame = %@>", self.class, self, plainString, truncationString, self.nodeLoaded ? NSStringFromCGRect(self.layer.frame) : nil];
+  return [NSString stringWithFormat:@"<%@: %p; text = \"%@\"; truncation string = \"%@\"; frame = %@; renderer = %p>", self.class, self, plainString, truncationString, self.nodeLoaded ? NSStringFromCGRect(self.layer.frame) : nil, _renderer];
 }
 
 #pragma mark - ASDisplayNode
 
-- (CGSize)calculateSizeThatFits:(CGSize)constrainedSize
-{
-  ASDisplayNodeAssert(constrainedSize.width >= 0, @"Constrained width for text (%f) is too  narrow", constrainedSize.width);
-  ASDisplayNodeAssert(constrainedSize.height >= 0, @"Constrained height for text (%f) is too short", constrainedSize.height);
-
-  _constrainedSize = constrainedSize;
-  [self _invalidateRenderer];
-  ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-    [self setNeedsDisplay];
-  });
-  return [[self _renderer] size];
-}
-
+// FIXME: Re-evaluate if it is still the right decision to clear the renderer at this stage.
+// This code was written before TextKit and when 512MB devices were still the overwhelming majority.
 - (void)displayDidFinish
 {
   [super displayDidFinish];
@@ -211,8 +194,9 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 {
   [super didLoad];
 
-  // If we are view-backed, support gesture interaction.
-  if (!self.isLayerBacked) {
+  // If we are view-backed and the delegate cares, support the long-press callback.
+  SEL longPressCallback = @selector(textNode:longPressedLinkAttribute:value:atPoint:textRange:);
+  if (!self.isLayerBacked && [self.delegate respondsToSelector:longPressCallback]) {
     _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handleLongPress:)];
     _longPressGestureRecognizer.cancelsTouchesInView = self.longPressCancelsTouches;
     _longPressGestureRecognizer.delegate = self;
@@ -223,34 +207,27 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 - (void)setFrame:(CGRect)frame
 {
   [super setFrame:frame];
-  if (!CGSizeEqualToSize(frame.size, _constrainedSize)) {
-    // Our bounds have changed to a size that is not identical to our constraining size,
-    // so our previous layout information is invalid, and TextKit may draw at the
-    // incorrect origin.
-    _constrainedSize = CGSizeMake(-INFINITY, -INFINITY);
-    [self _invalidateRenderer];
-  }
+  [self _invalidateRendererIfNeededForBoundsSize:frame.size];
 }
 
 - (void)setBounds:(CGRect)bounds
 {
   [super setBounds:bounds];
-  if (!CGSizeEqualToSize(bounds.size, _constrainedSize)) {
-    // Our bounds have changed to a size that is not identical to our constraining size,
-    // so our previous layout information is invalid, and TextKit may draw at the
-    // incorrect origin.
-    _constrainedSize = CGSizeMake(-INFINITY, -INFINITY);
-    [self _invalidateRenderer];
-  }
+  [self _invalidateRendererIfNeededForBoundsSize:bounds.size];
 }
 
 #pragma mark - Renderer Management
 
 - (ASTextKitRenderer *)_renderer
 {
+  return [self _rendererWithBounds:self.threadSafeBounds];
+}
+
+- (ASTextKitRenderer *)_rendererWithBounds:(CGRect)bounds
+{
   ASDN::MutexLocker l(_rendererLock);
   if (_renderer == nil) {
-    CGSize constrainedSize = _constrainedSize.width != -INFINITY ? _constrainedSize : self.bounds.size;
+    CGSize constrainedSize = _constrainedSize.width != -INFINITY ? _constrainedSize : bounds.size;
     _renderer = [[ASTextKitRenderer alloc] initWithTextKitAttributes:[self _rendererAttributes]
                                                      constrainedSize:constrainedSize];
   }
@@ -265,61 +242,146 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
     .lineBreakMode = _truncationMode,
     .maximumNumberOfLines = _maximumNumberOfLines,
     .exclusionPaths = _exclusionPaths,
+    .pointSizeScaleFactors = _pointSizeScaleFactors,
+    .layoutManagerCreationBlock = self.layoutManagerCreationBlock,
+    .textStorageCreationBlock = self.textStorageCreationBlock,
   };
 }
 
 - (void)_invalidateRenderer
 {
   ASDN::MutexLocker l(_rendererLock);
+  
   if (_renderer) {
     // Destruction of the layout managers/containers/text storage is quite
     // expensive, and can take some time, so we dispatch onto a bg queue to
     // actually dealloc.
     __block ASTextKitRenderer *renderer = _renderer;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    ASPerformBlockOnBackgroundThread(^{
       renderer = nil;
     });
+    _renderer = nil;
   }
-  _renderer = nil;
+}
+
+- (void)_invalidateRendererIfNeeded
+{
+  [self _invalidateRendererIfNeededForBoundsSize:self.threadSafeBounds.size];
+}
+
+- (void)_invalidateRendererIfNeededForBoundsSize:(CGSize)boundsSize
+{
+  if ([self _needInvalidateRendererForBoundsSize:boundsSize]) {
+    // Our bounds of frame have changed to a size that is not identical to our constraining size,
+    // so our previous layout information is invalid, and TextKit may draw at the
+    // incorrect origin.
+    _constrainedSize = CGSizeMake(-INFINITY, -INFINITY);
+    [self _invalidateRenderer];
+  }
+}
+
+#pragma mark - Layout and Sizing
+
+- (BOOL)_needInvalidateRendererForBoundsSize:(CGSize)boundsSize
+{
+  if (!_renderer) {
+    return YES;
+  }
+  
+  // If the size is not the same as the constraint we provided to the renderer, start out assuming we need
+  // a new one.  However, there are common cases where the constrained size doesn't need to be the same as calculated.
+  CGSize rendererConstrainedSize = _renderer.constrainedSize;
+  
+  if (CGSizeEqualToSize(boundsSize, rendererConstrainedSize)) {
+    return NO;
+  } else {
+    // It is very common to have a constrainedSize with a concrete, specific width but +Inf height.
+    // In this case, as long as the text node has bounds as large as the full calculatedLayout suggests,
+    // it means that the text has all the room it needs (as it was not vertically bounded).  So, we will not
+    // experience truncation and don't need to recreate the renderer with the size it already calculated,
+    // as this would essentially serve to set its constrainedSize to be its calculatedSize (unnecessary).
+    ASLayout *layout = self.calculatedLayout;
+    if (layout != nil && CGSizeEqualToSize(boundsSize, layout.size)) {
+      if (boundsSize.width != rendererConstrainedSize.width) {
+        // Don't bother changing _constrainedSize, as ASDisplayNode's -measure: method would have a cache miss
+        // and ask us to recalculate layout if it were called with the same calculatedSize that got us to this point!
+        _renderer.constrainedSize = boundsSize;
+      }
+      return NO;
+    } else {
+      return YES;
+    }
+  }
+}
+
+- (void)calculatedLayoutDidChange
+{
+  ASLayout *layout = self.calculatedLayout;
+  if (layout != nil) {
+    _constrainedSize = layout.size;
+    _renderer.constrainedSize = layout.size;
+  }
+}
+
+- (CGSize)calculateSizeThatFits:(CGSize)constrainedSize
+{
+  ASDisplayNodeAssert(constrainedSize.width >= 0, @"Constrained width for text (%f) is too  narrow", constrainedSize.width);
+  ASDisplayNodeAssert(constrainedSize.height >= 0, @"Constrained height for text (%f) is too short", constrainedSize.height);
+  
+  _constrainedSize = constrainedSize;
+  
+  // Instead of invalidating the renderer, in case this is a new call with a different constrained size,
+  // just update the size of the NSTextContainer that is owned by the renderer's internal context object.
+  [self _renderer].constrainedSize = _constrainedSize;
+
+  [self setNeedsDisplay];
+  
+  CGSize size = [[self _renderer] size];
+  if (self.attributedString.length > 0) {
+    CGFloat screenScale = ASScreenScale();
+    self.ascender = round([[_attributedString attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL] ascender] * screenScale)/screenScale;
+    self.descender = round([[_attributedString attribute:NSFontAttributeName atIndex:_attributedString.length - 1 effectiveRange:NULL] descender] * screenScale)/screenScale;
+    if (_renderer.currentScaleFactor > 0 && _renderer.currentScaleFactor < 1.0) {
+      // while not perfect, this is a good estimate of what the ascender of the scaled font will be.
+      self.ascender *= _renderer.currentScaleFactor;
+      self.descender *= _renderer.currentScaleFactor;
+    }
+  }
+  return size;
 }
 
 #pragma mark - Modifying User Text
 
-- (void)setAttributedString:(NSAttributedString *)attributedString {
-  if (ASObjectIsEqual(attributedString, _attributedString)) {
-    return;
-  }
-
+- (void)setAttributedString:(NSAttributedString *)attributedString
+{
   if (attributedString == nil) {
     attributedString = [[NSAttributedString alloc] initWithString:@"" attributes:nil];
   }
 
+  if (ASObjectIsEqual(attributedString, _attributedString)) {
+    return;
+  }
+
   _attributedString = ASCleanseAttributedStringOfCoreTextAttributes(attributedString);
 
+  // Sync the truncation string with attributes from the updated _attributedString
+  // Without this, the size calculation of the text with truncation applied will
+  // not take into account the attributes of attributedString in the last line
+  [self _updateComposedTruncationString];
+  
   // We need an entirely new renderer
   [self _invalidateRenderer];
 
-  ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-    // Tell the display node superclasses that the cached layout is incorrect now
-    [self invalidateCalculatedLayout];
+  // Tell the display node superclasses that the cached layout is incorrect now
+  [self invalidateCalculatedLayout];
 
-    [self setNeedsDisplay];
+  [self setNeedsDisplay];
 
-    self.accessibilityLabel = _attributedString.string;
+  self.accessibilityLabel = _attributedString.string;
 
-    if (_attributedString.length == 0) {
-      // We're not an accessibility element by default if there is no string.
-      self.isAccessibilityElement = NO;
-    } else {
-      self.isAccessibilityElement = YES;
-    }
-  });
-  
-  if (attributedString.length > 0) {
-    CGFloat screenScale = ASScreenScale();
-    self.ascender = round([[attributedString attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL] ascender] * screenScale)/screenScale;
-    self.descender = round([[attributedString attribute:NSFontAttributeName atIndex:attributedString.length - 1 effectiveRange:NULL] descender] * screenScale)/screenScale;
-  }
+  // We're an accessibility element by default if there is a string.
+  self.isAccessibilityElement = _attributedString.length != 0;
 }
 
 #pragma mark - Text Layout
@@ -333,9 +395,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   _exclusionPaths = [exclusionPaths copy];
   [self _invalidateRenderer];
   [self invalidateCalculatedLayout];
-  ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-    [self setNeedsDisplay];
-  });
+  [self setNeedsDisplay];
 }
 
 - (NSArray *)exclusionPaths
@@ -345,44 +405,40 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
 #pragma mark - Drawing
 
-+ (void)drawRect:(CGRect)bounds withParameters:(ASTextNodeDrawParameters *)parameters isCancelled:(asdisplaynode_iscancelled_block_t)isCancelledBlock isRasterizing:(BOOL)isRasterizing
+- (void)drawRect:(CGRect)bounds withParameters:(ASTextNodeDrawParameters *)parameters isCancelled:(asdisplaynode_iscancelled_block_t)isCancelledBlock isRasterizing:(BOOL)isRasterizing
 {
   CGContextRef context = UIGraphicsGetCurrentContext();
   ASDisplayNodeAssert(context, @"This is no good without a context.");
-
+  
   CGContextSaveGState(context);
-
+  
+  ASTextKitRenderer *renderer = [self _rendererWithBounds:parameters.bounds];
+  UIEdgeInsets shadowPadding = [self shadowPaddingWithRenderer:renderer];
+  CGPoint boundsOrigin = parameters.bounds.origin;
+  CGPoint textOrigin = CGPointMake(boundsOrigin.x - shadowPadding.left, boundsOrigin.y - shadowPadding.top);
+  
   // Fill background
   if (!isRasterizing) {
-    CGColorRef backgroundColor = parameters.backgroundColor;
+    UIColor *backgroundColor = parameters.backgroundColor;
     if (backgroundColor) {
-      CGContextSetFillColorWithColor(context, backgroundColor);
-      CGContextSetBlendMode(context, kCGBlendModeCopy);
-      // outset the background fill to cover fractional errors when drawing at a
-      // small contentsScale.
-      CGContextFillRect(context, CGRectInset(bounds, -2, -2));
-      CGContextSetBlendMode(context, kCGBlendModeNormal);
+      [backgroundColor setFill];
+      UIRectFillUsingBlendMode(CGContextGetClipBoundingBox(context), kCGBlendModeCopy);
     }
   }
-
+  
   // Draw shadow
-  [[parameters.renderer shadower] setShadowInContext:context];
-
+  [[renderer shadower] setShadowInContext:context];
+  
   // Draw text
-  bounds.origin = parameters.textOrigin;
-  [parameters.renderer drawInContext:context bounds:bounds];
-
+  bounds.origin = textOrigin;
+  [renderer drawInContext:context bounds:bounds];
+  
   CGContextRestoreGState(context);
 }
 
 - (NSObject *)drawParametersForAsyncLayer:(_ASDisplayLayer *)layer
 {
-  // Offset the text origin by any shadow padding
-  UIEdgeInsets shadowPadding = [self shadowPadding];
-  CGPoint textOrigin = CGPointMake(self.bounds.origin.x - shadowPadding.left, self.bounds.origin.y - shadowPadding.top);
-  return [[ASTextNodeDrawParameters alloc] initWithRenderer:[self _renderer]
-                                                 textOrigin:textOrigin
-                                            backgroundColor:self.backgroundColor.CGColor];
+  return [[ASTextNodeDrawParameters alloc] initWithBounds:self.threadSafeBounds backgroundColor:self.backgroundColor];
 }
 
 #pragma mark - Attributes
@@ -407,6 +463,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   ASTextKitRenderer *renderer = [self _renderer];
   NSRange visibleRange = renderer.visibleRanges[0];
   NSAttributedString *attributedString = _attributedString;
+  NSRange clampedRange = NSIntersectionRange(visibleRange, NSMakeRange(0, attributedString.length));
 
   // Check in a 9-point region around the actual touch point so we make sure
   // we get the best attribute for the touch.
@@ -414,7 +471,6 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
   // Final output vars
   __block id linkAttributeValue = nil;
-  __block NSString *linkAttributeName = nil;
   __block BOOL inTruncationMessage = NO;
 
   [renderer enumerateTextIndexesAtPosition:point usingBlock:^(NSUInteger characterIndex, CGRect glyphBoundingRect, BOOL *stop) {
@@ -447,7 +503,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
     for (NSString *attributeName in _linkAttributeNames) {
       NSRange range;
-      id value = [attributedString attribute:attributeName atIndex:characterIndex longestEffectiveRange:&range inRange:visibleRange];
+      id value = [attributedString attribute:attributeName atIndex:characterIndex longestEffectiveRange:&range inRange:clampedRange];
       NSString *name = attributeName;
 
       if (value == nil || name == nil) {
@@ -483,7 +539,6 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
         // Set the values for the next iteration
         linkAttributeValue = value;
-        linkAttributeName = name;
 
         break;
       }
@@ -517,7 +572,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 
   if (([self _pendingLinkTap] || [self _pendingTruncationTap])
       && [gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]
-      && CGRectContainsPoint(self.view.bounds, [gestureRecognizer locationInView:self.view])) {
+      && CGRectContainsPoint(self.threadSafeBounds, [gestureRecognizer locationInView:self.view])) {
     return NO;
   }
 
@@ -572,7 +627,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
         
         CABasicAnimation *fadeOut = [CABasicAnimation animationWithKeyPath:@"opacity"];
         fadeOut.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        fadeOut.fromValue = possibleFadeIn.toValue ?: @(((CALayer *)weakHighlightLayer.presentationLayer).opacity);
+        fadeOut.fromValue = possibleFadeIn.toValue ? : @(((CALayer *)weakHighlightLayer.presentationLayer).opacity);
         fadeOut.toValue = @0.0;
         fadeOut.fillMode = kCAFillModeBoth;
         fadeOut.duration = ASTextNodeHighlightFadeOutDuration;
@@ -835,11 +890,16 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
 {
   [super touchesMoved:touches withEvent:event];
 
+  UITouch *touch = [touches anyObject];
+  CGPoint locationInView = [touch locationInView:self.view];
+  // on 3D Touch enabled phones, this gets fired with changes in force, and usually will get fired immediately after touchesBegan:withEvent:
+  if (CGPointEqualToPoint([touch previousLocationInView:self.view], locationInView))
+    return;
+  
   // If touch has moved out of the current highlight range, clear the highlight.
   if (_highlightRange.length > 0) {
     NSRange range = NSMakeRange(0, 0);
-    CGPoint point = [[touches anyObject] locationInView:self.view];
-    [self _linkAttributeValueAtPoint:point
+    [self _linkAttributeValueAtPoint:locationInView
                        attributeName:NULL
                                range:&range
        inAdditionalTruncationMessage:NULL
@@ -887,9 +947,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
     }
     _shadowColor = shadowColor;
     [self _invalidateRenderer];
-    ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-      [self setNeedsDisplay];
-    });
+    [self setNeedsDisplay];
   }
 }
 
@@ -903,9 +961,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   if (!CGSizeEqualToSize(_shadowOffset, shadowOffset)) {
     _shadowOffset = shadowOffset;
     [self _invalidateRenderer];
-    ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-      [self setNeedsDisplay];
-    });
+    [self setNeedsDisplay];
   }
 }
 
@@ -919,9 +975,7 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   if (_shadowOpacity != shadowOpacity) {
     _shadowOpacity = shadowOpacity;
     [self _invalidateRenderer];
-    ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-      [self setNeedsDisplay];
-    });
+    [self setNeedsDisplay];
   }
 }
 
@@ -935,15 +989,18 @@ static NSString *ASTextNodeTruncationTokenAttributeName = @"ASTextNodeTruncation
   if (_shadowRadius != shadowRadius) {
     _shadowRadius = shadowRadius;
     [self _invalidateRenderer];
-    ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-      [self setNeedsDisplay];
-    });
+    [self setNeedsDisplay];
   }
 }
 
 - (UIEdgeInsets)shadowPadding
 {
-  return [self _renderer].shadower.shadowPadding;
+  return [self shadowPaddingWithRenderer:[self _renderer]];
+}
+
+- (UIEdgeInsets)shadowPaddingWithRenderer:(ASTextKitRenderer *)renderer
+{
+  return renderer.shadower.shadowPadding;
 }
 
 #pragma mark - Truncation Message
@@ -983,9 +1040,7 @@ static NSAttributedString *DefaultTruncationAttributedString()
   if (_truncationMode != truncationMode) {
     _truncationMode = truncationMode;
     [self _invalidateRenderer];
-    ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-      [self setNeedsDisplay];
-    });
+    [self setNeedsDisplay];
   }
 }
 
@@ -995,14 +1050,20 @@ static NSAttributedString *DefaultTruncationAttributedString()
   return visibleRange.length < _attributedString.length;
 }
 
+- (void)setPointSizeScaleFactors:(NSArray *)pointSizeScaleFactors
+{
+  if ([_pointSizeScaleFactors isEqualToArray:pointSizeScaleFactors] == NO) {
+    _pointSizeScaleFactors = pointSizeScaleFactors;
+    [self _invalidateRenderer];
+    [self setNeedsDisplay];
+  }}
+
 - (void)setMaximumNumberOfLines:(NSUInteger)maximumNumberOfLines
 {
     if (_maximumNumberOfLines != maximumNumberOfLines) {
         _maximumNumberOfLines = maximumNumberOfLines;
       [self _invalidateRenderer];
-      ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-        [self setNeedsDisplay];
-      });
+      [self setNeedsDisplay];
     }
 }
 
@@ -1013,13 +1074,16 @@ static NSAttributedString *DefaultTruncationAttributedString()
 
 #pragma mark - Truncation Message
 
-- (void)_invalidateTruncationString
+- (void)_updateComposedTruncationString
 {
   _composedTruncationString = [self _prepareTruncationStringForDrawing:[self _composedTruncationString]];
+}
+
+- (void)_invalidateTruncationString
+{
+  [self _updateComposedTruncationString];
   [self _invalidateRenderer];
-  ASDisplayNodeRespectThreadAffinityOfNode(self, ^{
-    [self setNeedsDisplay];
-  });
+  [self setNeedsDisplay];
 }
 
 /**
@@ -1050,6 +1114,10 @@ static NSAttributedString *DefaultTruncationAttributedString()
  */
 - (NSAttributedString *)_composedTruncationString
 {
+  //If we have neither return the default
+  if (!_additionalTruncationMessage && !_truncationAttributedString) {
+    return _composedTruncationString;
+  }
   // Short circuit if we only have one or the other.
   if (!_additionalTruncationMessage) {
     return _truncationAttributedString;

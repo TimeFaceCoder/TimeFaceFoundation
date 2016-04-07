@@ -11,6 +11,8 @@
 
 #import "JDStatusBarNotification.h"
 
+#import "GradientProgressView.h"
+
 @interface JDStatusBarStyle (Hidden)
 + (NSArray*)allDefaultStyleIdentifier;
 + (JDStatusBarStyle*)defaultStyleWithName:(NSString*)styleName;
@@ -25,7 +27,7 @@
 
 @interface JDStatusBarNotification ()
 @property (nonatomic, strong, readonly) UIWindow *overlayWindow;
-@property (nonatomic, strong, readonly) UIView *progressView;
+@property (nonatomic, strong, readonly) GradientProgressView *progressView;
 @property (nonatomic, strong, readonly) JDStatusBarView *topBar;
 
 @property (nonatomic, strong) NSTimer *dismissTimer;
@@ -344,6 +346,7 @@
     
     if (_progress == 0.0) {
         _progressView.frame = CGRectZero;
+        [_progressView stopAnimating];
         return;
     }
     
@@ -355,40 +358,8 @@
         [self.topBar insertSubview:self.progressView belowSubview:self.topBar.textLabel];
     }
     
-    // calculate progressView frame
-    CGRect frame = self.topBar.bounds;
-    CGFloat height = MIN(frame.size.height,MAX(0.5, self.activeStyle.progressBarHeight));
-    if (height == 20.0 && frame.size.height > height) height = frame.size.height;
-    frame.size.height = height;
-    frame.size.width = round(frame.size.width * progress);
     
-    // apply y-position from active style
-    CGFloat barHeight = self.topBar.bounds.size.height;
-    if (self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionBottom) {
-        frame.origin.y = barHeight - height;
-    } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionCenter) {
-        frame.origin.y = round((barHeight - height)/2.0);
-    } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionTop) {
-        frame.origin.y = 0.0;
-    } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionBelow) {
-        frame.origin.y = barHeight;
-    } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionNavBar) {
-        CGFloat navBarHeight = 44.0;
-        if (([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) &&
-            UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-            navBarHeight = 32.0;
-        }
-        frame.origin.y = barHeight + navBarHeight;
-    }
-    
-    // apply color from active style
-    self.progressView.backgroundColor = self.activeStyle.progressBarColor;
-    
-    // update progressView frame
-    BOOL animated = !CGRectEqualToRect(self.progressView.frame, CGRectZero);
-    [UIView animateWithDuration:animated ? 0.05 : 0.0 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.progressView.frame = frame;
-    } completion:nil];
+    [_progressView setProgress:progress];
 }
 
 - (void)showActivityIndicator:(BOOL)show
@@ -448,10 +419,36 @@
     return _topBar;
 }
 
-- (UIView *)progressView;
+- (GradientProgressView *)progressView;
 {
     if (_progressView == nil) {
-        _progressView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        // calculate progressView frame
+        CGRect frame = self.topBar.bounds;
+        CGFloat height = MIN(frame.size.height,MAX(0.5, self.activeStyle.progressBarHeight));
+        if (height == 20.0 && frame.size.height > height) height = frame.size.height;
+        frame.size.height = height;
+        // apply y-position from active style
+        CGFloat barHeight = self.topBar.bounds.size.height;
+        if (self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionBottom) {
+            frame.origin.y = barHeight - height;
+        } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionCenter) {
+            frame.origin.y = round((barHeight - height)/2.0);
+        } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionTop) {
+            frame.origin.y = 0.0;
+        } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionBelow) {
+            frame.origin.y = barHeight;
+        } else if(self.activeStyle.progressBarPosition == JDStatusBarProgressBarPositionNavBar) {
+            CGFloat navBarHeight = 44.0;
+            if (([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) &&
+                UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+                navBarHeight = 32.0;
+            }
+            frame.origin.y = barHeight + navBarHeight;
+        }
+        _progressView = [[GradientProgressView alloc] initWithFrame:frame];
+        _progressView.backgroundColor = self.activeStyle.progressBarColor;
+        [_progressView startAnimating];
     }
     return _progressView;
 }
@@ -529,59 +526,59 @@
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
-    - (NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
 #else
     - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 #endif
-    return [[self mainController] supportedInterfaceOrientations];
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return [[self mainController] preferredInterfaceOrientationForPresentation];
-}
-
-// statusbar
-
-static BOOL JDUIViewControllerBasedStatusBarAppearanceEnabled() {
-    static BOOL enabled = NO;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^{
-        enabled = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"UIViewControllerBasedStatusBarAppearance"] boolValue];
-    });
-    
-    return enabled;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    if(JDUIViewControllerBasedStatusBarAppearanceEnabled()) {
-        return [[self mainController] preferredStatusBarStyle];
+        return [[self mainController] supportedInterfaceOrientations];
     }
     
-    return [[UIApplication sharedApplication] statusBarStyle];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    if(JDUIViewControllerBasedStatusBarAppearanceEnabled()) {
-        return [[self mainController] preferredStatusBarUpdateAnimation];
+    - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+        return [[self mainController] preferredInterfaceOrientationForPresentation];
     }
-    return [super preferredStatusBarUpdateAnimation];
-}
-
-@end
-
-@implementation UIApplication (mainWindow)
-// we don't want the keyWindow, since it could be our own window
-- (UIWindow*)mainApplicationWindowIgnoringWindow:(UIWindow *)ignoringWindow {
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        if (!window.hidden && window != ignoringWindow) {
-            return window;
+    
+    // statusbar
+    
+    static BOOL JDUIViewControllerBasedStatusBarAppearanceEnabled() {
+        static BOOL enabled = NO;
+        static dispatch_once_t onceToken;
+        
+        dispatch_once(&onceToken, ^{
+            enabled = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"UIViewControllerBasedStatusBarAppearance"] boolValue];
+        });
+        
+        return enabled;
+    }
+    
+    - (UIStatusBarStyle)preferredStatusBarStyle {
+        if(JDUIViewControllerBasedStatusBarAppearanceEnabled()) {
+            return [[self mainController] preferredStatusBarStyle];
         }
+        
+        return [[UIApplication sharedApplication] statusBarStyle];
     }
-    return nil;
-}
-@end
+    
+    - (BOOL)prefersStatusBarHidden {
+        return NO;
+    }
+    
+    - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+        if(JDUIViewControllerBasedStatusBarAppearanceEnabled()) {
+            return [[self mainController] preferredStatusBarUpdateAnimation];
+        }
+        return [super preferredStatusBarUpdateAnimation];
+    }
+    
+    @end
+    
+    @implementation UIApplication (mainWindow)
+    // we don't want the keyWindow, since it could be our own window
+    - (UIWindow*)mainApplicationWindowIgnoringWindow:(UIWindow *)ignoringWindow {
+        for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+            if (!window.hidden && window != ignoringWindow) {
+                return window;
+            }
+        }
+        return nil;
+    }
+    @end

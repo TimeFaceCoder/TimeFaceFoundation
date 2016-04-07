@@ -12,6 +12,8 @@
 #import <AsyncDisplayKit/ASAssert.h>
 #import <AsyncDisplayKit/ASLayoutable.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern CGPoint const CGPointNull;
 
 extern BOOL CGPointIsNull(CGPoint point);
@@ -19,18 +21,37 @@ extern BOOL CGPointIsNull(CGPoint point);
 /** Represents a computed immutable layout tree. */
 @interface ASLayout : NSObject
 
+/**
+ * The underlying object described by this layout
+ */
 @property (nonatomic, weak, readonly) id<ASLayoutable> layoutableObject;
+
+/**
+ * Size of the current layout
+ */
 @property (nonatomic, readonly) CGSize size;
+
 /**
  * Position in parent. Default to CGPointNull.
  * 
  * @discussion When being used as a sublayout, this property must not equal CGPointNull.
  */
 @property (nonatomic, readwrite) CGPoint position;
-/** 
+
+/**
  * Array of ASLayouts. Each must have a valid non-null position.
  */
-@property (nonatomic, readonly) NSArray *sublayouts;
+@property (nonatomic, readonly) NSArray<ASLayout *> *sublayouts;
+
+/**
+ * A list of sublayouts that were not already flattened.
+ */
+@property (nonatomic, readonly) NSArray<ASLayout *> *immediateSublayouts;
+
+/**
+ * A boolean describing if the current layout has been flattened.
+ */
+@property (nonatomic, readonly, getter=isFlattened) BOOL flattened;
 
 /**
  * Initializer.
@@ -39,14 +60,15 @@ extern BOOL CGPointIsNull(CGPoint point);
  *
  * @param size The size of this layout.
  *
- * @param position The posiion of this layout within its parent (if available).
+ * @param position The position of this layout within its parent (if available).
  *
  * @param sublayouts Sublayouts belong to the new layout.
  */
 + (instancetype)layoutWithLayoutableObject:(id<ASLayoutable>)layoutableObject
                                       size:(CGSize)size
                                   position:(CGPoint)position
-                                sublayouts:(NSArray *)sublayouts;
+                                sublayouts:(nullable NSArray<ASLayout *> *)sublayouts
+                                 flattened:(BOOL)flattened;
 
 /**
  * Convenience initializer that has CGPointNull position.
@@ -62,7 +84,7 @@ extern BOOL CGPointIsNull(CGPoint point);
  */
 + (instancetype)layoutWithLayoutableObject:(id<ASLayoutable>)layoutableObject
                                       size:(CGSize)size
-                                sublayouts:(NSArray *)sublayouts;
+                                sublayouts:(nullable NSArray<ASLayout *> *)sublayouts;
 
 /**
  * Convenience that has CGPointNull position and no sublayouts. 
@@ -75,6 +97,18 @@ extern BOOL CGPointIsNull(CGPoint point);
  */
 + (instancetype)layoutWithLayoutableObject:(id<ASLayoutable>)layoutableObject size:(CGSize)size;
 
+/**
+ * Convenience initializer that is flattened and has CGPointNull position.
+ *
+ * @param layoutableObject The backing ASLayoutable object.
+ *
+ * @param size The size of this layout.
+ *
+ * @param sublayouts Sublayouts belong to the new layout.
+ */
++ (instancetype)flattenedLayoutWithLayoutableObject:(id<ASLayoutable>)layoutableObject
+                                               size:(CGSize)size
+                                         sublayouts:(nullable NSArray<ASLayout *> *)sublayouts;
 
 /**
  * @abstract Evaluates a given predicate block against each object in the receiving layout tree
@@ -88,4 +122,12 @@ extern BOOL CGPointIsNull(CGPoint point);
  */
 - (ASLayout *)flattenedLayoutUsingPredicateBlock:(BOOL (^)(ASLayout *evaluatedLayout))predicateBlock;
 
+/**
+ * @abstract Returns a valid frame for the current layout computed with the size and position.
+ * @discussion Clamps the layout's origin or position to 0 if any of the calculated values are infinite.
+ */
+- (CGRect)frame;
+
 @end
+
+NS_ASSUME_NONNULL_END
