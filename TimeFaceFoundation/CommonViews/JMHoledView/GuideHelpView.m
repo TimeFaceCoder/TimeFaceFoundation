@@ -26,6 +26,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _holeIndex = NSNotFound;
     }
     return self;
 }
@@ -45,6 +46,7 @@
     switch (guideModel.category) {
         case 0:     //手动
             [self doManualHelp:[guideModel.guides objectAtIndex:index]];
+            _holeIndex = index;
             break;
         case 1:     //全自动
         
@@ -270,6 +272,14 @@
     _guideModel.index++;
     [[TFDataHelper shared] save:_guideModel objId:_guideModel.viewId];
 
+    if (_delegate && [_delegate respondsToSelector:@selector(holedView:didSelectHoleAtIndex:)]) {
+        if (index == NSNotFound) {
+            [_delegate holedView:holedView didSelectHoleAtIndex:_holeIndex];
+        }else {
+            [_delegate holedView:holedView didSelectHoleAtIndex:_holeIndex];
+        }
+        
+    }
     
     if (_guideModel.index < _guideModel.guides.count) {
         [self showGuide:_guideModel index:_guideModel.index];
