@@ -277,7 +277,7 @@
     }
     if (_netWorkType == NetWorkActionTypeGet) {
         [manager GET:url
-          parameters:params
+          parameters:dic
             progress:^(NSProgress * _Nonnull downloadProgress) {
                 if (progressBlock) {
                     //                    progressBlock(percentDone,totalBytesWritten);
@@ -301,7 +301,7 @@
              }];
     } else if (_netWorkType == NetWorkActionTypePost){
         [manager POST:url
-           parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+           parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                if (fileData) {
                    for (NSDictionary *entry in fileData) {
                        if ([entry isKindOfClass:[NSDictionary class]]) {
