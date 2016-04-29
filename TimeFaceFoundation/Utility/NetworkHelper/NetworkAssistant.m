@@ -269,7 +269,7 @@
     for (NSString *key in [params keyEnumerator]) {
         id value = [params objectForKey:key];
         if ([value isKindOfClass:[NSString class]]) {
-            value = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            value = [self encodeString:value];
         }
         if (value) {
             [dic setObject:value forKey:key];
@@ -449,6 +449,19 @@
  */
 - (NSUInteger)totalCacheSize; {
     return 0;
+}
+
+
+
+- (NSString*)encodeString:(NSString*)unencodedString{
+    
+    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                                    (CFStringRef)unencodedString,
+                                                                                                    NULL,
+                                                                                                    (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                    kCFStringEncodingUTF8));
+    
+    return encodedString;
 }
 
 
