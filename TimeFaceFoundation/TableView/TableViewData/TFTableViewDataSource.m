@@ -139,7 +139,7 @@ const static NSInteger kPageSize = 60;
 - (void)addPullRefresh {
     __weak typeof(self) weakSelf =self;
     NSMutableArray *progress =[NSMutableArray array];
-    for (int i=1;i<=20;i++)
+    for (int i=1;i<=10;i++)
     {
         NSString *fname = [NSString stringWithFormat:@"Loading%02d",i];
         [progress addObject:[UIImage imageNamed:fname]];
