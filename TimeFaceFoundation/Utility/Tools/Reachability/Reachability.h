@@ -73,6 +73,11 @@ extern NSString *kReachabilityChangedNotification;
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress;
 
 /*!
+ * Use to check the reachability of a given IPv6 address.
+ */
++ (instancetype)reachabilityWithIPv6Address:(const struct sockaddr_in6 *)hostAddress;
+
+/*!
  * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
  */
 + (instancetype)reachabilityForInternetConnection;

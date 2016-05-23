@@ -132,42 +132,108 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 		if (returnValue != NULL)
 		{
 			returnValue->_reachabilityRef = reachability;
-			returnValue->_alwaysReturnLocalWiFiStatus = NO;
+            returnValue->_alwaysReturnLocalWiFiStatus = NO;  Reachability* returnValue = nil;
+            
+#if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
+            
+            struct sockaddr_in6 localWifiAddress;
+            bzero(&localWifiAddress, sizeof(localWifiAddress));
+            localWifiAddress.sin_len = sizeof(localWifiAddress);
+            localWifiAddress.sin_family = AF_INET6;
+            // IN_LINKLOCALNETNUM is defined in <netinet/in.h> as 169.254.0.0.
+            localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
+            returnValue = [self reachabilityWithIPv6Address: &localWifiAddress];
+            
+#else
+            
+            struct sockaddr_in localWifiAddress;
+            bzero(&localWifiAddress, sizeof(localWifiAddress));
+            localWifiAddress.sin_len = sizeof(localWifiAddress);
+            localWifiAddress.sin_family = AF_INET;
+            // IN_LINKLOCALNETNUM is defined in <netinet/in.h> as 169.254.0.0.
+            localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
+            returnValue = [self reachabilityWithAddress: &localWifiAddress];
+            
+#endif
+            
+            if (returnValue != NULL)
+            {
+                returnValue->_alwaysReturnLocalWiFiStatus = YES;
+            }
+            
+            return returnValue;
 		}
 	}
 	return returnValue;
 }
 
-
++ (instancetype)reachabilityWithIPv6Address:(const struct sockaddr_in6 *)hostAddress
+{
+    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
+    
+    Reachability* returnValue = NULL;
+    
+    if (reachability != NULL)
+    {
+        returnValue = [[self alloc] init];
+        if (returnValue != NULL)
+        {
+            returnValue->_reachabilityRef = reachability;
+            returnValue->_alwaysReturnLocalWiFiStatus = NO;
+        }
+    }
+    return returnValue;
+}
 
 + (instancetype)reachabilityForInternetConnection
 {
-	struct sockaddr_in zeroAddress;
-	bzero(&zeroAddress, sizeof(zeroAddress));
-	zeroAddress.sin_len = sizeof(zeroAddress);
-	zeroAddress.sin_family = AF_INET;
-    
-	return [self reachabilityWithAddress:&zeroAddress];
+#if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
+    struct sockaddr_in6 address;
+    bzero(&address, sizeof(address));
+    address.sin6_len = sizeof(address);
+    address.sin6_family = AF_INET6;
+    return [self reachabilityWithIPv6Address:&address];
+#else
+    struct sockaddr_in address;
+    bzero(&address, sizeof(address));
+    address.sin_len = sizeof(address);
+    address.sin_family = AF_INET;
+    return [self reachabilityWithAddress:&address];
+#endif
 }
-
 
 + (instancetype)reachabilityForLocalWiFi
 {
-	struct sockaddr_in localWifiAddress;
-	bzero(&localWifiAddress, sizeof(localWifiAddress));
-	localWifiAddress.sin_len = sizeof(localWifiAddress);
-	localWifiAddress.sin_family = AF_INET;
-
-	// IN_LINKLOCALNETNUM is defined in <netinet/in.h> as 169.254.0.0.
-	localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
-
-	Reachability* returnValue = [self reachabilityWithAddress: &localWifiAddress];
-	if (returnValue != NULL)
-	{
-		returnValue->_alwaysReturnLocalWiFiStatus = YES;
-	}
+    Reachability* returnValue = nil;
     
-	return returnValue;
+#if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
+    
+    struct sockaddr_in6 localWifiAddress;
+    bzero(&localWifiAddress, sizeof(localWifiAddress));
+    localWifiAddress.sin_len = sizeof(localWifiAddress);
+    localWifiAddress.sin_family = AF_INET6;
+    // IN_LINKLOCALNETNUM is defined in <netinet/in.h> as 169.254.0.0.
+    localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
+    returnValue = [self reachabilityWithIPv6Address: &localWifiAddress];
+    
+#else
+    
+    struct sockaddr_in localWifiAddress;
+    bzero(&localWifiAddress, sizeof(localWifiAddress));
+    localWifiAddress.sin_len = sizeof(localWifiAddress);
+    localWifiAddress.sin_family = AF_INET;
+    // IN_LINKLOCALNETNUM is defined in <netinet/in.h> as 169.254.0.0.
+    localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
+    returnValue = [self reachabilityWithAddress: &localWifiAddress];
+    
+#endif
+    
+    if (returnValue != NULL)
+    {
+        returnValue->_alwaysReturnLocalWiFiStatus = YES;
+    }
+    
+    return returnValue;
 }
 
 
