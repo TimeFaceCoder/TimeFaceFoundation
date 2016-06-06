@@ -421,6 +421,11 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     __weak UIPageViewController *weakPageViewController = self.pageViewController;
     __weak ViewPagerController *weakSelf = self;
     
+    if(!viewController)
+    {
+        return;
+    }
+    
     if (activeContentIndex == self.activeContentIndex) {
         
         [self.pageViewController setViewControllers:@[viewController]
