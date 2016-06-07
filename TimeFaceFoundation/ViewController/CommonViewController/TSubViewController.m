@@ -86,7 +86,6 @@
                                           }
                                       }];
     }
-    //[self checkGuide];
 }
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];

@@ -73,4 +73,6 @@ typedef NS_ENUM (NSInteger, MessageType) {
 - (NSString *)stateViewButtonTitle:(NSInteger)viewState;
 - (UIImage *)stateViewImage:(NSInteger)viewState;
 
+-(void) checkGuide;
+
 @end
