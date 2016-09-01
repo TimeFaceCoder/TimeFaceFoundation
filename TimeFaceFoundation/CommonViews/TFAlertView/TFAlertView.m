@@ -209,6 +209,10 @@ const static NSInteger kSecondButtonTag = 101;
             self.firstButton.tfLeft = kViewPadding;
             self.firstButton.tfTop = top;
             [_contentView addSubview:self.firstButton];
+            
+            [self.firstButton setBackgroundImage:[[TFCoreUtility sharedUtility] createImageWithColor:TFSTYLEVAR(alertOKColor)] forState:UIControlStateNormal];
+            [self.firstButton setBackgroundImage:[[TFCoreUtility sharedUtility] createImageWithColor:TFSTYLEVAR(alertOKHColor)] forState:UIControlStateHighlighted];
+            [self setFirstButtonTitle:NSLocalizedString(@"确认", nil)];
         }
         self.contentView.tfHeight = self.firstButton.tfBottom + 20;
     }

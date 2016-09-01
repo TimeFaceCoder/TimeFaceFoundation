@@ -22,6 +22,9 @@ static CGFloat const kSpaceToCoverStatusBars = 20.0f;
 - (void)setBarBgColor:(UIColor *)color {
     
     Class clazz=NSClassFromString(@"_UINavigationBarBackground");
+    if (!clazz) {
+        clazz = NSClassFromString(@"_UIBarBackground");
+    }
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:clazz]) {
             view.hidden=YES;
@@ -55,6 +58,8 @@ static CGFloat const kSpaceToCoverStatusBars = 20.0f;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    [self sendSubviewToBack:self.colorOverly];
     
 //    CALayer *border = [CALayer layer];
 //    border.borderColor = TFSTYLEVAR(navBarTitleColor).CGColor;
