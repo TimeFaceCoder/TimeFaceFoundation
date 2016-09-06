@@ -171,18 +171,15 @@
             responseCallback(@{@"status":@"1",@"info":@"success" });
         }];
         
-        
-        
         [self regestBridge];
+        
+        __weak typeof(self) weakSelf = self;
         
         //关闭当前页面
         [_jsBridge registerHandler:@"closeWebView" handler:^(id data, WVJBResponseCallback responseCallback)
          {
-             [self closeAction];
+             [weakSelf closeAction];
          }];
-        
-                
-               
         
         _progressProxy = [[NJKWebViewProgress alloc] init]; // instance variable
         _webView.delegate = _progressProxy;
