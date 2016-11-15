@@ -245,12 +245,23 @@ const static NSInteger kPageSize = 60;
         strongSelf.buildingView = YES;
         if (dataLoadPolicy == DataLoadPolicyReload ||
             dataLoadPolicy == DataLoadPolicyNone) {
-            //重新加载
+       
+            NSInteger sectionCount = 0;
             if (_managerFlag) {
+                sectionCount = strongSelf.mManager.sections.count;
                 [strongSelf.mManager removeAllSections];
+                
             }
             else {
+                sectionCount = strongSelf.manager.sections.count;
                 [strongSelf.manager removeAllSections];
+                
+            }
+            if (sectionCount > 0) {
+                [strongSelf.tableView beginUpdates];
+                [strongSelf.tableView deleteSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sectionCount)]
+                                    withRowAnimation:UITableViewRowAnimationFade];
+                [strongSelf.tableView endUpdates];
             }
         }
         
