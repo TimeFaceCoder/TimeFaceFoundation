@@ -12,7 +12,6 @@
 
 @implementation TFDataHelper
 
-const YTKKeyValueStore *store;
 + (instancetype) shared {
     static dispatch_once_t once;
     static TFDataHelper *instance = nil;

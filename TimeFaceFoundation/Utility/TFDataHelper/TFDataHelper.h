@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class YTKKeyValueStore;
+
+static const YTKKeyValueStore *store;
 
 @class ViewGuideModel;
 
