@@ -392,7 +392,6 @@
                                                                error:&error];
             }
             @catch (NSException *exception) {
-                
                 rootObject = nil;
             }
         }
