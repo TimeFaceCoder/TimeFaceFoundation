@@ -386,9 +386,15 @@
             //尝试GZIP
             responseObject = [responseObject gunzippedData];
             error = nil;
-            rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                         options:NSJSONReadingMutableContainers
-                                                           error:&error];
+            @try {
+                rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:&error];
+            }
+            @catch (NSException *exception) {
+                
+                rootObject = nil;
+            }
         }
         
     }
