@@ -44,9 +44,6 @@
     [super didLoad];
 }
 
-- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    return nil;
-}
 
 - (void)layout {
     [super layout];

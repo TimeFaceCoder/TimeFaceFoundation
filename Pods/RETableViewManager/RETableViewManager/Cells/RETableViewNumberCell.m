@@ -58,7 +58,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.textLabel.backgroundColor = [UIColor clearColor];
     
-    self.textField = [[REFormattedNumberField alloc] initWithFrame:CGRectNull];
+    self.textField = [[REFormattedNumberField alloc] initWithFrame:CGRectZero];
     self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textField.inputAccessoryView = self.actionBar;
     self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -114,7 +114,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isKindOfClass:[REBoolItem class]] && [keyPath isEqualToString:@"enabled"]) {
+    if ([object isKindOfClass:[RENumberItem class]] && [keyPath isEqualToString:@"enabled"]) {
         BOOL newValue = [[change objectForKey: NSKeyValueChangeNewKey] boolValue];
         
         self.enabled = newValue;

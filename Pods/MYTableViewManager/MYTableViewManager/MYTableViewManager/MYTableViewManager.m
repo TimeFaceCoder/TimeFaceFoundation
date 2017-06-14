@@ -223,7 +223,7 @@
                 
                 for (NSInteger i = indexPath.row; i < section.items.count; i++) {
                     MYTableViewItem *afterItem = [[section items] objectAtIndex:i];
-                    MYTableViewCell *cell = (MYTableViewCell *)[tableView cellForRowAtIndexPath:afterItem.indexPath];
+                    MYTableViewCell *cell = (MYTableViewCell *)[(ASTableView *)tableView nodeForRowAtIndexPath:afterItem.indexPath];
                     cell.rowIndex--;
                 }
             });
@@ -235,7 +235,7 @@
             
             for (NSInteger i = indexPath.row; i < section.items.count; i++) {
                 MYTableViewItem *afterItem = [[section items] objectAtIndex:i];
-                MYTableViewCell *cell = (MYTableViewCell *)[tableView cellForRowAtIndexPath:afterItem.indexPath];
+                MYTableViewCell *cell = (MYTableViewCell *)[(ASTableView *)tableView nodeForRowAtIndexPath:afterItem.indexPath];
                 cell.rowIndex--;
             }
         }
@@ -254,7 +254,17 @@
         MYTableViewCell *cell = (MYTableViewCell *)[tableView nodeForRowAtIndexPath:indexPath];
         [self.delegate my_tableView:tableView willLoadCell:cell forRowAtIndexPath:indexPath];
     }
+    if ([self.delegate respondsToSelector:@selector(tableView:willDisplayNodeForRowAtIndexPath:)]) {
+        [self.delegate tableView:tableView willDisplayNodeForRowAtIndexPath:indexPath];
+    }
 }
+
+- (void)tableView:(ASTableView *)tableView didEndDisplayingNode:(ASCellNode *)node forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(tableView:didEndDisplayingNode:forRowAtIndexPath:)]) {
+        [self.delegate tableView:tableView didEndDisplayingNode:node forRowAtIndexPath:indexPath];
+    }
+}
+
 
 #pragma mark -
 #pragma mark Table view delegate
@@ -520,11 +530,18 @@
     return item.editingStyle;
 }
 
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)]) {
+        return [self.delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
+    }
+    return nil;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Forward to UITableView delegate
     //
-    if ([self.delegate conformsToProtocol:@protocol(UITableViewDelegate)] && [self.delegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)])
+    if ([self.delegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)])
         return [self.delegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
     
     return NSLocalizedString(@"Delete", @"Delete");
@@ -773,6 +790,7 @@
 
 - (void)addSection:(MYTableViewSection *)section
 {
+    ASDisplayNodeAssert(!self.dataSourceLocked, @"Could not update data source when it is locked !");
     section.tableViewManager = self;
     [self.mutableSections addObject:section];
 }

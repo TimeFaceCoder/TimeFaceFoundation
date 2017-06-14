@@ -379,23 +379,27 @@
     }
     else {
         //使用JSON进行解析
-        rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                     options:NSJSONReadingMutableContainers
-                                                       error:&error];
-        if (!rootObject) {
-            //尝试GZIP
-            responseObject = [responseObject gunzippedData];
-            error = nil;
-            @try {
-                rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:&error];
-            }
-            @catch (NSException *exception) {
-                rootObject = nil;
+        if(responseObject)
+        {
+            //使用JSON进行解析
+            rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&error];
+            if (!rootObject) {
+                //尝试GZIP
+                responseObject = [responseObject gunzippedData];
+                error = nil;
+                @try {
+                    rootObject = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&error];
+                }
+                @catch (NSException *exception) {
+                    
+                    rootObject = nil;
+                }
             }
         }
-        
     }
     @autoreleasepool {
         if (!rootObject) {

@@ -1,23 +1,28 @@
-/*
- *  Copyright (c) 2014-present, Facebook, Inc.
- *  All rights reserved.
- *
- *  This source code is licensed under the BSD-style license found in the
- *  LICENSE file in the root directory of this source tree. An additional grant
- *  of patent rights can be found in the PATENTS file in the same directory.
- *
- */
+//
+//  ASDimension.mm
+//  AsyncDisplayKit
+//
+//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
+//  This source code is licensed under the BSD-style license found in the
+//  LICENSE file in the root directory of this source tree. An additional grant
+//  of patent rights can be found in the PATENTS file in the same directory.
+//
 
 #import "ASDimension.h"
 #import "ASAssert.h"
 
 ASRelativeDimension const ASRelativeDimensionUnconstrained = {};
 
-#pragma mark ASRelativeDimension
+#pragma mark - ASRelativeDimension
 
 ASRelativeDimension ASRelativeDimensionMake(ASRelativeDimensionType type, CGFloat value)
 {
-  if (type == ASRelativeDimensionTypePoints) { ASDisplayNodeCAssertPositiveReal(@"Points", value); }
+  if (type == ASRelativeDimensionTypePoints) {
+    ASDisplayNodeCAssertPositiveReal(@"Points", value);
+  } else if (type == ASRelativeDimensionTypePercent) {
+    // TODO: Enable this assertion for 2.0.  Check that there is no use case for using a larger value, e.g. to layout for a clipsToBounds = NO element.
+    // ASDisplayNodeCAssert( 0 <= value && value <= 1.0, @"ASRelativeDimension percent value (%f) must be between 0 and 1.", value);
+  }
   ASRelativeDimension dimension; dimension.type = type; dimension.value = value; return dimension;
 }
 
@@ -28,6 +33,7 @@ ASRelativeDimension ASRelativeDimensionMakeWithPoints(CGFloat points)
 
 ASRelativeDimension ASRelativeDimensionMakeWithPercent(CGFloat percent)
 {
+  // ASDisplayNodeCAssert( 0 <= percent && percent <= 1.0, @"ASRelativeDimension percent value (%f) must be between 0 and 1.", percent);
   return ASRelativeDimensionMake(ASRelativeDimensionTypePercent, percent);
 }
 
@@ -61,8 +67,7 @@ CGFloat ASRelativeDimensionResolve(ASRelativeDimension dimension, CGFloat parent
   }
 }
 
-#pragma mark -
-#pragma mark ASSizeRange
+#pragma mark - ASSizeRange
 
 ASSizeRange ASSizeRangeMake(CGSize min, CGSize max)
 {

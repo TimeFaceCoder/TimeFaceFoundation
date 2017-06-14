@@ -58,9 +58,10 @@ static char imageURLKey;
     
     if (url) {
         __weak UIImageView *wself = self;
-        id <SDWebImageOperation> operation = [SDWebImageManager.sharedManager downloadImageWithURL:url options:options progress:progressBlock completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        id <SDWebImageOperation> operation = [SDWebImageManager.sharedManager loadImageWithURL:url options:options progress:progressBlock completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
             if (!wself) return;
-            dispatch_main_sync_safe(^{
+            
+            dispatch_main_async_safe(^{
                 if (!wself) return;
                 if (image) {
                     __block UIImage *tempImage = nil;
@@ -89,7 +90,7 @@ static char imageURLKey;
                                 //识别到人脸
                                 tempImage = [self scaleImageFocusingOnRect:facesRect image:image];
                             }
-                            dispatch_main_sync_safe(^{
+                            dispatch_sync(dispatch_get_main_queue(), ^{
                                 if (animated) {
                                     CATransition *animation = [CATransition animation];
                                     animation.delegate = self;
@@ -123,7 +124,7 @@ static char imageURLKey;
                             [wself setNeedsLayout];
                         }
                     }
-                  
+                    
                 } else {
                     if ((options & SDWebImageDelayPlaceholder)) {
                         wself.image = placeholder;
@@ -131,10 +132,12 @@ static char imageURLKey;
                     }
                 }
                 if (completedBlock && finished) {
-                    completedBlock(image, error, cacheType, url);
+                    //                    completedBlock(image, error, cacheType, url);
                 }
             });
+            
         }];
+        
         [self sd_setImageLoadOperation:operation forKey:@"UIImageViewImageLoad"];
     } else {
         dispatch_main_async_safe(^{
@@ -157,9 +160,9 @@ static char imageURLKey;
     NSMutableArray *operationsArray = [[NSMutableArray alloc] init];
     
     for (NSURL *logoImageURL in arrayOfURLs) {
-        id <SDWebImageOperation> operation = [SDWebImageManager.sharedManager downloadImageWithURL:logoImageURL options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        id <SDWebImageOperation> operation = [SDWebImageManager.sharedManager loadImageWithURL:logoImageURL options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
             if (!wself) return;
-            dispatch_main_sync_safe(^{
+            dispatch_main_async_safe(^{
                 __strong UIImageView *sself = wself;
                 [sself stopAnimating];
                 if (sself && image) {
@@ -213,26 +216,26 @@ static char imageURLKey;
     UIGraphicsEndImageContext();
     
     
-//    NSInteger theRedRectangleTag = -3312;
-//    UIView* facesRectLine = [self viewWithTag:theRedRectangleTag];
-//    if (!facesRectLine) {
-//        facesRectLine = [[UIView alloc] initWithFrame:facesRect];
-//        facesRectLine.tag = theRedRectangleTag;
-//    }
-//    else {
-//        facesRectLine.frame = facesRect;
-//    }
-//    
-//    facesRectLine.backgroundColor = [UIColor clearColor];
-//    facesRectLine.layer.borderColor = [UIColor redColor].CGColor;
-//    facesRectLine.layer.borderWidth = 1;
-//    
-//    CGRect frame = facesRectLine.frame;
-//    frame.origin.x = imageRect.origin.x + frame.origin.x;
-//    frame.origin.y = imageRect.origin.y + frame.origin.y;
-//    facesRectLine.frame = frame;
-//    
-//    [self addSubview:facesRectLine];
+    //    NSInteger theRedRectangleTag = -3312;
+    //    UIView* facesRectLine = [self viewWithTag:theRedRectangleTag];
+    //    if (!facesRectLine) {
+    //        facesRectLine = [[UIView alloc] initWithFrame:facesRect];
+    //        facesRectLine.tag = theRedRectangleTag;
+    //    }
+    //    else {
+    //        facesRectLine.frame = facesRect;
+    //    }
+    //
+    //    facesRectLine.backgroundColor = [UIColor clearColor];
+    //    facesRectLine.layer.borderColor = [UIColor redColor].CGColor;
+    //    facesRectLine.layer.borderWidth = 1;
+    //
+    //    CGRect frame = facesRectLine.frame;
+    //    frame.origin.x = imageRect.origin.x + frame.origin.x;
+    //    frame.origin.y = imageRect.origin.y + frame.origin.y;
+    //    facesRectLine.frame = frame;
+    //
+    //    [self addSubview:facesRectLine];
     
     return newImage;
 }

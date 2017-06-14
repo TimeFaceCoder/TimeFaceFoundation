@@ -1,19 +1,16 @@
-/* Copyright (c) 2014-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
+//
+//  _ASDisplayView.mm
+//  AsyncDisplayKit
+//
+//  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
+//  This source code is licensed under the BSD-style license found in the
+//  LICENSE file in the root directory of this source tree. An additional grant
+//  of patent rights can be found in the PATENTS file in the same directory.
+//
 
 #import "_ASDisplayView.h"
 
-#import <objc/runtime.h>
-
 #import "_ASCoreAnimationExtras.h"
-#import "_ASAsyncTransactionContainer.h"
-#import "ASAssert.h"
-#import "ASDisplayNodeExtras.h"
 #import "ASDisplayNodeInternal.h"
 #import "ASDisplayNode+FrameworkPrivate.h"
 #import "ASDisplayNode+Subclasses.h"
@@ -31,6 +28,7 @@
   __unsafe_unretained ASDisplayNode *_node;  // Though UIView has a .node property added via category, since we can add an ivar to a subclass, use that for performance.
   BOOL _inHitTest;
   BOOL _inPointInside;
+  NSArray *_accessibleElements;
 }
 
 @synthesize asyncdisplaykit_node = _node;
@@ -41,7 +39,7 @@
 }
 
 #pragma mark - NSObject Overrides
-- (id)init
+- (instancetype)init
 {
   return [self initWithFrame:CGRectZero];
 }
@@ -55,7 +53,7 @@
 
 #pragma mark - UIView Overrides
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
   if (!(self = [super initWithFrame:frame]))
     return nil;
@@ -88,10 +86,16 @@
   UIView *currentSuperview = self.superview;
   if (!currentSuperview && newSuperview) {
     self.keepalive_node = _node;
-  }
-  else if (currentSuperview && !newSuperview) {
+  } else if (currentSuperview && !newSuperview) {
+    // Clearing keepalive_node may cause deallocation of the node.  In this case, __exitHierarchy may not have an opportunity (e.g. _node will be cleared
+    // by the time -didMoveToWindow occurs after this) to clear the Visible interfaceState, which we need to do before deallocation to meet an API guarantee.
+    if (_node.inHierarchy) {
+      [_node __exitHierarchy];
+    }
     self.keepalive_node = nil;
   }
+    
+  ASDisplayNodeAssert(self.keepalive_node == nil || newSuperview != nil, @"Keepalive reference should not exist if there is no superview.");
   
   if (newSuperview) {
     ASDisplayNode *supernode = _node.supernode;

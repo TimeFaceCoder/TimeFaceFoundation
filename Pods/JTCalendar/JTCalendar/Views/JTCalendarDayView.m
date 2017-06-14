@@ -83,6 +83,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     _textLabel.frame = self.bounds;
     
     CGFloat sizeCircle = MIN(self.frame.size.width, self.frame.size.height);
@@ -113,21 +115,25 @@
 }
 
 - (void)reload
-{
+{    
     static NSDateFormatter *dateFormatter = nil;
     if(!dateFormatter){
         dateFormatter = [_manager.dateHelper createDateFormatter];
-        [dateFormatter setDateFormat:@"dd"];
     }
-    
-    _textLabel.text = [dateFormatter stringFromDate:_date];
-        
+    [dateFormatter setDateFormat:self.dayFormat];
+
+    _textLabel.text = [ dateFormatter stringFromDate:_date];       
     [_manager.delegateManager prepareDayView:self];
 }
 
 - (void)didTouch
 {
     [_manager.delegateManager didTouchDayView:self];
+}
+
+- (NSString *)dayFormat
+{
+    return self.manager.settings.zeroPaddedDayFormat ? @"dd" : @"d";
 }
 
 @end

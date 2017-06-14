@@ -8,6 +8,8 @@
 
 #import "SDWebImageManager.h"
 
+typedef void(^SDWebImageCompletionBlock)(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL);
+
 @interface UIImageView (TFCache)
 
 /**

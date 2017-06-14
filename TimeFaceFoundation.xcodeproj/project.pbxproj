@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		42979CDF2F9E6D6770D3089A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB05BEFD8FC60321E377DB5B /* libPods.a */; };
 		4370CBA91BABE68000756E00 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4370CBAB1BABE68000756E00 /* Localizable.strings */; };
 		43A0809D1BA7A5BF00AEFCE5 /* TFDefaultStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A080761BA7A5BE00AEFCE5 /* TFDefaultStyle.m */; };
 		43A0809E1BA7A5BF00AEFCE5 /* TableViewLoadingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A0807A1BA7A5BE00AEFCE5 /* TableViewLoadingItemCell.m */; };
@@ -106,6 +105,7 @@
 		B0AED98B1C4C868E0080AAE0 /* NSDictionary+MessagePack.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AED97F1C4C868E0080AAE0 /* NSDictionary+MessagePack.m */; };
 		B0DB0A0F1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB0A0B1C2C0F0300516AEC /* UIScrollView+UzysAnimatedGifPullToRefresh.m */; };
 		B0DB0A101C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DB0A0D1C2C0F0300516AEC /* UzysAnimatedGifActivityIndicator.m */; };
+		BA6BE0B7CBC391DB7B0F0C7E /* libPods-TimeFaceFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D39C479E4E4B24660A09BC2 /* libPods-TimeFaceFoundation.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D39C479E4E4B24660A09BC2 /* libPods-TimeFaceFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimeFaceFoundation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		369D8E01230A64892502C489 /* Pods-TimeFaceFoundation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeFaceFoundation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TimeFaceFoundation/Pods-TimeFaceFoundation.debug.xcconfig"; sourceTree = "<group>"; };
 		4370CBAA1BABE68000756E00 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4370CBAC1BABE6A900756E00 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		43A080751BA7A5BE00AEFCE5 /* TFDefaultStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDefaultStyle.h; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		6CCF03AD1BA1849D005C4EC0 /* TimeFaceFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeFaceFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCF03B21BA1849D005C4EC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCF03B31BA1849D005C4EC0 /* TimeFaceFoundationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeFaceFoundationTests.m; sourceTree = "<group>"; };
+		75BA8D5ED9CA7A5674DAC7F7 /* Pods-TimeFaceFoundation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeFaceFoundation.release.xcconfig"; path = "Pods/Target Support Files/Pods-TimeFaceFoundation/Pods-TimeFaceFoundation.release.xcconfig"; sourceTree = "<group>"; };
 		9037073B0950373056FC7956 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B01AF52D1BCE4AAD0098B6AC /* DashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardView.h; sourceTree = "<group>"; };
 		B01AF52E1BCE4AAD0098B6AC /* DashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardView.m; sourceTree = "<group>"; };
@@ -337,7 +340,7 @@
 			files = (
 				43A0822C1BA7B19800AEFCE5 /* libz.dylib in Frameworks */,
 				43A0822A1BA7B06100AEFCE5 /* AddressBook.framework in Frameworks */,
-				42979CDF2F9E6D6770D3089A /* libPods.a in Frameworks */,
+				BA6BE0B7CBC391DB7B0F0C7E /* libPods-TimeFaceFoundation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +360,7 @@
 				43A0822B1BA7B19800AEFCE5 /* libz.dylib */,
 				43A082291BA7B06100AEFCE5 /* AddressBook.framework */,
 				DB05BEFD8FC60321E377DB5B /* libPods.a */,
+				0D39C479E4E4B24660A09BC2 /* libPods-TimeFaceFoundation.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -890,6 +894,8 @@
 			children = (
 				53773D8A31E2E42C2C8E5B36 /* Pods.debug.xcconfig */,
 				9037073B0950373056FC7956 /* Pods.release.xcconfig */,
+				369D8E01230A64892502C489 /* Pods-TimeFaceFoundation.debug.xcconfig */,
+				75BA8D5ED9CA7A5674DAC7F7 /* Pods-TimeFaceFoundation.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -901,12 +907,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6CCF03B71BA1849D005C4EC0 /* Build configuration list for PBXNativeTarget "TimeFaceFoundation" */;
 			buildPhases = (
-				2EBC38DE724D42187DC50F26 /* Check Pods Manifest.lock */,
+				2EBC38DE724D42187DC50F26 /* [CP] Check Pods Manifest.lock */,
 				6CCF03901BA1849D005C4EC0 /* Sources */,
 				6CCF03911BA1849D005C4EC0 /* Frameworks */,
 				6CCF03921BA1849D005C4EC0 /* Resources */,
-				9C6E39BBF4642D641F8BB886 /* Copy Pods Resources */,
-				0C70DB75210400C53385C745 /* Embed Pods Frameworks */,
+				9C6E39BBF4642D641F8BB886 /* [CP] Copy Pods Resources */,
+				0C70DB75210400C53385C745 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -946,7 +952,8 @@
 				TargetAttributes = {
 					6CCF03931BA1849D005C4EC0 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = N7HPU2D4KX;
+						DevelopmentTeam = AA34382B49;
+						ProvisioningStyle = Manual;
 					};
 					6CCF03AC1BA1849D005C4EC0 = {
 						CreatedOnToolsVersion = 6.4;
@@ -1000,49 +1007,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C70DB75210400C53385C745 /* Embed Pods Frameworks */ = {
+		0C70DB75210400C53385C745 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TimeFaceFoundation/Pods-TimeFaceFoundation-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2EBC38DE724D42187DC50F26 /* Check Pods Manifest.lock */ = {
+		2EBC38DE724D42187DC50F26 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		9C6E39BBF4642D641F8BB886 /* Copy Pods Resources */ = {
+		9C6E39BBF4642D641F8BB886 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TimeFaceFoundation/Pods-TimeFaceFoundation-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1264,11 +1271,12 @@
 		};
 		6CCF03B81BA1849D005C4EC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53773D8A31E2E42C2C8E5B36 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 369D8E01230A64892502C489 /* Pods-TimeFaceFoundation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = AA34382B49;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1276,8 +1284,10 @@
 				INFOPLIST_FILE = TimeFaceFoundation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.timeface.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.timeface.app.demo.timefacefoundation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "eae85d71-8342-49db-9389-0d1cdd84f1b0";
+				PROVISIONING_PROFILE_SPECIFIER = DemoAppDevelopmentProfile;
 				WARNING_CFLAGS = (
 					"-Wno-unreachable-code",
 					"-Wno-format",
@@ -1288,11 +1298,12 @@
 		};
 		6CCF03B91BA1849D005C4EC0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9037073B0950373056FC7956 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 75BA8D5ED9CA7A5674DAC7F7 /* Pods-TimeFaceFoundation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1300,8 +1311,9 @@
 				INFOPLIST_FILE = TimeFaceFoundation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.timeface.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.timeface.app.demo.timefacefoundation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WARNING_CFLAGS = (
 					"-Wno-unreachable-code",
 					"-Wno-format",

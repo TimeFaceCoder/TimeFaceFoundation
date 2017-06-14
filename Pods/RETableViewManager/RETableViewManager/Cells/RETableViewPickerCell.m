@@ -61,13 +61,13 @@
     [super cellDidLoad];
     self.textLabel.backgroundColor = [UIColor clearColor];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectNull];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectZero];
     self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textField.inputAccessoryView = self.actionBar;
     self.textField.delegate = self;
     [self addSubview:self.textField];
     
-    self.valueLabel = [[UILabel alloc] initWithFrame:CGRectNull];
+    self.valueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.valueLabel.font = [UIFont systemFontOfSize:17];
     self.valueLabel.backgroundColor = [UIColor clearColor];
     self.valueLabel.textColor = self.detailTextLabel.textColor;
@@ -76,7 +76,7 @@
     self.valueLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:self.valueLabel];
     
-    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectNull];
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.placeholderLabel.font = [UIFont systemFontOfSize:17];
     self.placeholderLabel.backgroundColor = [UIColor clearColor];
     self.placeholderLabel.textColor = [UIColor lightGrayColor];
@@ -91,6 +91,8 @@
 - (void)cellWillAppear
 {
     self.textLabel.text = self.item.title.length == 0 ? @" " : self.item.title;
+    self.imageView.image = self.item.image;
+    self.imageView.highlightedImage = self.item.highlightedImage;
     self.textField.inputView = self.pickerView;
     
     self.valueLabel.text = self.item.value ? [self.item.value componentsJoinedByString:@", "] : @"";
@@ -111,7 +113,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textField.frame = CGRectNull;
+    self.textField.frame = CGRectZero;
     self.textField.alpha = 0;
     
     [self layoutDetailView:self.valueLabel minimumWidth:[self.valueLabel.text re_sizeWithFont:self.valueLabel.font].width];
@@ -128,8 +130,8 @@
     if (selected && !self.item.inlinePicker) {
         [self.textField becomeFirstResponder];
         [self.item.options enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if ([self.item.options objectAtIndex:idx] && [self.item.value objectAtIndex:idx] > 0)
-                [self.pickerView selectRow:[[self.item.options objectAtIndex:idx] indexOfObject:[self.item.value objectAtIndex:idx]] inComponent:idx animated:NO];
+            if (self.item.options[idx] && self.item.value[idx] > 0)
+                [self.pickerView selectRow:[self.item.options[idx] indexOfObject:self.item.value[idx]] inComponent:idx animated:NO];
         }];
     }
     
@@ -164,7 +166,7 @@
 {
     NSMutableArray *value = [NSMutableArray array];
     [self.item.options enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSArray *options = [self.item.options objectAtIndex:idx];
+        NSArray *options = self.item.options[idx];
         NSString *valueText = [options objectAtIndex:[self.pickerView selectedRowInComponent:idx]];
         [value addObject:valueText];
     }];
@@ -201,7 +203,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isKindOfClass:[REBoolItem class]] && [keyPath isEqualToString:@"enabled"]) {
+    if ([object isKindOfClass:[REPickerItem class]] && [keyPath isEqualToString:@"enabled"]) {
         BOOL newValue = [[change objectForKey: NSKeyValueChangeNewKey] boolValue];
         
         self.enabled = newValue;
@@ -245,7 +247,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [[self.item.options objectAtIndex:component] count];
+    return [self.item.options[component] count];
 }
 
 #pragma mark -
@@ -253,8 +255,8 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    NSArray *items = [self.item.options objectAtIndex:component];
-    return [items objectAtIndex:row];
+    NSArray *items = self.item.options[component];
+    return items[row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component

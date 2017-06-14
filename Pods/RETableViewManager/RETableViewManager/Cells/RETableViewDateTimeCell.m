@@ -61,13 +61,13 @@
     [super cellDidLoad];
     self.textLabel.backgroundColor = [UIColor clearColor];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectNull];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectZero];
     self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.textField.inputAccessoryView = self.actionBar;
     self.textField.delegate = self;
     [self addSubview:self.textField];
     
-    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectNull];
+    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.dateLabel.font = [UIFont systemFontOfSize:17];
     self.dateLabel.backgroundColor = [UIColor clearColor];
     self.dateLabel.textColor = [[self class] detailTextLabelColor];
@@ -76,7 +76,7 @@
     self.dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:self.dateLabel];
     
-    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectNull];
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.placeholderLabel.font = [UIFont systemFontOfSize:17];
     self.placeholderLabel.backgroundColor = [UIColor clearColor];
     self.placeholderLabel.textColor = [UIColor lightGrayColor];
@@ -123,7 +123,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textField.frame = CGRectNull;
+    self.textField.frame = CGRectZero;
     self.textField.alpha = 0;
     
     [self layoutDetailView:self.dateLabel minimumWidth:[self.dateLabel.text re_sizeWithFont:self.dateLabel.font].width];
@@ -201,7 +201,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isKindOfClass:[REBoolItem class]] && [keyPath isEqualToString:@"enabled"]) {
+    if ([object isKindOfClass:[REDateTimeItem class]] && [keyPath isEqualToString:@"enabled"]) {
         BOOL newValue = [[change objectForKey: NSKeyValueChangeNewKey] boolValue];
         
         self.enabled = newValue;
