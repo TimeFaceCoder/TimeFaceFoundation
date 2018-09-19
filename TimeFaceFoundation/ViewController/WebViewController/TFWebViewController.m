@@ -15,6 +15,7 @@
 #import "TFDataHelper.h"
 #import "TimeFaceFoundationConst.h"
 
+#define iPhoneX_WebView (([UIApplication sharedApplication].statusBarFrame.size.height > 20) ? YES: NO)
 @interface TFWebViewController ()<NJKWebViewProgressDelegate>{
     BOOL            firstLoaded;
     NSDictionary    *shareContent;
@@ -63,10 +64,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.webView.tfTop = 64.f;
-    self.webView.tfHeight -= 64.f;
     
+    // Do any additional setup after loading the view.
+    
+    if(iPhoneX_WebView)
+    {
+        self.webView.tfTop = 88.f;
+        self.webView.tfHeight -= 88.f;
+        self.webView.tfHeight -= 34.f;
+    }
+    else
+    {
+        self.webView.tfTop = 64.f;
+        self.webView.tfHeight -= 64.f;
+    }
+
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.leftBarButtonItems = [[TFCoreUtility sharedUtility] createBarButtonsWithImage:@"NavButtonBack.png"
                                                                               selectedImageName:@"NavButtonBackH.png"
@@ -107,10 +119,8 @@
 }
 
 - (void)removeObserver {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kTFCloseWebViewNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kTFOpenLocalNotification object:nil];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -162,7 +172,7 @@
         _webView.scalesPageToFit = YES;
         [self.view addSubview:_webView];
         
-        
+        __weak __typeof(self)weakself=self;
         _jsBridge = [WebViewJavascriptBridge bridgeForWebView:_webView
                                               webViewDelegate:self
                                                       handler:^(id data, WVJBResponseCallback responseCallback)
@@ -173,12 +183,14 @@
         
         [self regestBridge];
         
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof__(self) weakSelf = self;
         
         //关闭当前页面
         [_jsBridge registerHandler:@"closeWebView" handler:^(id data, WVJBResponseCallback responseCallback)
          {
-             [weakSelf closeAction];
+
+             [weakself closeAction];
+
          }];
         
         _progressProxy = [[NJKWebViewProgress alloc] init]; // instance variable
@@ -272,8 +284,6 @@
 }
 
 
-
-
 - (void)closeAction {
     UIViewController *presenting = self.presentingViewController;
     if (presenting) {
@@ -296,7 +306,6 @@
  navigationType:(UIWebViewNavigationType)navigationType {
     return YES;
 }
-
 
 - (void)updateLeftBarButton {
     if ([_webView canGoBack]) {
@@ -329,13 +338,15 @@
 - (void)webViewDidFinishLoad:(UIWebView*)webView {
     self.title = [_webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [self updateLeftBarButton];
+    self.progressView.hidden = YES;
 }
 
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error {
     [self webViewDidFinishLoad:webView];
     if (error) {
-        [self showStateView:kTFViewStateDataError];
+        //[self showStateView:kTFViewStateDataError];
+        [_webView reload];
     }
 }
 
@@ -370,6 +381,5 @@
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress {
     [_progressView setProgress:progress animated:YES];
 }
-
 
 @end
