@@ -49,6 +49,7 @@
 
 + (void)drawRect:(CGRect)bounds withParameters:(id<NSObject>)parameters isCancelled:(asdisplaynode_iscancelled_block_t)isCancelledBlock isRasterizing:(BOOL)isRasterizing
 {
+
     NSDictionary* dict = (NSDictionary *)parameters;
     
     ASDefaultPlaybackButtonType buttonType = [dict[@"buttonType"] intValue];
