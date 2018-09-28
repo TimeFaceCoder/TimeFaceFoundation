@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class YTKKeyValueStore;
+#import "YTKKeyValueStore.h"
+//@class YTKKeyValueStore;
 
 static const YTKKeyValueStore *store;
 
@@ -16,8 +16,6 @@ static const YTKKeyValueStore *store;
 
 
 @interface TFDataHelper : NSObject
-
-
 
 +(instancetype) shared;
 

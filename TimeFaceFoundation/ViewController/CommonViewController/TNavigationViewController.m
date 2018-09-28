@@ -78,6 +78,7 @@
 
 - (BOOL)shouldAutorotate
 {
+    TFLog(@"%@", @(self.topViewController.shouldAutorotate));
     return self.topViewController.shouldAutorotate;
 }
 
@@ -276,7 +277,7 @@
         shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2f];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
-        [self.visualEffectView addSubview:shadowView];
+        [self.visualEffectView.contentView addSubview:shadowView];
     }
     
     return _visualEffectView;
@@ -423,6 +424,5 @@
         NSLog(@"GKFadeNavigationController error: setNeedsNavigationBarVisibilityUpdateAnimated is called but the current topmost view controller does not conform to GKFadeNavigationControllerDelegate protocol!");
     }
 }
-
 
 @end

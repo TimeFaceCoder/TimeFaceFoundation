@@ -41,9 +41,6 @@
     return self;
 }
 
-
-
-
 #pragma mark -
 #pragma mark Public
 + (instancetype)sharedAssistant {
@@ -204,17 +201,21 @@
         [SVProgressHUD showWithStatus:hud];
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     }
+    
+    if(_headBlock)
+    {
+        _headerDic = _headBlock(url);
+    }
+    
     if (![url hasPrefix:@"http"]) {
         if (_urlBlock) {
             url = _urlBlock(url);
         }
     }
     
-    
     NSString *cacheKey = [[TFCoreUtility sharedUtility] getMD5StringFromNSString:[url stringByAppendingString:params?[params description]:@""]];
     TFLog(@"cacheKey:%@",cacheKey);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
     
     //    if (IS_RUNNING_IOS9) {
     //        //忽略证书校验
@@ -232,7 +233,9 @@
         }
     }
     
-    
+    //664025976757  859069778911
+    //[manager.requestSerializer setValue:@"366385366956" forHTTPHeaderField:@"USERID"];
+
     TFLog(@"request header = %@ url = %@",manager.requestSerializer.HTTPRequestHeaders,url);
     TFLog(@"params = %@",params);
     
@@ -261,6 +264,7 @@
     [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     
     [manager.reachabilityManager startMonitoring];
+    
     if (startBlock) {
         id cacheObject = [[EGOCache globalCache] objectForKey:cacheKey];
         startBlock(cacheObject);

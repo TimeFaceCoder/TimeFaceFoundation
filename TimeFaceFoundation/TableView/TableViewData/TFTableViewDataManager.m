@@ -34,8 +34,6 @@
             weakSelf.currentIndexPath = ((MYTableViewItem*)item).indexPath;
             [((MYTableViewItem*)item) deselectRowAnimated:YES];
         }
-        
-        
         if ([weakSelf.tableViewDataSource.delegate respondsToSelector:@selector(actionOnView:actionType:)]) {
             [weakSelf.tableViewDataSource.delegate actionOnView:item actionType:actionType];
         }

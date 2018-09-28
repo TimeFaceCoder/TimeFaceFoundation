@@ -128,6 +128,7 @@ static NSString *const DELETE_ITEMS_WITH_PREFIX_SQL = @"DELETE from %@ where id 
 }
 
 - (void)putObject:(id)object withId:(NSString *)objectId intoTable:(NSString *)tableName {
+    
     if ([YTKKeyValueStore checkTableName:tableName] == NO) {
         return;
     }

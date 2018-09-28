@@ -216,26 +216,26 @@ static char imageURLKey;
     UIGraphicsEndImageContext();
     
     
-    //    NSInteger theRedRectangleTag = -3312;
-    //    UIView* facesRectLine = [self viewWithTag:theRedRectangleTag];
-    //    if (!facesRectLine) {
-    //        facesRectLine = [[UIView alloc] initWithFrame:facesRect];
-    //        facesRectLine.tag = theRedRectangleTag;
-    //    }
-    //    else {
-    //        facesRectLine.frame = facesRect;
-    //    }
-    //
-    //    facesRectLine.backgroundColor = [UIColor clearColor];
-    //    facesRectLine.layer.borderColor = [UIColor redColor].CGColor;
-    //    facesRectLine.layer.borderWidth = 1;
-    //
-    //    CGRect frame = facesRectLine.frame;
-    //    frame.origin.x = imageRect.origin.x + frame.origin.x;
-    //    frame.origin.y = imageRect.origin.y + frame.origin.y;
-    //    facesRectLine.frame = frame;
-    //
-    //    [self addSubview:facesRectLine];
+//    NSInteger theRedRectangleTag = -3312;
+//    UIView* facesRectLine = [self viewWithTag:theRedRectangleTag];
+//    if (!facesRectLine) {
+//        facesRectLine = [[UIView alloc] initWithFrame:facesRect];
+//        facesRectLine.tag = theRedRectangleTag;
+//    }
+//    else {
+//        facesRectLine.frame = facesRect;
+//    }
+//    
+//    facesRectLine.backgroundColor = [UIColor clearColor];
+//    facesRectLine.layer.borderColor = [UIColor redColor].CGColor;
+//    facesRectLine.layer.borderWidth = 1;
+//    
+//    CGRect frame = facesRectLine.frame;
+//    frame.origin.x = imageRect.origin.x + frame.origin.x;
+//    frame.origin.y = imageRect.origin.y + frame.origin.y;
+//    facesRectLine.frame = frame;
+//    
+//    [self addSubview:facesRectLine];
     
     return newImage;
 }

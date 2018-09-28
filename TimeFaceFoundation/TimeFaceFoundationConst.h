@@ -69,7 +69,7 @@ extern NSInteger const kTFViewStatePhotosError     ;
 extern NSInteger const kTFViewStateMicrophoneError ;
 extern NSInteger const kTFViewStateCameraError     ;
 extern NSInteger const kTFViewStateContactsError   ;
-
+extern NSInteger const kTFViewStateSplitPrint      ;
 ///////////////////////////////////////////Common ScrollDirection///////////////////////////////////
 extern NSInteger const kTFScrollDirectionNone      ;
 extern NSInteger const kTFScrollDirectionUp        ;

@@ -162,6 +162,22 @@
                 NewDeviceType = @"iPhone 6S";
             else if ([DeviceType isEqualToString:@"iPhone8,2"])
                 NewDeviceType = @"iPhone 6S Plus";
+            else if ([DeviceType isEqualToString:@"iPhone9,1"])
+                NewDeviceType = @"iPhone 7";
+            else if ([DeviceType isEqualToString:@"iPhone9,2"])
+                NewDeviceType = @"iPhone 7 Plus";
+            else if ([DeviceType isEqualToString:@"iPhone10,1"])
+                NewDeviceType = @"iPhone 8";
+            else if ([DeviceType isEqualToString:@"iPhone10,4"])
+                NewDeviceType = @"iPhone 8";
+            else if ([DeviceType isEqualToString:@"iPhone10,2"])
+                NewDeviceType = @"iPhone 8 Plus";
+            else if ([DeviceType isEqualToString:@"iPhone10,5"])
+                NewDeviceType = @"iPhone 8 Plus";
+            else if ([DeviceType isEqualToString:@"iPhone10,3"])
+                NewDeviceType = @"iPhone X";
+            else if ([DeviceType isEqualToString:@"iPhone10,6"])
+                NewDeviceType = @"iPhone X";
             
             else if ([DeviceType isEqualToString:@"iPod1,1"])
                 NewDeviceType = @"iPod Touch";

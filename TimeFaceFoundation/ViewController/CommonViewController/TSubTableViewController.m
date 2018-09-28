@@ -11,6 +11,8 @@
 #import "TFCoreUtility.h"
 #import "TimeFaceFoundationConst.h"
 
+#define iPhoneX_SubTableViewVC (([UIApplication sharedApplication].statusBarFrame.size.height > 20) ? YES: NO)
+
 @interface TSubTableViewController (){
     CGFloat lastPosition;
 }
@@ -40,12 +42,26 @@
         _asTableView = [[ASTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain asyncDataFetching:YES];
         _asTableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
         _asTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+        // iOS 适配
+        _asTableView.estimatedRowHeight = 0;
+        _asTableView.estimatedSectionHeaderHeight = 0;
+        _asTableView.estimatedSectionFooterHeight = 0;
+
+
         [self.view addSubview:_asTableView];
     }
     else {
         if (!_tableView) {
             _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:_tableViewStyle];
             _tableView.backgroundColor = TFSTYLEVAR(viewBackgroundColor);
+
+            // iOS 11 适配
+            _tableView.estimatedRowHeight = 0;
+            _tableView.estimatedSectionHeaderHeight = 0;
+            _tableView.estimatedSectionFooterHeight = 0;
+            
+
             [self.view addSubview:_tableView];
         }
     }
@@ -71,7 +87,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    
+    // iOS 11 适配
+    if (@available(iOS 11.0, *) && self.usePullReload) {
+        _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        if (iPhoneX_SubTableViewVC)
+        {//iPhone X
+            _tableView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
+        }
+        else
+        {
+            _tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+        }
+        _tableView.scrollIndicatorInsets = _tableView.contentInset;
+    } else if (@available(*, iOS 11.0)) {
+        self.automaticallyAdjustsScrollViewInsets = YES;
+    }
     [self createDataSource];
     [JDStatusBarNotification addStyleNamed:@"scrollNotice"
                                    prepare:^JDStatusBarStyle*(JDStatusBarStyle *style)

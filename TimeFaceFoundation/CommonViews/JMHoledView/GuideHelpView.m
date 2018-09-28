@@ -55,7 +55,7 @@
         
             break;
         case 3:     //全屏显示单个
-        [self doShowAllHelp:guideModel];
+            [self doShowAllHelp:guideModel];
             break;
         case 4:   //显示所有
             [self doShowAllGuide:guideModel];
@@ -80,6 +80,7 @@
         [self removeFromSuperview];
         return ;
     }
+    
     CGPoint point = [[guideView superview] convertPoint:guideView.center toView:_viewController.view];
     if (point.y >= [UIScreen mainScreen].bounds.size.height) {
         [self removeFromSuperview];
@@ -90,7 +91,6 @@
     if (guide.point) {
         [self drawGuidePathSummary:guide.show point:point size:size];
     }
-    
 }
 
 - (void)doShowAllGuide:(ViewGuideModel*)guideModel {

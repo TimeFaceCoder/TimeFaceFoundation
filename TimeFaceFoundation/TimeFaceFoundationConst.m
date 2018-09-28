@@ -37,6 +37,7 @@ NSInteger const kTFViewStatePhotosError     = 7;
 NSInteger const kTFViewStateMicrophoneError = 8;
 NSInteger const kTFViewStateCameraError     = 9;
 NSInteger const kTFViewStateContactsError   = 10;
+NSInteger const kTFViewStateSplitPrint      = 11;
 
 ///////////////////////////////////////////Common ScrollDirection///////////////////////////////////
 NSInteger const kTFScrollDirectionNone       = 0;

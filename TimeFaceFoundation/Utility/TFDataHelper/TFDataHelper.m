@@ -7,10 +7,11 @@
 //
 
 #import "TFDataHelper.h"
-#import "YTKKeyValueStore.h"
 #import "ViewGuideModel.h"
 
+
 @implementation TFDataHelper
+
 
 + (instancetype) shared {
     static dispatch_once_t once;

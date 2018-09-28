@@ -13,4 +13,13 @@
 
 - (void)setBarBgColor:(UIColor *)color;
 
+//适配IOS11
+- (void)setBgImageFrame:(UIColor *)color;
+
+- (void)resetBgImageFrame;
+
+- (void)resetUserProductBgImageFrame;
+
+@property (nonatomic, strong) UIImageView   *colorOverly;
+
 @end

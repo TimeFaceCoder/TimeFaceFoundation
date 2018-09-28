@@ -60,7 +60,7 @@
 /**
  *  当前列表缓存key
  */
-@property (nonatomic ,copy  ) NSString                       *cacheKey;
+@property (nonatomic ,copy) NSString                       *cacheKey;
 /**
  *  YES 使用 MYTableViewManager
  */
@@ -73,7 +73,7 @@
 
 @end
 
-const static NSInteger kPageSize = 60;
+const static NSInteger kPageSize = 30;
 
 @implementation TFTableViewDataSource
 
@@ -182,8 +182,8 @@ const static NSInteger kPageSize = 60;
         [self.tableView triggerPullToRefresh];
     }
     else {
-        //        //第一次从缓存中加载
-        //        [self load:DataLoadPolicyCache params:params];
+        //第一次从缓存中加载
+        //[self load:DataLoadPolicyCache params:params];
         
         //第一次从缓存中加载
         if (_useCacheData) {
@@ -192,7 +192,6 @@ const static NSInteger kPageSize = 60;
         }//不缓存
         else{
             [self load:DataLoadPolicyNone params:params];
-            
         }
     }
 }
@@ -245,7 +244,7 @@ const static NSInteger kPageSize = 60;
         strongSelf.buildingView = YES;
         if (dataLoadPolicy == DataLoadPolicyReload ||
             dataLoadPolicy == DataLoadPolicyNone) {
-       
+            
             NSInteger sectionCount = 0;
             if (_managerFlag) {
                 sectionCount = strongSelf.mManager.sections.count;
@@ -263,6 +262,8 @@ const static NSInteger kPageSize = 60;
                                     withRowAnimation:UITableViewRowAnimationFade];
                 [strongSelf.tableView endUpdates];
             }
+            
+            
         }
         
         if (!result && dataLoadPolicy == DataLoadPolicyCache) {
@@ -341,7 +342,7 @@ const static NSInteger kPageSize = 60;
                              break;
                          case DataLoadPolicyCache:
                              //开始下拉刷新
-                             [strongSelf.tableView triggerPullToRefresh];
+//                             [strongSelf.tableView triggerPullToRefresh];
                              break;
                          case DataLoadPolicyMore:{
                              if (_managerFlag) {
@@ -415,7 +416,8 @@ const static NSInteger kPageSize = 60;
             MYTableViewItem *item = (MYTableViewItem *)[[section items] objectAtIndex:indexPath.row];
             if (item) {
                 return item;
-            }        }
+            }
+        }
     }
     else {
         RETableViewSection * section = [[self.manager sections] objectAtIndex:indexPath.section];
@@ -428,6 +430,7 @@ const static NSInteger kPageSize = 60;
     }
     return nil;
 }
+
 #pragma mark - Private
 
 /**
@@ -557,6 +560,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
@@ -575,7 +579,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [_delegate scrollViewDidScroll:_tableView];
     }
-    
     
     CGFloat currentOffsetY = scrollView.contentOffset.y;
     NSInteger currentScrollDirection = [self detectScrollDirection:currentOffsetY previousOffsetY:_previousOffsetY];
@@ -615,7 +618,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
         
     }
     
-    
     // reset acuumulated y when move opposite direction
     if (!isOverTopBoundary && !isOverBottomBoundary && _previousScrollDirection != currentScrollDirection) {
         _accumulatedY = 0;
@@ -623,14 +625,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
     
     _previousScrollDirection = currentScrollDirection;
     _previousOffsetY = currentOffsetY;
-    
-    
-    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    
+    if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [_delegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
     CGFloat currentOffsetY = scrollView.contentOffset.y;
     
     CGFloat topBoundary = -scrollView.contentInset.top;
@@ -656,13 +657,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
                 [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
             }
         }
-        
     }
     else {
         
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (_delegate && [_delegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [_delegate scrollViewDidEndDecelerating:scrollView];
+    }
+}
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     BOOL ret = YES;
@@ -670,6 +675,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath; {
         [_delegate scrollFullScreenScrollViewDidEndDraggingScrollDown];
     }
     return ret;
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([_delegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [_delegate scrollViewWillBeginDragging:scrollView];
+    }
 }
 
 @end

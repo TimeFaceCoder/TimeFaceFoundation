@@ -58,7 +58,13 @@ typedef NS_ENUM(NSInteger, DataLoadPolicy) {
 
 - (void)tableViewExpandData:(id)expandData success:(BOOL)success;
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 
 - (void)scrollViewDidScrollUp:(CGFloat)deltaY;
 

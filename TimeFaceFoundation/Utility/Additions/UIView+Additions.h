@@ -132,4 +132,11 @@
  * otherView should be a parent view of this view.
  */
 - (CGPoint)offsetFromView:(UIView*)otherView;
+
+/**
+ get view controller of current view.
+ */
+@property (nullable, nonatomic, readonly) UIViewController *tfViewController;
+
+
 @end

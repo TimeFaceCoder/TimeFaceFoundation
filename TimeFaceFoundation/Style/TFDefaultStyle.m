@@ -9,11 +9,17 @@
 #import "TFDefaultStyle.h"
 #import "TimeFaceFoundationConst.h"
 
+#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
 @implementation TFDefaultStyle
 
 /////////////////////////////////////////////全局字体格式定义//////////////////////////////////////////
 
 - (UIFont *)font10 {
+    if(iPhone6Plus)
+    {
+        return [UIFont systemFontOfSize:11];
+    }
     return [UIFont systemFontOfSize:10];
 }
 - (UIFont *)font10B {
@@ -35,6 +41,14 @@
     return [UIFont boldSystemFontOfSize:14];
 }
 
+- (UIFont *)font15B {
+    return [UIFont boldSystemFontOfSize:15];
+}
+
+- (UIFont *)font15 {
+    return [UIFont systemFontOfSize:15];
+}
+
 - (UIFont *)font16 {
     return [UIFont systemFontOfSize:16];
 }
@@ -54,7 +68,7 @@
 /////////////////////////////////////////////全局颜色定义//////////////////////////////////////////
 
 - (UIColor *)viewBackgroundColor {
-    return RGBCOLOR(226,230,236);
+    return RGBCOLOR(250,250,250);
 }
 
 - (UIColor *)navBarBackgroundColor {

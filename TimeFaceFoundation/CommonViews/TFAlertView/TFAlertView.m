@@ -204,17 +204,26 @@ const static NSInteger kSecondButtonTag = 101;
             [_contentView addSubview:self.secondButton];
             
         }
-        else {
+        else if (self.alertType == AlertFailure) {
             self.firstButton.tfSize = CGSizeMake(_contentView.tfWidth - kViewPadding * 2, kButtonHeight);
             self.firstButton.tfLeft = kViewPadding;
             self.firstButton.tfTop = top;
             [_contentView addSubview:self.firstButton];
-            
-            [self.firstButton setBackgroundImage:[[TFCoreUtility sharedUtility] createImageWithColor:TFSTYLEVAR(alertOKColor)] forState:UIControlStateNormal];
-            [self.firstButton setBackgroundImage:[[TFCoreUtility sharedUtility] createImageWithColor:TFSTYLEVAR(alertOKHColor)] forState:UIControlStateHighlighted];
-            [self setFirstButtonTitle:NSLocalizedString(@"确认", nil)];
         }
-        self.contentView.tfHeight = self.firstButton.tfBottom + 20;
+        else  {
+            self.secondButton.tfSize = CGSizeMake(_contentView.tfWidth - kViewPadding * 2, kButtonHeight);
+            self.secondButton.tfLeft = kViewPadding;
+            self.secondButton.tfTop = top;
+            [_contentView addSubview:self.secondButton];
+        }
+        if (self.alertType == AlertInfo||
+            self.alertType == AlertFailure) {
+            self.contentView.tfHeight = self.firstButton.tfBottom + 20;
+        }
+        else{
+            self.contentView.tfHeight = self.secondButton.tfBottom + 20;
+        }
+        
     }
     return self;
 }

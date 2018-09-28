@@ -8,17 +8,14 @@
 
 #import "TSubViewController.h"
 #import <CoreMotion/CoreMotion.h>
-
 #import "TimeFaceFoundationConst.h"
-
 #import "JMHoledView.h"
-
-
-
 #import "TFDataHelper.h"
 #import "GuideHelpView.h"
-
 #import "TFCoreUtility.h"
+#import "NetworkAssistant.h"
+#import "AFNetworkReachabilityManager.h"
+#import "TNavigationBar.h"
 
 @interface TSubViewController ()<ViewStateDataSource,ViewStateDelegate> {
 }
@@ -49,6 +46,18 @@
     return self;
 }
 
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)loadView {
     if (nil != self.nibName) {
         [super loadView];
@@ -62,6 +71,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    TNavigationBar* bar =  (TNavigationBar*)self.navigationController.navigationBar;
+    [bar setBarBgColor:TFSTYLEVAR(navBarBackgroundColor)];
+    [bar setBgImageFrame:TFSTYLEVAR(navBarBackgroundColor)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -103,11 +116,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     if (!_requestParams) {
         _requestParams = [NSMutableDictionary dictionary];
     }
     
-        
+
     if (!_manager) {
         _manager = [[CMMotionManager alloc] init];
     }
@@ -212,6 +226,9 @@
     if (viewState == kTFViewStateTimeOut) {
         title = NSLocalizedString(@"网络连接超时", nil);
     }
+    if (viewState == kTFViewStateSplitPrint) {
+        title = NSLocalizedString(@"", nil);
+    }
     return title;
 }
 
@@ -253,6 +270,7 @@
         image =[UIImage imageNamed:NSLocalizedString(@"ViewDataError", nil)];
     }    return image;
 }
+
 - (UIImage*)buttonBackgroundImageForStateView:(UIView *)view forState:(UIControlState)state {
     UIImage *image = nil;
     image = [[TFCoreUtility sharedUtility] createImageWithColor:[UIColor whiteColor] width:236 / 2 height:30];
@@ -262,18 +280,18 @@
 
 #pragma mark - Private
 
-#ifdef __IPHONE_9_0
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-#else
-- (NSUInteger)supportedInterfaceOrientations
-#endif
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
-- (BOOL)shouldAutorotate {
-    return YES;
-}
+//#ifdef __IPHONE_9_0
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//#else
+//- (NSUInteger)supportedInterfaceOrientations
+//#endif
+//{
+//    return UIInterfaceOrientationMaskAll;
+//}
+//
+//- (BOOL)shouldAutorotate {
+//    return YES;
+//}
 
 #pragma mark - EmptyDataSetSource
 
@@ -359,6 +377,8 @@
         TFLog(@"（%@）引导信息已处理完！",viewId);
     }
 }
+
+
 -(void)startGuide:(ViewGuideModel *)model {
     [[UIApplication sharedApplication].keyWindow addSubview:self.guideHelpView];
     [self.guideHelpView refreshGuide:model inview:self];

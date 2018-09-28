@@ -11,7 +11,6 @@
 
 @interface TFDeviceUtility : NSObject
 
-
 + (instancetype)shared;
 
 
@@ -22,5 +21,6 @@
  *  @return
  */
 - (NSString *)getDeviceId;
+
 
 @end
