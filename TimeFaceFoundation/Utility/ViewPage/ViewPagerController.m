@@ -32,8 +32,6 @@
 #define kContentViewBackgroundColor [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:0.75]
 #define kDefaultContentColor [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0]
 
-#define iPhoneX_ViewPage (([UIApplication sharedApplication].statusBarFrame.size.height > 20) ? YES: NO)
-
 NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
 {
     return currentOffsetX > previousOffsetX ? kTFScrollDirectionRight   :
@@ -262,12 +260,6 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     else {
         frame.size.height = [self.tabHeight floatValue];
     }
-    
-    if(iPhoneX_ViewPage)
-    {
-        frame.origin.y += 24;
-    }
-    
     self.tabsView.frame = frame;
     
     frame = self.contentView.frame;
@@ -284,12 +276,6 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
     frame.size.width = CGRectGetWidth(self.view.frame);
     
     frame.size.height = CGRectGetHeight(self.view.frame) - (topLayoutGuide + CGRectGetHeight(self.tabsView.frame));
-    
-    if(iPhoneX_ViewPage)
-    {
-        frame.origin.y += 24;
-    }
-    
     self.contentView.frame = frame;
 }
 
@@ -1054,11 +1040,7 @@ NSInteger detectScrollDirectionViewPage(currentOffsetX, previousOffsetX)
             viewController = [[UIViewController alloc] init];
             viewController.view = [[UIView alloc] init];
         }
-        
-        if(viewController && index < self.contents.count)
-        {
-            [self.contents replaceObjectAtIndex:index withObject:viewController];
-        }
+        [self.contents replaceObjectAtIndex:index withObject:viewController];
     }
     
     return [self.contents objectAtIndex:index];

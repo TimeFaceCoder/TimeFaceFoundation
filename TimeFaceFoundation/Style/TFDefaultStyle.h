@@ -21,6 +21,9 @@
 @property (nonatomic ,readonly) UIFont *font14;
 @property (nonatomic ,readonly) UIFont *font14B;
 
+@property (nonatomic ,readonly) UIFont *font15B;
+@property (nonatomic ,readonly) UIFont *font15;
+
 @property (nonatomic ,readonly) UIFont *font16;
 @property (nonatomic ,readonly) UIFont *font16B;
 

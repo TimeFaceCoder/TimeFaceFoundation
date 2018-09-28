@@ -35,6 +35,16 @@
     return [UIFont boldSystemFontOfSize:14];
 }
 
+- (UIFont *)font15B {
+    return [UIFont boldSystemFontOfSize:15];
+}
+
+- (UIFont *)font15 {
+    return [UIFont systemFontOfSize:15];
+}
+
+
+
 - (UIFont *)font16 {
     return [UIFont systemFontOfSize:16];
 }
